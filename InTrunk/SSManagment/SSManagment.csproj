@@ -57,6 +57,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Master\Admin.master.cs">
+      <DependentUpon>Admin.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Master\Admin.master.designer.cs">
+      <DependentUpon>Admin.master</DependentUpon>
+    </Compile>
     <Compile Include="App_Master\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -78,6 +85,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seller.aspx.cs">
       <DependentUpon>Seller.aspx</DependentUpon>
@@ -95,7 +109,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Master\SellerMaster.master" />
+    <Content Include="App_Themes\Main\Icons\120px-Dialog-error.svg.png" />
+    <Content Include="App_Themes\Main\Icons\120px-Emblem-advertisement-dollar.svg.png" />
+    <Content Include="App_Themes\Main\Icons\120px-Emblem-money.svg.png" />
+    <Content Include="App_Themes\Main\Icons\120px-Help-browser.svg.png" />
+    <Content Include="App_Themes\Main\Icons\120px-Mail-sealed-send.svg.png" />
+    <Content Include="App_Themes\Main\Icons\162px-Ambox_emblem_arrow.svg.png" />
+    <Content Include="App_Themes\Main\Icons\162px-Ambox_emblem_plus.svg.png" />
     <Content Include="Seller.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Master\Admin.master" />
+    <Content Include="Login.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

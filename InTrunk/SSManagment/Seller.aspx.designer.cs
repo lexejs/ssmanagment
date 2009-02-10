@@ -32,22 +32,22 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.Button btnFind;
         
         /// <summary>
-        /// TreeView1 control.
+        /// treeCategories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView TreeView1;
+        protected global::System.Web.UI.WebControls.TreeView treeCategories;
         
         /// <summary>
-        /// GridView2 control.
+        /// gvwProducts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView2;
+        protected global::System.Web.UI.WebControls.GridView gvwProducts;
         
         /// <summary>
         /// btnBackProduct control.
@@ -68,13 +68,13 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.DropDownList drpBuyer;
         
         /// <summary>
-        /// GridView1 control.
+        /// gvwShoppingCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView gvwShoppingCart;
         
         /// <summary>
         /// btnBuy control.

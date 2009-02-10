@@ -1,16 +1,6 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/App_Master/MainMaster.Master" AutoEventWireup="true"
     CodeBehind="SellerMaster.master.cs" Inherits="SSManagment.App_Master.SellerMaster" %>
 
-<asp:Content ID="cntHeader" ContentPlaceHolderID="cphStandartHeader" runat="server">
-    <table cellpadding="0" cellspacing="0" width="100%" 
-        style="border-bottom-style: groove; border-bottom-width: 2px; margin-bottom: 8px;">
-        <tr>
-            <td align="right">
-                <asp:LinkButton ID="lnkLogOut" runat="server">Выйти</asp:LinkButton>
-            </td>
-        </tr>
-    </table>
-</asp:Content>
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
     <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -28,6 +18,4 @@
             </td>
         </tr>
     </table>
-</asp:Content>
-<asp:Content ID="cntFooter" ContentPlaceHolderID="cphStandartFooter" runat="server">
 </asp:Content>

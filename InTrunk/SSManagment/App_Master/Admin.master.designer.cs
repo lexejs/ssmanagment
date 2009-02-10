@@ -11,33 +11,24 @@
 namespace SSManagment.App_Master {
     
     
-    public partial class SellerMaster {
+    public partial class Admin {
         
         /// <summary>
-        /// cphStandartCategories control.
+        /// cphAdminMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphStandartCategories;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphAdminMenu;
         
         /// <summary>
-        /// cphStandartProducts control.
+        /// cphAdminObject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphStandartProducts;
-        
-        /// <summary>
-        /// cphStandartBuy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphStandartBuy;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphAdminObject;
     }
 }

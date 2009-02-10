@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/App_Master/SellerMaster.master" AutoEventWireup="true" CodeBehind="Seller.aspx.cs" Inherits="SSManagment.Seller" %>
 
 <asp:Content ID="cntCategories" ContentPlaceHolderID="cphStandartCategories" runat="server">
-	<table cellpadding="0" cellspacing="0" width="100%">
+    <table cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td align="center" width="80%">
 				<asp:TextBox ID="txtFind" runat="server" Width="100%"></asp:TextBox>
@@ -17,7 +17,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<asp:TreeView ID="TreeView1" runat="server" ExpandDepth="1" ForeColor="Gray" ImageSet="Arrows" ShowLines="True" Height="100%" Width="100%">
+				<asp:TreeView ID="treeCategories" runat="server" ExpandDepth="1" 
+                    ForeColor="Gray" ImageSet="Arrows" ShowLines="True" Height="100%" Width="100%">
 					<ParentNodeStyle ForeColor="Black" />
 					<RootNodeStyle ForeColor="Black" />
 				</asp:TreeView>
@@ -26,15 +27,17 @@
 	</table>
 </asp:Content>
 <asp:Content ID="cntProducts" ContentPlaceHolderID="cphStandartProducts" runat="server">
-	<asp:GridView ID="GridView2" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+    <asp:GridView ID="gvwProducts" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
 		<RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
 		<Columns>
-			<asp:BoundField HeaderText="Название товара" ReadOnly="True" />
-			<asp:ButtonField ButtonType="Button" CommandName="sale" Text="Продать">
-				<ControlStyle Width="70px" />
+			<asp:BoundField HeaderText="Товары" ReadOnly="True" />
+			<asp:ButtonField ButtonType="Image" CommandName="add" Text="В корзину" 
+                ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png">
+				<ControlStyle Width="24px" Height="24px" />
 			</asp:ButtonField>
-			<asp:ButtonField ButtonType="Button" CommandName="add" Text="В корзину">
-				<ControlStyle Width="120px" />
+			<asp:ButtonField ButtonType="Image" CommandName="sale" Text="Продать" 
+                ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png">
+				<ControlStyle Width="24px" Height="24px" />
 			</asp:ButtonField>
 		</Columns>
 		<FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -46,7 +49,7 @@
 	</asp:GridView>
 </asp:Content>
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
-	<table cellpadding="0" cellspacing="0" width="100%">
+    <table cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td>
 				<asp:Button ID="btnBackProduct" runat="server" Text="Возврат товара" Width="100%" />
@@ -71,12 +74,24 @@
 		</tr>
 		<tr>
 			<td align="center">
-				<asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
+				<asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
 					<RowStyle BackColor="#F7F7DE" />
 					<Columns>
-						<asp:BoundField HeaderText="Товар" />
-						<asp:BoundField HeaderText="Цена" />
-						<asp:CommandField ButtonType="Button" CausesValidation="False" DeleteText="Удалить" InsertVisible="False" ShowCancelButton="False" ShowDeleteButton="True" />
+						<asp:TemplateField HeaderText="Товар">
+                            <ItemTemplate>
+                                <asp:Label ID="lblShoppingCartProduct" runat="server"></asp:Label>
+                            </ItemTemplate>
+                            <ControlStyle Width="100%" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Цена">
+                            <ItemTemplate>
+                                <asp:Label ID="lblShoppingCartCost" runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+						<asp:ButtonField ButtonType="Image" CommandName="delete" 
+                            ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png" Text="Удалить">
+                        <ControlStyle Height="24px" Width="24px" />
+                        </asp:ButtonField>
 					</Columns>
 					<FooterStyle BackColor="#CCCC99" />
 					<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
