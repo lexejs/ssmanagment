@@ -21,7 +21,7 @@
                             </asp:ContentPlaceHolder>
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkLogOut" runat="server">Выйти</asp:LinkButton>
+                            <asp:LinkButton ID="lnkLogOut" runat="server" onclick="lnkLogOut_Click">Выйти</asp:LinkButton>
                         </td>
                     </tr>
                 </table>

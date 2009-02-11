@@ -11,13 +11,16 @@
         <table style="width: 100%;">
             <tr>
                 <td>
-                    &nbsp;
+                    Учётная запись:&nbsp;<asp:TextBox ID="txtLogin" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td>
-                    &nbsp;
+                    Пароль:&nbsp;<asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                    
                 </td>
+                <td>
+									<asp:Button ID="btnLogin" runat="server" Text="Вход" onclick="btnLogin_Click" /></td>
             </tr>
         </table>
     </center>

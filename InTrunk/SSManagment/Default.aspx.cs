@@ -11,7 +11,8 @@ namespace SSManagment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+					//if (Models.AppHelper.CurrentUser != null)
+						Response.Redirect("Seller.aspx");
         }
     }
 }

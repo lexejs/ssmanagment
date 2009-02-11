@@ -11,6 +11,8 @@ namespace SSManagment
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+
+
 			var db = new Models.ssmDataContext();
 			gvwProducts.DataSource = db.items.ToList();
 			gvwProducts.DataBind();
