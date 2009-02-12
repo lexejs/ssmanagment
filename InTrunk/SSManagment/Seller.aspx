@@ -6,7 +6,7 @@
 		<tr>
 			<td>
 				<div class="Widget_heading_container">
-					<span></span>
+					<span class="Widget_heading_container_Span"></span>
 					<h2>
 						Разделы</h2>
 				</div>
@@ -37,7 +37,7 @@
 		<tr>
 			<td>
 				<div class="Widget_heading_container">
-					<span></span>
+					<span class="Widget_heading_container_Span"></span>
 					<h2>
 						Дополнительно</h2>
 				</div>
@@ -65,7 +65,7 @@
 </asp:Content>
 <asp:Content ID="cntProducts" ContentPlaceHolderID="cphStandartProducts" runat="server">
 	<div class="Widget_heading_container">
-		<span></span>
+		<span class="Widget_heading_container_Span"></span>
 		<h2>
 			Товары</h2>
 	</div>
@@ -146,7 +146,7 @@
 </asp:Content>
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
 	<div class="Widget_heading_container">
-		<span></span>
+		<span class="Widget_heading_container_Span"></span>
 		<h2>
 			Список покупок ( корзина)</h2>
 	</div>

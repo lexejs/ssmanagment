@@ -1,48 +1,58 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.Master.cs"
-    Inherits="SSManagment.App_Master.Main" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.Master.cs" Inherits="SSManagment.App_Master.Main" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <link href="../App_Themes/Main/main.css" rel="stylesheet" type="text/css" />
+	<title></title>
+	<link href="../App_Themes/Main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <form id="MainForm" runat="server">
-    <asp:ScriptManager ID="mainScriptManager" runat="server" />
-    <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-            <td colspan="3">
-                <table cellpadding="0" cellspacing="0" width="100%" style="border-bottom-style: groove;
-                    border-bottom-width: 2px; margin-bottom: 8px;">
-                    <tr>
-                        <td width="80%">
-                            <asp:ContentPlaceHolder ID="cphStandartHeader" runat="server">
-                            </asp:ContentPlaceHolder>
-                        </td>
-                        <td width="280px">
-                            <span>Добро пожаловать :&nbsp;<asp:Label ID="lblUserName" runat="server"></asp:Label></span>
-                        </td>
-                        <td align="left" width="40px">
-                            <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click">Выйти</asp:LinkButton>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td height="100%" width="100%">
-                <asp:ContentPlaceHolder ID="cphMain" runat="server">
-                </asp:ContentPlaceHolder>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <asp:ContentPlaceHolder ID="cphStandartFooter" runat="server">
-                </asp:ContentPlaceHolder>
-            </td>
-        </tr>
-    </table>
-    </form>
+	<form id="MainForm" runat="server">
+	<asp:ScriptManager ID="mainScriptManager" runat="server" />
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td colspan="3">
+				<div class="Widget_heading_container"><span class="Widget_heading_container_Span" style="margin-top: -1px"></span>
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="70%">
+								<asp:ContentPlaceHolder ID="cphStandartHeader" runat="server">
+								</asp:ContentPlaceHolder>
+							</td>
+							<td width="400px">
+								<table width="100%" cellpadding="0" cellspacing="0">
+									<tr>
+										<td align="right">
+											Добро пожаловать :&nbsp;
+										</td>
+										<td align="left">
+											<asp:Label ID="lblUserName" runat="server" Width="100%"></asp:Label>
+										</td>
+										<td>
+											<asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click">Выйти</asp:LinkButton>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="Widget_heading_bottom"><span></span></div>
+			</td>
+		</tr>
+		<tr>
+			<td height="100%" width="100%">
+				<asp:ContentPlaceHolder ID="cphMain" runat="server">
+				</asp:ContentPlaceHolder>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<asp:ContentPlaceHolder ID="cphStandartFooter" runat="server">
+				</asp:ContentPlaceHolder>
+			</td>
+		</tr>
+	</table>
+	</form>
 </body>
 </html>

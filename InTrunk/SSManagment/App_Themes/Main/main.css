@@ -45,14 +45,13 @@ span
 {
 	color: #954b05;
 	font-weight: bold;
-	background-color: #F7F7DE;
 }
 
 /* //////////////////////////////////////////////////////////// */
 /* /////////////////////////// WidGet ///////////////////////// */
 /* //////////////////////////////////////////////////////////// */
 
-.Widget_heading_container, .Widget_heading_container span, .Widget_heading_bottom, .Widget_heading_bottom span
+.Widget_heading_container, .Widget_heading_container_Span, .Widget_heading_bottom, .Widget_heading_bottom span
 {
 	background: url('widget/bg_headi.png') no-repeat;
 	position: relative;
@@ -67,8 +66,11 @@ span
 	left: 0px;
 	height: 25px;
 }
-.Widget_heading_container span
+.Widget_heading_container_Span
 {
+	background: url('widget/bg_headi.png') no-repeat;
+	position: relative;
+	_height: 1px;
 	background-position: 0 -70px;
 	height: 5px;
 	width: 5px;
@@ -113,7 +115,6 @@ span
 	padding: 0;
 	margin: 0;
 }
-
 .Widget_Body_container
 {
 	background: #FFFFFF url('widget/bg_bucke.png') repeat-x 0 -92px;
