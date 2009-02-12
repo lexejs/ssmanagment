@@ -60,12 +60,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Master\Admin.master.cs">
-      <DependentUpon>Admin.master</DependentUpon>
+    <Compile Include="App_Master\AdminMaster.master.cs">
+      <DependentUpon>AdminMaster.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="App_Master\Admin.master.designer.cs">
-      <DependentUpon>Admin.master</DependentUpon>
+    <Compile Include="App_Master\AdminMaster.master.designer.cs">
+      <DependentUpon>AdminMaster.master</DependentUpon>
     </Compile>
     <Compile Include="App_Master\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
@@ -130,9 +130,13 @@
     <Content Include="Seller.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Master\Admin.master" />
+    <Content Include="App_Master\AdminMaster.master" />
     <Content Include="App_Themes\Main\button.gif" />
+    <Content Include="App_Themes\Main\button.png" />
     <Content Include="App_Themes\Main\Icons\48px-Emblem-symbolic-link.svg.png" />
+    <Content Include="App_Themes\Main\Widget\bg_bucke.png" />
+    <Content Include="App_Themes\Main\Widget\bg_buckf.png" />
+    <Content Include="App_Themes\Main\Widget\bg_headi.png" />
     <Content Include="Login.aspx" />
   </ItemGroup>
   <ItemGroup>

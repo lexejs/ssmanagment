@@ -8,7 +8,9 @@
 	font-size: 10pt;
 	font-weight: bold;
 }
-
+/* //////////////////////////////////////////////////////////// */
+/* /////////////////////////// Button ///////////////////////// */
+/* //////////////////////////////////////////////////////////// */
 button
 {
 	border: none;
@@ -29,9 +31,6 @@ button span, button em
 	line-height: 38px;
 	margin: 0;
 	color: #954b05;
-}
-button span
-{
 	padding-left: 5px;
 	background: url('button.gif') no-repeat 0 0;
 }
@@ -47,4 +46,123 @@ span
 	color: #954b05;
 	font-weight: bold;
 	background-color: #F7F7DE;
+}
+
+/* //////////////////////////////////////////////////////////// */
+/* /////////////////////////// WidGet ///////////////////////// */
+/* //////////////////////////////////////////////////////////// */
+
+.Widget_heading_container, .Widget_heading_container span, .Widget_heading_bottom, .Widget_heading_bottom span
+{
+	background: url('widget/bg_headi.png') no-repeat;
+	position: relative;
+	_height: 1px;
+}
+.Widget_heading_container
+{
+	background-color: #7AA4DD;
+	padding: 0;
+	clear: both;
+	top: 0px;
+	left: 0px;
+	height: 25px;
+}
+.Widget_heading_container span
+{
+	background-position: 0 -70px;
+	height: 5px;
+	width: 5px;
+	top: 0px;
+	right: 0px;
+	float: right;
+	clear: both;
+	overflow: hidden;
+}
+
+.Widget_heading_container h1, .Widget_heading_container h2, .Widget_heading_container h3, .Widget_heading_container h4, .Widget_heading_container h5, .Widget_heading_container h6
+{
+	padding: 5px 8px 4px 8px;
+	margin: 0;
+	font-size: 15px;
+	position: relative;
+}
+
+.Widget_heading_bottom
+{
+	margin-top: -5px;
+	background-position: 0 -80px;
+	height: 5px;
+	margin-bottom: 10px;
+	font-size: 1px;
+}
+.Widget_heading_bottom span
+{
+	display: block;
+	height: 5px;
+	width: 5px;
+	float: right;
+	background-position: 0 -75px;
+	overflow: hidden;
+}
+
+.clear
+{
+	clear: both;
+	height: 1px;
+	font-size: 1px;
+	padding: 0;
+	margin: 0;
+}
+
+.Widget_Body_container
+{
+	background: #FFFFFF url('widget/bg_bucke.png') repeat-x 0 -92px;
+	min-height: 1px;
+	_height: 1px;
+	position: relative;
+	}
+
+.Widget_Body_top
+{
+	border-left: 2px solid #9fbde5;
+	border-right: 2px solid #9fbde5;
+	background: url('Widget/bg_buckf.png') no-repeat;
+	height: 10px;
+}
+.Widget_Body_top span
+{
+	background: url('widget/bg_buckf.png') no-repeat right -10px;
+	width: 10px;
+	height: 10px;
+	float: right;
+	overflow: hidden;
+}
+
+.Widget_Body_content
+{
+	border-left: 2px solid #9fbde5;
+	border-right: 2px solid #9fbde5;
+	min-height: 1px;
+	_height: 1px;
+	position: relative;
+	padding: 0 10px;
+	color: #000000;
+	
+}
+
+.Widget_Body_bottom
+{
+	background: url('widget/bg_buckf.png') no-repeat 0 -22px;
+	height: 10px;
+	padding: 0;
+	margin-bottom: 4px;
+}
+.Widget_Body_bottom span
+{
+	background: url('widget/bg_buckf.png') no-repeat right -34px;
+	width: 12px;
+	height: 10px;
+	float: right;
+	padding: 0;
+	overflow: hidden;
 }
