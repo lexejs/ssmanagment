@@ -17,10 +17,10 @@
                             <span>Учётная запись:</span>
                         </td>
                         <td align="left" width="130px">
-                            <asp:TextBox ID="txtLogin" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtLogin" runat="server" tabindex="1"></asp:TextBox>
                         </td>
                         <td rowspan="2" align="left">
-                            <button id="btnLogin" runat="server" tabindex="2" onserverclick="btnLogin_Click1">
+                            <button id="btnLogin" runat="server" tabindex="3" onserverclick="btnLogin_Click1">
                                 <span><em>Войти</em></span></button>
                         </td>
                     </tr>
@@ -29,7 +29,7 @@
                             <span>Пароль:</span>
                         </td>
                         <td align="left">
-                            <asp:TextBox ID="txtPassword" runat="server" TabIndex="1"></asp:TextBox>
+                            <asp:TextBox ID="txtPassword" runat="server" TabIndex="2"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
