@@ -33,10 +33,10 @@
 					<div class="Widget_Body_content">
 						<div class="clear"></div>
 						<center>
-							<button id="btnAdmin" runat="server" style="width: 160px" onserverclick="btnAdminClick">
+							<button id="btnAdmin" runat="server" style="width: 180px" onserverclick="btnAdminClick">
 								<span><em>Администрирование</em></span></button>
 							<br />
-							<button id="btnReturn" runat="server" style="width: 160px">
+							<button id="btnReturn" runat="server" style="width: 180px">
 								<span><em>Возврат товара</em></span></button>
 						</center>
 						<div class="clear"></div>

@@ -14,6 +14,20 @@ namespace SSManagment
 		{
 			if (AppHelper.CurrentUser != null)
 			{
+				if(!Page.IsPostBack)
+				{
+					//ssmDataContext cont = new ssmDataContext();
+					//IList<group> categories = cont.groups.ToList();
+
+					//foreach(group categ in categories)
+					//{
+					//    TreeNode node = new TreeNode(categ.name,categ.id.ToString());
+					//    treeCategories.Nodes.Add( )
+					//}
+
+				}
+
+#warning Потом убрать
 				gvwProducts.DataSource = item.GetAll();
 				gvwProducts.DataBind();
 
