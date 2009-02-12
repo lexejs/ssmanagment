@@ -12,11 +12,8 @@ namespace SSManagment
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
-
-			var db = new Models.ssmDataContext();
-			gvwProducts.DataSource = db.items.ToList();
+			gvwProducts.DataSource = Models.item.GetAll();
 			gvwProducts.DataBind();
-
 
 			//treeCategories.DataSource = (IHierarchicalDataSource)db.groups.ToList();
 			//treeCategories.DataBind();
