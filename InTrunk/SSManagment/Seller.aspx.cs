@@ -8,38 +8,59 @@ using SSManagment.Models;
 
 namespace SSManagment
 {
-	public partial class Seller : System.Web.UI.Page
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (AppHelper.CurrentUser != null)
-			{
-				if(!Page.IsPostBack)
-				{
-					//ssmDataContext cont = new ssmDataContext();
-					//IList<group> categories = cont.groups.ToList();
+    public partial class Seller : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (AppHelper.CurrentUser != null)
+            {
+                if (!Page.IsPostBack)
+                {
+                    LoadingTree();
+                    btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
+                }
+            }
+        }
 
-					//foreach(group categ in categories)
-					//{
-					//    TreeNode node = new TreeNode(categ.name,categ.id.ToString());
-					//    treeCategories.Nodes.Add( )
-					//}
+        protected void btnAdminClick(object sender, EventArgs e)
+        {
+            Response.Redirect("Admin.aspx");
+        }
 
-				}
+        protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+        {
+                gvwProducts.DataSource = item.GetAll();
+                gvwProducts.DataBind(); 
+        }
+        private void LoadingTree()
+        {
+            ssmDataContext cont = new ssmDataContext();
+            IList<group> rootCategories = cont.groups.Where(b => b.parent == null).ToList();
+            IList<group> rootchild = cont.groups.Where(b => b.parent != null).ToList();
 
-#warning Потом убрать
-				gvwProducts.DataSource = item.GetAll();
-				gvwProducts.DataBind();
+            foreach (group categ in rootCategories)
+            {
+                TreeNode tree;
 
-				
-				btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
-				//treeCategories.DataSource = (IHierarchicalDataSource)db.groups.ToList();
-				//treeCategories.DataBind();
-			}
-		}
-		protected void btnAdminClick(object sender, EventArgs e)
-		{
-			Response.Redirect("Admin.aspx");
-		}
-	}
+                if (categ.parent == null)
+                {
+                    tree = new TreeNode(categ.name, categ.id.ToString());
+
+                    IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
+
+                    if (cildNode.Count > 0)
+                    {
+                        foreach (group child in cildNode)
+                        {
+                            tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
+                        }
+                        tree.Expanded = false;
+                    }
+                    treeCategories.Nodes.Add(tree);
+                }
+            }
+        }
+
+
+    }
 }

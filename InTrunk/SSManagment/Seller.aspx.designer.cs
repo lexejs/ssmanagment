@@ -14,6 +14,15 @@ namespace SSManagment {
     public partial class Seller {
         
         /// <summary>
+        /// uplTree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplTree;
+        
+        /// <summary>
         /// treeCategories control.
         /// </summary>
         /// <remarks>
@@ -41,6 +50,15 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
         
         /// <summary>
+        /// uplProductsGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplProductsGrid;
+        
+        /// <summary>
         /// txtFind control.
         /// </summary>
         /// <remarks>
@@ -66,6 +84,15 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwProducts;
+        
+        /// <summary>
+        /// uplShoppingCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplShoppingCart;
         
         /// <summary>
         /// gvwShoppingCart control.
