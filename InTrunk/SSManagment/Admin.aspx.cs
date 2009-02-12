@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using SSManagment.Models;
 
 namespace SSManagment
@@ -13,6 +14,8 @@ namespace SSManagment
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			var db = new ssmDataContext();
+
+			// TODO move groups to Session
 			groups = db.groups.ToList();
 
 			if (!Page.IsPostBack)
@@ -23,14 +26,25 @@ namespace SSManagment
 
 		private void lstGroupFill()
 		{
+
 			var db = new ssmDataContext();
+			int groupId = 0;
+			if (lstGroup.SelectedIndex > -1)
+				groupId = int.Parse(lstGroup.SelectedItem.Value);
 
 			groups = db.groups.ToList();
-			lstGroup.DataSource = groups.Where(g => g.parent == null).ToList();
+			lstGroup.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
 			lstGroup.DataTextField = "name";
 			lstGroup.DataValueField = "id";
 			lstGroup.DataBind();
 			txtGroupName.Text = "";
+
+			ListItem listItem = lstGroup.Items.FindByValue(groupId.ToString());
+			if (listItem != null)
+			{
+				listItem.Selected = true;
+				lstGroup_SelectedIndexChanged(new object(),new EventArgs());
+			}
 		}
 
 		protected void lstGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,10 +57,10 @@ namespace SSManagment
 			txtGroupName.Text = lstGroup.SelectedItem.Text;
 		}
 
-		protected void lstSubGroup_SelectedIndexChanged(object sender, EventArgs e)
-		{
+		//protected void lstSubGroup_SelectedIndexChanged(object sender, EventArgs e)
+		//{
 
-		}
+		//}
 
 		protected void btnAddGroup_Click(object sender, EventArgs e)
 		{
@@ -60,13 +74,16 @@ namespace SSManagment
 		protected void btnDelGroup_Click(object sender, EventArgs e)
 		{
 			var db = new ssmDataContext();
-			var groupId = int.Parse(lstGroup.SelectedItem.Value);
-			var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
-			if (groupToDelete.Count == 1)
+			if (lstGroup.SelectedItem != null)
 			{
-				db.groups.DeleteOnSubmit(groupToDelete.First());
-				db.SubmitChanges();
-				lstGroupFill();
+				var groupId = int.Parse(lstGroup.SelectedItem.Value);
+				var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+				if (groupToDelete.Count == 1)
+				{
+					db.groups.DeleteOnSubmit(groupToDelete.First());
+					db.SubmitChanges();
+					lstGroupFill();
+				}
 			}
 		}
 
@@ -76,11 +93,28 @@ namespace SSManagment
 			if (lstGroup.SelectedIndex > -1)
 			{
 				var parentId = int.Parse(lstGroup.SelectedItem.Value);
-        var nGroup = new group() { name = txtSubGroupName.Text, parent = parentId };
+				var nGroup = new group() { name = txtSubGroupName.Text, parent = parentId };
 				db.groups.InsertOnSubmit(nGroup);
 				db.SubmitChanges();
 				lstGroupFill();
+				txtSubGroupName.Text = "";
+			}
+		}
 
+		protected void btnDellSubGroup_Click(object sender, EventArgs e)
+		{
+			var db = new ssmDataContext();
+
+			if (lstSubGroup.SelectedItem != null)
+			{
+				var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+				var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+				if (groupToDelete.Count == 1)
+				{
+					db.groups.DeleteOnSubmit(groupToDelete.First());
+					db.SubmitChanges();
+					lstGroupFill();
+				}
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace SSManagment.Models
 					names.Add("Товар № " + i);
 			}
 
-			for (int i = 0; i < r.Next(300, 400); i++)
+			for (int i = 0; i < r.Next(30, 100); i++)
 			{
 				result.Add(
 					new item
