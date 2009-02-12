@@ -14,6 +14,24 @@ namespace SSManagment {
     public partial class Seller {
         
         /// <summary>
+        /// treeCategories control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView treeCategories;
+        
+        /// <summary>
+        /// btnReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
+        
+        /// <summary>
         /// txtFind control.
         /// </summary>
         /// <remarks>
@@ -29,16 +47,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFind;
-        
-        /// <summary>
-        /// treeCategories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeCategories;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnFind;
         
         /// <summary>
         /// gvwProducts control.
@@ -50,13 +59,13 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.GridView gvwProducts;
         
         /// <summary>
-        /// btnBackProduct control.
+        /// gvwShoppingCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackProduct;
+        protected global::System.Web.UI.WebControls.GridView gvwShoppingCart;
         
         /// <summary>
         /// drpBuyer control.
@@ -68,21 +77,12 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.DropDownList drpBuyer;
         
         /// <summary>
-        /// gvwShoppingCart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwShoppingCart;
-        
-        /// <summary>
         /// btnBuy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuy;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnBuy;
     }
 }

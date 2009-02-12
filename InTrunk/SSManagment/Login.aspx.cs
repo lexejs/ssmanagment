@@ -14,19 +14,18 @@ namespace SSManagment
 
         }
 
-				protected void btnLogin_Click(object sender, EventArgs e)
-				{
-					var db = new Models.ssmDataContext();
-					var sellers = db.sellers.Where(
-						s =>
-						s.login.ToLower().CompareTo(txtLogin.Text.ToLower()) == 0 &&
-						s.password.ToLower().CompareTo(txtPassword.Text.ToLower()) == 0).ToList();
-					if (sellers.Count==1)
-					{
-						Models.AppHelper.CurrentUser = sellers.First();
-						Response.Redirect("Seller.aspx");
-					}
-
-				}
+        protected void btnLogin_Click1(object sender, EventArgs e)
+        {
+            var db = new Models.ssmDataContext();
+            var sellers = db.sellers.Where(
+                s =>
+                s.login.ToLower().CompareTo(txtLogin.Text.ToLower()) == 0 &&
+                s.password.ToLower().CompareTo(txtPassword.Text.ToLower()) == 0).ToList();
+            if (sellers.Count == 1)
+            {
+                Models.AppHelper.CurrentUser = sellers.First();
+                Response.Redirect("Seller.aspx");
+            }
+        }
     }
 }

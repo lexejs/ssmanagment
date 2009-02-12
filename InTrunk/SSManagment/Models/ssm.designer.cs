@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -143,9 +143,9 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _isActive;
 		
-		private EntitySet<logSale> _logSales;
-		
 		private EntitySet<logActivity> _logActivities;
+		
+		private EntitySet<logSale> _logSales;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -163,8 +163,8 @@ namespace SSManagment.Models
 		
 		public buyer()
 		{
-			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
 			this._logActivities = new EntitySet<logActivity>(new Action<logActivity>(this.attach_logActivities), new Action<logActivity>(this.detach_logActivities));
+			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
 			OnCreated();
 		}
 		
@@ -248,19 +248,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="buyer_logSale", Storage="_logSales", ThisKey="id", OtherKey="buyerId")]
-		public EntitySet<logSale> logSales
-		{
-			get
-			{
-				return this._logSales;
-			}
-			set
-			{
-				this._logSales.Assign(value);
-			}
-		}
-		
 		[Association(Name="buyer_logActivity", Storage="_logActivities", ThisKey="id", OtherKey="buyerId")]
 		public EntitySet<logActivity> logActivities
 		{
@@ -271,6 +258,19 @@ namespace SSManagment.Models
 			set
 			{
 				this._logActivities.Assign(value);
+			}
+		}
+		
+		[Association(Name="buyer_logSale", Storage="_logSales", ThisKey="id", OtherKey="buyerId")]
+		public EntitySet<logSale> logSales
+		{
+			get
+			{
+				return this._logSales;
+			}
+			set
+			{
+				this._logSales.Assign(value);
 			}
 		}
 		
@@ -294,18 +294,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		private void attach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = this;
-		}
-		
-		private void detach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = null;
-		}
-		
 		private void attach_logActivities(logActivity entity)
 		{
 			this.SendPropertyChanging();
@@ -313,6 +301,18 @@ namespace SSManagment.Models
 		}
 		
 		private void detach_logActivities(logActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.buyer = null;
+		}
+		
+		private void attach_logSales(logSale entity)
+		{
+			this.SendPropertyChanging();
+			entity.buyer = this;
+		}
+		
+		private void detach_logSales(logSale entity)
 		{
 			this.SendPropertyChanging();
 			entity.buyer = null;

@@ -131,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Master\Admin.master" />
+    <Content Include="App_Themes\Main\button.gif" />
+    <Content Include="App_Themes\Main\Icons\48px-Emblem-symbolic-link.svg.png" />
     <Content Include="Login.aspx" />
   </ItemGroup>
   <ItemGroup>

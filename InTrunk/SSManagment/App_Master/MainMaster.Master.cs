@@ -13,6 +13,10 @@ namespace SSManagment.App_Master
 		{
 			if (Models.AppHelper.CurrentUser == null)
 				Response.Redirect("Login.aspx");
+            else
+			{
+			    lblUserName.Text = Models.AppHelper.CurrentUser.fullName;
+			}
 		}
 
 		protected void lnkLogOut_Click(object sender, EventArgs e)
