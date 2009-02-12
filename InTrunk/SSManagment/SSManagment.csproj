@@ -111,6 +111,13 @@
     <Compile Include="Seller.aspx.designer.cs">
       <DependentUpon>Seller.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Main\main.css" />
@@ -138,6 +145,7 @@
     <Content Include="App_Themes\Main\Widget\bg_buckf.png" />
     <Content Include="App_Themes\Main\Widget\bg_headi.png" />
     <Content Include="Login.aspx" />
+    <Content Include="Admin.aspx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\ssm.dbml">

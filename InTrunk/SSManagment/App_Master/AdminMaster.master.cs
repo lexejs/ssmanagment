@@ -11,7 +11,9 @@ namespace SSManagment.App_Master
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+					if (Models.AppHelper.CurrentUser == null || !Models.AppHelper.CurrentUser.isAdmin.Value)
+						Response.Redirect("Login.aspx");
+					
         }
     }
 }

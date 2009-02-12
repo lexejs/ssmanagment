@@ -11,87 +11,78 @@
 namespace SSManagment {
     
     
-    public partial class Seller {
+    public partial class Admin {
         
         /// <summary>
-        /// treeCategories control.
+        /// lstGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeCategories;
+        protected global::System.Web.UI.WebControls.ListBox lstGroup;
         
         /// <summary>
-        /// btnAdmin control.
+        /// txtGroupName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnAdmin;
+        protected global::System.Web.UI.WebControls.TextBox txtGroupName;
         
         /// <summary>
-        /// btnReturn control.
+        /// btnAddGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
+        protected global::System.Web.UI.WebControls.Button btnAddGroup;
         
         /// <summary>
-        /// txtFind control.
+        /// btnDelGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFind;
+        protected global::System.Web.UI.WebControls.Button btnDelGroup;
         
         /// <summary>
-        /// btnFind control.
+        /// lstSubGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnFind;
+        protected global::System.Web.UI.WebControls.ListBox lstSubGroup;
         
         /// <summary>
-        /// gvwProducts control.
+        /// txtSubGroupName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwProducts;
+        protected global::System.Web.UI.WebControls.TextBox txtSubGroupName;
         
         /// <summary>
-        /// gvwShoppingCart control.
+        /// btnAddSubGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwShoppingCart;
+        protected global::System.Web.UI.WebControls.Button btnAddSubGroup;
         
         /// <summary>
-        /// drpBuyer control.
+        /// btnDellSubGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpBuyer;
-        
-        /// <summary>
-        /// btnBuy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnBuy;
+        protected global::System.Web.UI.WebControls.Button btnDellSubGroup;
     }
 }

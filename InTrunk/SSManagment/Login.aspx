@@ -26,10 +26,12 @@
                     </tr>
                     <tr>
                         <td align="right">
-                            <span>Пароль:</span>
+                            <span>Пароль:<asp:LoginView ID="LoginView1" runat="server">
+														</asp:LoginView>
+														</span>
                         </td>
                         <td align="left">
-                            <asp:TextBox ID="txtPassword" runat="server" TabIndex="2"></asp:TextBox>
+                            <asp:TextBox ID="txtPassword" runat="server" TabIndex="2" TextMode="Password"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
