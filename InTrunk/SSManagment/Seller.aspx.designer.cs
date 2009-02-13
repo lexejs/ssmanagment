@@ -32,24 +32,6 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.TreeView treeCategories;
         
         /// <summary>
-        /// btnAdmin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnAdmin;
-        
-        /// <summary>
-        /// btnReturn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
-        
-        /// <summary>
         /// uplProductsGrid control.
         /// </summary>
         /// <remarks>
@@ -120,5 +102,23 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnBuy;
+        
+        /// <summary>
+        /// btnAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAdmin;
+        
+        /// <summary>
+        /// btnReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
     }
 }

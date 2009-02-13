@@ -29,8 +29,12 @@ namespace SSManagment
 
         protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
         {
-                gvwProducts.DataSource = item.GetAll();
-                gvwProducts.DataBind(); 
+        	int id;
+			if (int.TryParse(((System.Web.UI.WebControls.TreeView)(sender)).SelectedNode.Value, out id))
+			{
+				gvwProducts.DataSource = item.GetAllByGroupId(id);
+				gvwProducts.DataBind();
+			}
         }
         private void LoadingTree()
         {

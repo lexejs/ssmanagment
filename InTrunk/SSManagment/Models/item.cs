@@ -16,7 +16,10 @@ namespace SSManagment.Models
 
 		public static IList<item> GetAllByGroupId(int groupId)
 		{
-			return GetAll();
+			var db = new ssmDataContext();
+			var result = db.items.Where(itm=> itm.groupId == groupId).ToList();
+#warning Добавить выборку товаров из подкатегорий данной категории
+			return result;
 		}
     
 		private static IList<item> Flood()
