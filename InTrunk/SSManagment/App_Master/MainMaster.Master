@@ -11,7 +11,7 @@
 	<asp:ScriptManager ID="mainScriptManager" runat="server" />
 	<asp:UpdateProgress ID="upsRootProgressDisplay" runat="server">
 		<ProgressTemplate>
-			<table style="position: absolute; top: 48%; left: 49%; width: 380px">
+			<table style="position: absolute; top: 48%; left: 49%; width: 400px">
 				<tr>
 					<td>
 						<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
@@ -21,7 +21,7 @@
 										Пожалуйста подождите идет загрузка данных...
 									</td>
 									<td>
-										<asp:Image ID="imgLoading" runat="server" Width="22px" Height="22px" ToolTip="Загрузка" ImageUrl="~/App_Themes/Main/ajax-loader.gif" />
+										<asp:Image ID="imgLoading" runat="server" Width="46px" Height="11px" ToolTip="Загрузка" ImageUrl="~/App_Themes/Main/alax-loading.gif" />
 									</td>
 								</tr>
 							</table>
