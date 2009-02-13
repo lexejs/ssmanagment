@@ -17,7 +17,9 @@ namespace SSManagment.Models
 		public static IList<item> GetAllByGroupId(int groupId)
 		{
 			var db = new ssmDataContext();
-			var result = db.items.Where(itm=> itm.groupId == groupId).ToList();
+			var groupIDs = db.groups.Where(g => g.id == groupId || g.parent == groupId).Select(g => g.id).ToList();
+			var result = db.items.Where(itm => groupIDs.Contains(itm.groupId.Value)).ToList();
+			
 #warning Добавить выборку товаров из подкатегорий данной категории
 			return result;
 		}

@@ -39,8 +39,8 @@ namespace SSManagment
         private void LoadingTree()
         {
             ssmDataContext cont = new ssmDataContext();
-            IList<group> rootCategories = cont.groups.Where(b => b.parent == null).ToList();
-            IList<group> rootchild = cont.groups.Where(b => b.parent != null).ToList();
+            IList<group> rootCategories = cont.groups.Where(b => b.parent == null).OrderBy(b=>b.name).ToList();
+						IList<group> rootchild = cont.groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
 
             foreach (group categ in rootCategories)
             {
