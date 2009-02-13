@@ -117,7 +117,7 @@
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
 	<asp:UpdatePanel ID="uplShoppingCart" runat="server" UpdateMode="Conditional">
 		<ContentTemplate>
-			<table>
+			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
 						<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
