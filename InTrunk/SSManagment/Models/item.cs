@@ -14,8 +14,11 @@ namespace SSManagment.Models
 			return result;
 		}
 
-
-
+		public static IList<item> GetAllByGroupId(int groupId)
+		{
+			return GetAll();
+		}
+    
 		private static IList<item> Flood()
 		{
 			IList<item> result = new List<item>();
