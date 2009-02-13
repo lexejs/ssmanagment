@@ -26,8 +26,6 @@ namespace SSManagment
 		}
 		#region Methods
 
-		
-
 		private void lstGroupFill()
 		{
 
@@ -55,6 +53,35 @@ namespace SSManagment
 				lstGroup_SelectedIndexChanged(new object(), new EventArgs());
 			}
 		}
+
+        private void LoadingTree()
+        {
+            IList<group> rootCategories = groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
+            IList<group> rootchild = groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
+
+            foreach (group categ in rootCategories)
+            {
+                TreeNode tree;
+
+                if (categ.parent == null)
+                {
+                    tree = new TreeNode(categ.name, categ.id.ToString());
+
+                    IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
+
+                    if (cildNode.Count > 0)
+                    {
+                        foreach (group child in cildNode)
+                        {
+                            tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
+                        }
+                        tree.Expanded = false;
+                    }
+                    treeCategories.Nodes.Add(tree);
+                }
+            }
+        }
+
 		#endregion
 		
 		#region Handlers
@@ -210,7 +237,11 @@ namespace SSManagment
 			tblItems.Visible = !tblGroup.Visible;
 		}
 
-		#endregion
+        protected void btnGoBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Seller.aspx");
+            ;
+        }
 
 		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
 		{
@@ -230,32 +261,7 @@ namespace SSManagment
 
 		}
 
-		private void LoadingTree()
-		{
-			IList<group> rootCategories = groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
-			IList<group> rootchild = groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
+		#endregion
 
-			foreach (group categ in rootCategories)
-			{
-				TreeNode tree;
-
-				if (categ.parent == null)
-				{
-					tree = new TreeNode(categ.name, categ.id.ToString());
-
-					IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
-
-					if (cildNode.Count > 0)
-					{
-						foreach (group child in cildNode)
-						{
-							tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
-						}
-						tree.Expanded = false;
-					}
-					treeCategories.Nodes.Add(tree);
-				}
-			}
-		}
 	}
 }

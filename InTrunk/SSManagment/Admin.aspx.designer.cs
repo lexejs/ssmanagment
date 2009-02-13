@@ -14,13 +14,13 @@ namespace SSManagment {
     public partial class Admin {
         
         /// <summary>
-        /// HyperLink1 control.
+        /// btnGoBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnGoBack;
         
         /// <summary>
         /// btnShowGroups control.
@@ -29,7 +29,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowGroups;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnShowGroups;
         
         /// <summary>
         /// btnShowItems control.
@@ -38,7 +38,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowItems;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnShowItems;
         
         /// <summary>
         /// tblGroup control.
@@ -83,7 +83,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnUpdateGroup;
         
         /// <summary>
         /// btnAddGroup control.
@@ -92,7 +92,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAddGroup;
         
         /// <summary>
         /// btnDelGroup control.
@@ -101,7 +101,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDelGroup;
         
         /// <summary>
         /// btnAttachTo control.
@@ -110,7 +110,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAttachTo;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAttachTo;
         
         /// <summary>
         /// ddlAttachTo control.
@@ -137,7 +137,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateSubGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnUpdateSubGroup;
         
         /// <summary>
         /// btnAddSubGroup control.
@@ -146,7 +146,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddSubGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAddSubGroup;
         
         /// <summary>
         /// btnDellSubGroup control.
@@ -155,7 +155,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDellSubGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDellSubGroup;
         
         /// <summary>
         /// btnMoveToGroup control.
@@ -164,7 +164,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMoveToGroup;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnMoveToGroup;
         
         /// <summary>
         /// tblItems control.
@@ -200,7 +200,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button1;
         
         /// <summary>
         /// Button2 control.
@@ -209,7 +209,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button2;
         
         /// <summary>
         /// Button3 control.
@@ -218,7 +218,7 @@ namespace SSManagment {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button3;
         
         /// <summary>
         /// txtItemName control.
