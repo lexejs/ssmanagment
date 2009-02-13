@@ -7,6 +7,7 @@
       <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Member="canBuyOnTick" Type="System.Boolean" CanBeNull="true" />
       <Association Name="buyer_logActivity" Member="logActivities" ThisKey="id" OtherKey="buyerId" Type="logActivity" />
       <Association Name="buyer_logSale" Member="logSales" ThisKey="id" OtherKey="buyerId" Type="logSale" />
     </Type>
@@ -47,6 +48,7 @@
       <Column Name="[order]" Member="order" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="countToOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="canGiveBack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Member="isActive" Type="System.Boolean" CanBeNull="true" />
       <Association Name="item_logSale" Member="logSales" ThisKey="id" OtherKey="itemId" Type="logSale" />
       <Association Name="group_item" Member="group" ThisKey="groupId" OtherKey="id" Type="group" IsForeignKey="true" />
     </Type>

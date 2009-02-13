@@ -143,6 +143,8 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _isActive;
 		
+		private System.Nullable<bool> _canBuyOnTick;
+		
 		private EntitySet<logActivity> _logActivities;
 		
 		private EntitySet<logSale> _logSales;
@@ -159,6 +161,8 @@ namespace SSManagment.Models
     partial void OnpctChanged();
     partial void OnisActiveChanging(System.Nullable<bool> value);
     partial void OnisActiveChanged();
+    partial void OncanBuyOnTickChanging(System.Nullable<bool> value);
+    partial void OncanBuyOnTickChanged();
     #endregion
 		
 		public buyer()
@@ -244,6 +248,26 @@ namespace SSManagment.Models
 					this._isActive = value;
 					this.SendPropertyChanged("isActive");
 					this.OnisActiveChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_canBuyOnTick")]
+		public System.Nullable<bool> canBuyOnTick
+		{
+			get
+			{
+				return this._canBuyOnTick;
+			}
+			set
+			{
+				if ((this._canBuyOnTick != value))
+				{
+					this.OncanBuyOnTickChanging(value);
+					this.SendPropertyChanging();
+					this._canBuyOnTick = value;
+					this.SendPropertyChanged("canBuyOnTick");
+					this.OncanBuyOnTickChanged();
 				}
 			}
 		}
@@ -768,6 +792,8 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _canGiveBack;
 		
+		private System.Nullable<bool> _isActive;
+		
 		private EntitySet<logSale> _logSales;
 		
 		private EntityRef<group> _group;
@@ -802,6 +828,8 @@ namespace SSManagment.Models
     partial void OncountToOrderChanged();
     partial void OncanGiveBackChanging(System.Nullable<bool> value);
     partial void OncanGiveBackChanged();
+    partial void OnisActiveChanging(System.Nullable<bool> value);
+    partial void OnisActiveChanged();
     #endregion
 		
 		public item()
@@ -1071,6 +1099,26 @@ namespace SSManagment.Models
 					this._canGiveBack = value;
 					this.SendPropertyChanged("canGiveBack");
 					this.OncanGiveBackChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_isActive")]
+		public System.Nullable<bool> isActive
+		{
+			get
+			{
+				return this._isActive;
+			}
+			set
+			{
+				if ((this._isActive != value))
+				{
+					this.OnisActiveChanging(value);
+					this.SendPropertyChanging();
+					this._isActive = value;
+					this.SendPropertyChanged("isActive");
+					this.OnisActiveChanged();
 				}
 			}
 		}
