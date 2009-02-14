@@ -81,7 +81,7 @@
                                 <asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White"
                                     BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CaptionAlign="Top"
                                     CellPadding="4" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand"
-                                    OnSelectedIndexChanged="gvwProducts_SelectedIndexChanged" Width="100%">
+                                    Width="100%">
                                     <RowStyle BackColor="#F7F7DE" />
                                     <Columns>
                                         <asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" Visible="False" />
@@ -104,19 +104,35 @@
                                             </ItemTemplate>
                                             <ControlStyle Width="50px" />
                                         </asp:TemplateField>
-                                        <asp:ButtonField ButtonType="Image" CommandName="add" ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png"
-                                            Text="В корзину">
+                                        <asp:TemplateField ShowHeader="False">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add"
+                                                    ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png"
+                                                    CommandArgument='<%# Eval("id") %>' />
+                                            </ItemTemplate>
                                             <ControlStyle Height="24px" Width="24px" />
-                                        </asp:ButtonField>
-                                        <asp:ButtonField ButtonType="Image" CommandName="sale" ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png"
-                                            Text="Продать">
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ShowHeader="False">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale"
+                                                    CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png"
+                                                    ToolTip="Продать" />
+                                            </ItemTemplate>
                                             <ControlStyle Height="24px" Width="24px" />
-                                        </asp:ButtonField>
-                                        <asp:ButtonField ButtonType="Image" CommandName="reserved" ImageUrl="~/App_Themes/Main/Icons/48px-Emblem-symbolic-link.svg.png"
-                                            Text="Зарезервировать">
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ShowHeader="False">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ibtnReserv" runat="server" CausesValidation="false" CommandName="reserved"
+                                                    CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/48px-Emblem-symbolic-link.svg.png"
+                                                    ToolTip="Зарезервировать" />
+                                            </ItemTemplate>
                                             <ControlStyle Height="24px" Width="24px" />
-                                        </asp:ButtonField>
+                                        </asp:TemplateField>
                                     </Columns>
+                                    <EmptyDataTemplate>
+                                        <center>
+                                            <span>В выбраном вами разделе продуктов ненайдено!</span></center>
+                                    </EmptyDataTemplate>
                                     <FooterStyle BackColor="#CCCC99" />
                                     <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
                                     <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
@@ -142,8 +158,7 @@
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
-    <asp:UpdatePanel ID="uplShoppingCart" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
+
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
@@ -164,26 +179,35 @@
                                         <td align="center">
                                             <asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False"
                                                 BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
-                                                CellPadding="4" ForeColor="Black" GridLines="Vertical">
+                                                CellPadding="4" ForeColor="Black" GridLines="Vertical" 
+                                                onrowcommand="gvwShoppingCart_RowCommand">
                                                 <RowStyle BackColor="#F7F7DE" />
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Товар" DataField="name">
                                                         <ControlStyle Width="150px" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField HeaderText="Цена" DataField="price" NullDisplayText="уточнить">
+                                                    <asp:BoundField HeaderText="Цена" DataField="bprice" NullDisplayText="уточнить">
                                                         <ControlStyle Width="50px" />
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Кол-во">
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtBuyCount" runat="server"></asp:TextBox>
+                                                            <asp:TextBox ID="txtBuyCount" runat="server" Text='<%# Eval("BuyCount") %>'></asp:TextBox>
                                                         </ItemTemplate>
                                                         <ControlStyle Width="50px" />
                                                     </asp:TemplateField>
-                                                    <asp:ButtonField ButtonType="Image" CommandName="delete" ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png"
-                                                        Text="Удалить">
+                                                    <asp:TemplateField ShowHeader="False">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="delete" runat="server" CausesValidation="false" CommandArgument='<%# Eval("id") %>'
+                                                                CommandName="delete" ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png"
+                                                                ToolTip="Удалить" />
+                                                        </ItemTemplate>
                                                         <ControlStyle Height="24px" Width="24px" />
-                                                    </asp:ButtonField>
+                                                    </asp:TemplateField>
                                                 </Columns>
+                                                <EmptyDataTemplate>
+                                                    <center>
+                                                        <span>Список покупок пуст</span></center>
+                                                </EmptyDataTemplate>
                                                 <FooterStyle BackColor="#CCCC99" />
                                                 <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
                                                 <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
@@ -200,8 +224,7 @@
                                                         <span>Покупатель :</span>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:DropDownList ID="drpBuyer" runat="server" Width="120px" AutoPostBack="True"
-                                                            OnSelectedIndexChanged="drpBuyer_SelectedIndexChanged">
+                                                        <asp:DropDownList ID="drpBuyer" runat="server" Width="120px" AutoPostBack="True">
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -210,7 +233,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            &nbsp; <span>Итого :</span>
+                                            &nbsp; <span>Итого :</span><asp:Label ID="lblSum" runat="server"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -260,11 +283,5 @@
                     </td>
                 </tr>
             </table>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="gvwShoppingCart" EventName="DataBinding" />
-            <asp:AsyncPostBackTrigger ControlID="btnBuy" EventName="ServerClick" />
-            <asp:AsyncPostBackTrigger ControlID="drpBuyer" EventName="SelectedIndexChanged" />
-        </Triggers>
-    </asp:UpdatePanel>
+
 </asp:Content>
