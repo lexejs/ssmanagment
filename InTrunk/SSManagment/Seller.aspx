@@ -51,6 +51,57 @@
 									<tr>
 										<td align="right">
 											<asp:TextBox ID="txtFind" runat="server" Width="200px"></asp:TextBox>
+										    <asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" 
+                                                BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" 
+                                                CaptionAlign="Top" CellPadding="4" ForeColor="Black" GridLines="Vertical" 
+                                                onrowcommand="gvwProducts_RowCommand" 
+                                                onselectedindexchanged="gvwProducts_SelectedIndexChanged" Width="100%">
+                                                <RowStyle BackColor="#F7F7DE" />
+                                                <Columns>
+                                                    <asp:BoundField DataField="name" HeaderText="Название" 
+                                                        ReadOnly="True" />
+                                                    <asp:BoundField DataField="count" HeaderText="В наличии" 
+                                                        NullDisplayText="нет">
+                                                        <ControlStyle Width="50px" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="measure" HeaderText="Измерение" 
+                                                        NullDisplayText="шт">
+                                                        <ControlStyle Width="50px" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="bprice" HeaderText="Цена" NullDisplayText="уточнить">
+                                                        <ControlStyle Width="50px" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="reserveCount" HeaderText="Резерв">
+                                                        <ControlStyle Width="70px" />
+                                                    </asp:BoundField>
+                                                    <asp:TemplateField HeaderText="Кол-во">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtBuyCount" runat="server"></asp:TextBox>
+                                                        </ItemTemplate>
+                                                        <ControlStyle Width="50px" />
+                                                    </asp:TemplateField>
+                                                    <asp:ButtonField ButtonType="Image" CommandName="add" 
+                                                        ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png" 
+                                                        Text="В корзину">
+                                                        <ControlStyle Height="24px" Width="24px" />
+                                                    </asp:ButtonField>
+                                                    <asp:ButtonField ButtonType="Image" CommandName="sale" 
+                                                        ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png" 
+                                                        Text="Продать">
+                                                        <ControlStyle Height="24px" Width="24px" />
+                                                    </asp:ButtonField>
+                                                    <asp:ButtonField ButtonType="Image" CommandName="reserved" 
+                                                        ImageUrl="~/App_Themes/Main/Icons/48px-Emblem-symbolic-link.svg.png" 
+                                                        Text="Зарезервировать">
+                                                        <ControlStyle Height="24px" Width="24px" />
+                                                    </asp:ButtonField>
+                                                </Columns>
+                                                <FooterStyle BackColor="#CCCC99" />
+                                                <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                                                <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                                                <AlternatingRowStyle BackColor="White" />
+                                            </asp:GridView>
 										</td>
 										<td>
 											<button id="btnFind" runat="server">
@@ -62,48 +113,7 @@
 						</tr>
 						<tr>
 							<td>
-								<asp:GridView ID="gvwProducts" runat="server" Width="100%" 
-                                    AutoGenerateColumns="False" CellPadding="4" ForeColor="Black" 
-                                    GridLines="Vertical" CaptionAlign="Top" BackColor="White" BorderColor="#DEDFDE" 
-                                    BorderStyle="None" BorderWidth="1px" onrowcommand="gvwProducts_RowCommand">
-									<RowStyle BackColor="#F7F7DE" />
-									<Columns>
-										<asp:BoundField HeaderText="Наименование товара" ReadOnly="True" DataField="name" />
-										<asp:BoundField HeaderText="На складе" DataField="count" NullDisplayText="отсутствует">
-											<ControlStyle Width="50px" />
-										</asp:BoundField>
-										<asp:BoundField HeaderText="В упаковке" DataField="measure" NullDisplayText="неизветно">
-											<ControlStyle Width="50px" />
-										</asp:BoundField>
-										<asp:BoundField HeaderText="Цена" DataField="price" NullDisplayText="уточнить">
-											<ControlStyle Width="50px" />
-										</asp:BoundField>
-										<asp:BoundField HeaderText="Зарезервировано" DataField="reserveCount">
-											<ControlStyle Width="70px" />
-										</asp:BoundField>
-										<asp:TemplateField HeaderText="Кол-во">
-											<ItemTemplate>
-												<asp:TextBox ID="txtBuyCount" runat="server"></asp:TextBox>
-											</ItemTemplate>
-											<ControlStyle Width="50px" />
-										</asp:TemplateField>
-										<asp:ButtonField ButtonType="Image" CommandName="add" Text="В корзину" ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png">
-											<ControlStyle Width="24px" Height="24px" />
-										</asp:ButtonField>
-										<asp:ButtonField ButtonType="Image" CommandName="sale" Text="Продать" ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png">
-											<ControlStyle Width="24px" Height="24px" />
-										</asp:ButtonField>
-										<asp:ButtonField ButtonType="Image" CommandName="reserved" Text="Зарезервировать" ImageUrl="~/App_Themes/Main/Icons/48px-Emblem-symbolic-link.svg.png">
-											<ControlStyle Height="24px" Width="24px" />
-										</asp:ButtonField>
-									</Columns>
-									<FooterStyle BackColor="#CCCC99" />
-									<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-									<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-									<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-									<AlternatingRowStyle BackColor="White" />
-								</asp:GridView>
-							</td>
+								&nbsp;</td>
 						</tr>
 					</table>
 					<div class="clear"></div>
@@ -171,8 +181,6 @@
 													<td align="left">
 														<asp:DropDownList ID="drpBuyer" runat="server" Width="120px" 
                                                             AutoPostBack="True" onselectedindexchanged="drpBuyer_SelectedIndexChanged">
-														    <asp:ListItem Value="1"></asp:ListItem>
-                                                            <asp:ListItem Value="2"></asp:ListItem>
 														</asp:DropDownList>
 													</td>
 												</tr>

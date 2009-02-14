@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SSManagment.Models;
+using System.Web.UI.HtmlControls;
 
 namespace SSManagment
 {
@@ -232,14 +233,33 @@ namespace SSManagment
 
         protected void btnShowGroups_Click(object sender, EventArgs e)
         {
-            tblGroup.Visible = true;
-            tblItems.Visible = !tblGroup.Visible;
+
         }
 
         protected void btnShowItems_Click(object sender, EventArgs e)
         {
-            tblGroup.Visible = false;
-            tblItems.Visible = !tblGroup.Visible;
+            HtmlButton button = ((HtmlButton)sender);
+            if (button != null)
+            {
+                if (button.ID.ToLower().Contains("items"))
+                {
+                    tblGroup.Visible = false;
+                    tblItems.Visible = !tblGroup.Visible;
+                }
+                else
+                    if (button.ID.ToLower().Contains("groups"))
+                    {
+                        tblGroup.Visible = true;
+                        tblItems.Visible = !tblGroup.Visible;
+                    }
+
+            }
+            else
+            {
+                tblGroup.Visible = false;
+                tblItems.Visible = !tblGroup.Visible;
+            }
+
         }
 
         protected void btnGoBack_Click(object sender, EventArgs e)

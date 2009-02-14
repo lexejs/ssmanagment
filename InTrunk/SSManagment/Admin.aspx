@@ -25,7 +25,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button id="btnShowGroups" runat="server" style="width: 180px" onserverclick="btnShowGroups_Click">
+                                <button id="btnShowGroups" runat="server" style="width: 180px" onserverclick="btnShowItems_Click">
                                     <span><em>Отобразить Группы</em></span></button>
                             </td>
                         </tr>
@@ -33,6 +33,18 @@
                             <td>
                                 <button id="btnShowItems" runat="server" style="width: 180px" onserverclick="btnShowItems_Click">
                                     <span><em>Отобразить Товары</em></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button id="btnShowBuyers" runat="server" style="width: 180px" onserverclick="btnShowItems_Click">
+                                    <span><em>Отобразить покупателей</em></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button id="btnShowSellers" runat="server" style="width: 180px" onserverclick="btnShowItems_Click">
+                                    <span><em>Отобразить продавцов</em></span></button>
                             </td>
                         </tr>
                     </table>
@@ -197,7 +209,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td valign=top>
+                                                        <td valign="top">
                                                             <table width="100%">
                                                                 <tr>
                                                                     <td align="right">
@@ -278,7 +290,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td valign="top" align=justify>
+                                                        <td valign="top" align="justify">
                                                             <button id="btnItemUpdate" runat="server" tabindex="31" style="width: 130px" validationgroup="itemChanged"
                                                                 onserverclick="btnItemUpdate_Click">
                                                                 <span><em>Изменить</em></span></button>&nbsp;

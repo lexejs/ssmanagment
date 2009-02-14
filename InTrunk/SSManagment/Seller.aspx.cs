@@ -25,6 +25,7 @@ namespace SSManagment
                 if (!Page.IsPostBack)
                 {
                     LoadingTree();
+                    LoadingBuyers();
                     btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
                 }
             }
@@ -36,6 +37,15 @@ namespace SSManagment
         {
             get { return ((ShopingCart)Session["ShopingCartItems"]); }
             set { Session["ShopingCartItems"] = value; }
+        }
+
+        private void LoadingBuyers()
+        {
+            var db = new ssmDataContext();
+            drpBuyer.DataSource = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+            drpBuyer.DataTextField = "name";
+            drpBuyer.DataValueField = "id";
+            drpBuyer.DataBind();
         }
 
         private void LoadingTree()
@@ -71,6 +81,8 @@ namespace SSManagment
 
         #region Handlers
 
+
+
         protected void btnAdminClick(object sender, EventArgs e)
         {
             Response.Redirect("Admin.aspx");
@@ -89,9 +101,9 @@ namespace SSManagment
             }
             else
             {
-                btnBuy.Visible = false; 
+                btnBuy.Visible = false;
             }
-            
+
         }
 
         protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
@@ -124,6 +136,11 @@ namespace SSManagment
         }
 
         #endregion
+
+        protected void gvwProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
 
