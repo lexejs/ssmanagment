@@ -50,18 +50,6 @@ namespace SSManagment
             set { Session["ShopingCartItems"] = value; }
         }
 
-        private bool isBuyerSelected
-        {
-            get
-            {
-                if (drpBuyer.SelectedValue.Equals("1"))
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
         private void LoadingBuyers()
         {
             var db = new ssmDataContext();
@@ -145,6 +133,7 @@ namespace SSManagment
 
         protected void btnBuy_Click(object sender, EventArgs e)
         {
+#warning сделать модальное окно с подтверждением
             gvwShoppingCart.DataSource = null;
             gvwShoppingCart.DataBind();
             ShopingCartSession = new List<ShopingCart>();
@@ -194,10 +183,7 @@ namespace SSManagment
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
                             LoadingShopingCart();
-                            if (isBuyerSelected)
-                            {
-                                btnBuy_Click(new object(), new EventArgs());
-                            }
+                            btnBuy_Click(new object(), new EventArgs());
                             break;
                         }
                     case "reserved":

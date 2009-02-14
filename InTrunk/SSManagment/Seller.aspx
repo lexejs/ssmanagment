@@ -46,7 +46,7 @@
     </table>
 </asp:Content>
 <asp:Content ID="cntProducts" ContentPlaceHolderID="cphStandartProducts" runat="server">
-    <asp:UpdatePanel ID="uplProductsGrid" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="uplProductsGrid" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <div class="Widget_heading_container">
                 <span class="Widget_heading_container_Span"></span>
@@ -151,14 +151,10 @@
                 <span></span>
             </div>
         </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="gvwProducts" EventName="DataBinding" />
-            <asp:AsyncPostBackTrigger ControlID="btnFind" EventName="ServerClick" />
-        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
-    <asp:UpdatePanel ID="uplShoppingCart" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="uplShoppingCart" runat="server">
         <ContentTemplate>
             <table cellpadding="0" cellspacing="0">
                 <tr>
@@ -180,8 +176,7 @@
                                         <td align="center">
                                             <asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False"
                                                 BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
-                                                CellPadding="4" ForeColor="Black" GridLines="Vertical" 
-                                                onrowcommand="gvwShoppingCart_RowCommand">
+                                                CellPadding="4" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwShoppingCart_RowCommand">
                                                 <RowStyle BackColor="#F7F7DE" />
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Товар" DataField="name">
@@ -198,8 +193,8 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton ID="delete" runat="server" CausesValidation="false" CommandArgument='<%# Eval("id") %>'
-                                                                CommandName="delete" ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png"
+                                                            <asp:ImageButton ID="btnDelete" runat="server" CausesValidation="false" CommandName="delete"
+                                                                CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png"
                                                                 ToolTip="Удалить" />
                                                         </ItemTemplate>
                                                         <ControlStyle Height="24px" Width="24px" />
@@ -285,9 +280,5 @@
                 </tr>
             </table>
         </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="gvwShoppingCart" EventName="DataBinding" />
-            <asp:AsyncPostBackTrigger ControlID="btnBuy" EventName="ServerClick" />
-        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
