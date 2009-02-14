@@ -9,7 +9,10 @@ namespace SSManagment.Models
     {
         public double? bprice
         {
-            get { return adminPrice != null && pct != null ? adminPrice + adminPrice * (pct / 100) : 0; }
+            get {
+                if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
+                    return adminPrice + adminPrice * (pct / 100);
+                return null; }
             set { }
         }
 
@@ -25,8 +28,6 @@ namespace SSManagment.Models
             var db = new ssmDataContext();
             var groupIDs = db.groups.Where(g => g.id == groupId || g.parent == groupId).Select(g => g.id).ToList();
             var result = db.items.Where(itm => groupIDs.Contains(itm.groupId.Value)).ToList();
-
-#warning Добавить выборку товаров из подкатегорий данной категории
             return result;
         }
 
