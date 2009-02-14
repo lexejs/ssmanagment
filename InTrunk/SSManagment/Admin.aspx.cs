@@ -8,51 +8,56 @@ using SSManagment.Models;
 
 namespace SSManagment
 {
-	public partial class Admin : System.Web.UI.Page
-	{
-		IList<group> groups;
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			var db = new ssmDataContext();
+    public partial class Admin : System.Web.UI.Page
+    {
+        IList<group> groups;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            var db = new ssmDataContext();
 
-			// TODO move groups to Session
-			groups = db.groups.ToList();
+            // TODO move groups to Session
+            groups = db.groups.ToList();
 
-			if (!Page.IsPostBack)
-			{
-				lstGroupFill();
-				LoadingTree();
-			}
-		}
-		#region Methods
+            if (!Page.IsPostBack)
+            {
+                lstGroupFill();
+                LoadingTree();
+            }
+        }
+        #region Methods
 
-		private void lstGroupFill()
-		{
+        private void lstGroupFill()
+        {
 
-			var db = new ssmDataContext();
-			int groupId = 0;
-			if (lstGroup.SelectedIndex > -1)
-				groupId = int.Parse(lstGroup.SelectedItem.Value);
+            var db = new ssmDataContext();
+            int groupId = 0;
+            if (lstGroup.SelectedIndex > -1)
+                groupId = int.Parse(lstGroup.SelectedItem.Value);
 
-			groups = db.groups.ToList();
-			lstGroup.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
-			lstGroup.DataTextField = "name";
-			lstGroup.DataValueField = "id";
-			lstGroup.DataBind();
-			txtGroupName.Text = "";
+            groups = db.groups.ToList();
+            lstGroup.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
+            lstGroup.DataTextField = "name";
+            lstGroup.DataValueField = "id";
+            lstGroup.DataBind();
+            txtGroupName.Text = "";
 
-			ddlAttachTo.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
-			ddlAttachTo.DataTextField = "name";
-			ddlAttachTo.DataValueField = "id";
-			ddlAttachTo.DataBind();
+            ddlAttachTo.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
+            ddlAttachTo.DataTextField = "name";
+            ddlAttachTo.DataValueField = "id";
+            ddlAttachTo.DataBind();
 
-			ListItem listItem = lstGroup.Items.FindByValue(groupId.ToString());
-			if (listItem != null)
-			{
-				listItem.Selected = true;
-				lstGroup_SelectedIndexChanged(new object(), new EventArgs());
-			}
-		}
+            ddlItemToGroup.DataSource = groups.OrderBy(g => g.name).ToList();
+            ddlItemToGroup.DataTextField = "name";
+            ddlItemToGroup.DataValueField = "id";
+            ddlItemToGroup.DataBind();
+
+            ListItem listItem = lstGroup.Items.FindByValue(groupId.ToString());
+            if (listItem != null)
+            {
+                listItem.Selected = true;
+                lstGroup_SelectedIndexChanged(new object(), new EventArgs());
+            }
+        }
 
         private void LoadingTree()
         {
@@ -82,160 +87,160 @@ namespace SSManagment
             }
         }
 
-		#endregion
-		
-		#region Handlers
+        #endregion
 
-		
-		protected void lstGroup_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			var parentId = int.Parse(lstGroup.SelectedItem.Value);
-			lstSubGroup.DataSource = groups.Where(g => g.parent != null && g.parent.Value == parentId).ToList();
-			lstSubGroup.DataTextField = "name";
-			lstSubGroup.DataValueField = "id";
-			lstSubGroup.DataBind();
-			txtGroupName.Text = lstGroup.SelectedItem.Text;
-		}
+        #region Handlers
 
 
-		protected void btnAddGroup_Click(object sender, EventArgs e)
-		{
-			if (!string.IsNullOrEmpty(txtGroupName.Text))
-			{
-				var db = new ssmDataContext();
-				var nGroup = new group() { name = txtGroupName.Text };
-				db.groups.InsertOnSubmit(nGroup);
-				db.SubmitChanges();
-				lstGroupFill();
-			}
-		}
+        protected void lstGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var parentId = int.Parse(lstGroup.SelectedItem.Value);
+            lstSubGroup.DataSource = groups.Where(g => g.parent != null && g.parent.Value == parentId).ToList();
+            lstSubGroup.DataTextField = "name";
+            lstSubGroup.DataValueField = "id";
+            lstSubGroup.DataBind();
+            txtGroupName.Text = lstGroup.SelectedItem.Text;
+        }
 
-		protected void btnDelGroup_Click(object sender, EventArgs e)
-		{
-			if (lstGroup.SelectedItem != null)
-			{
-				var db = new ssmDataContext();
-				var groupId = int.Parse(lstGroup.SelectedItem.Value);
-				var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && g.items.Count == 0).ToList();
-				if (groupToDelete.Count == 1)
-				{
-					db.groups.DeleteOnSubmit(groupToDelete.First());
-					db.SubmitChanges();
-					lstGroupFill();
-				}
-			}
-		}
 
-		protected void btnAddSubGroup_Click(object sender, EventArgs e)
-		{
-			if (lstGroup.SelectedIndex > -1 && !string.IsNullOrEmpty(txtSubGroupName.Text))
-			{
-				var db = new ssmDataContext();
-				var parentId = int.Parse(lstGroup.SelectedItem.Value);
-				var nGroup = new group() { name = txtSubGroupName.Text, parent = parentId };
-				db.groups.InsertOnSubmit(nGroup);
-				db.SubmitChanges();
-				lstGroupFill();
-				txtSubGroupName.Text = "";
-			}
-		}
+        protected void btnAddGroup_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtGroupName.Text))
+            {
+                var db = new ssmDataContext();
+                var nGroup = new group { name = txtGroupName.Text };
+                db.groups.InsertOnSubmit(nGroup);
+                db.SubmitChanges();
+                lstGroupFill();
+            }
+        }
 
-		protected void btnDellSubGroup_Click(object sender, EventArgs e)
-		{
-			if (lstSubGroup.SelectedItem != null)
-			{
-				var db = new ssmDataContext();
-				var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-				var groupToDelete = db.groups.Where(g => g.id == groupId && g.items.Count == 0).ToList();
-				if (groupToDelete.Count == 1)
-				{
-					db.groups.DeleteOnSubmit(groupToDelete.First());
-					db.SubmitChanges();
-					lstGroupFill();
-				}
-			}
-		}
+        protected void btnDelGroup_Click(object sender, EventArgs e)
+        {
+            if (lstGroup.SelectedItem != null)
+            {
+                var db = new ssmDataContext();
+                var groupId = int.Parse(lstGroup.SelectedItem.Value);
+                var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && g.items.Count == 0).ToList();
+                if (groupToDelete.Count == 1)
+                {
+                    db.groups.DeleteOnSubmit(groupToDelete.First());
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+            }
+        }
 
-		protected void btnUpdateGroup_Click(object sender, EventArgs e)
-		{
-			if (!string.IsNullOrEmpty(txtGroupName.Text))
-			{
-				if (lstGroup.SelectedItem != null)
-				{
-					var db = new ssmDataContext();
-					var groupId = int.Parse(lstGroup.SelectedItem.Value);
-					var groupToUpdate = db.groups.Where(g => g.id == groupId).ToList();
-					if (groupToUpdate.Count == 1)
-					{
-						groupToUpdate.First().name = txtGroupName.Text;
-						db.SubmitChanges();
-						lstGroupFill();
-					}
-				}
-			}
-		}
+        protected void btnAddSubGroup_Click(object sender, EventArgs e)
+        {
+            if (lstGroup.SelectedIndex > -1 && !string.IsNullOrEmpty(txtSubGroupName.Text))
+            {
+                var db = new ssmDataContext();
+                var parentId = int.Parse(lstGroup.SelectedItem.Value);
+                var nGroup = new group { name = txtSubGroupName.Text, parent = parentId };
+                db.groups.InsertOnSubmit(nGroup);
+                db.SubmitChanges();
+                lstGroupFill();
+                txtSubGroupName.Text = "";
+            }
+        }
 
-		protected void btnUpdateSubGroup_Click(object sender, EventArgs e)
-		{
-			if (lstSubGroup.SelectedItem != null && !string.IsNullOrEmpty(lstSubGroup.SelectedItem.Value))
-			{
-				var db = new ssmDataContext();
-				var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-				var groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
-				if (groupToUpdate.Count == 1)
-				{
-					groupToUpdate.First().name = lstSubGroup.SelectedItem.Value;
-					db.SubmitChanges();
-					lstGroupFill();
-				}
-			}
-		}
+        protected void btnDellSubGroup_Click(object sender, EventArgs e)
+        {
+            if (lstSubGroup.SelectedItem != null)
+            {
+                var db = new ssmDataContext();
+                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                var groupToDelete = db.groups.Where(g => g.id == groupId && g.items.Count == 0).ToList();
+                if (groupToDelete.Count == 1)
+                {
+                    db.groups.DeleteOnSubmit(groupToDelete.First());
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+            }
+        }
 
-		protected void btnMoveToGroup_Click(object sender, EventArgs e)
-		{
-			if (lstSubGroup.SelectedItem != null)
-			{
-				var db = new ssmDataContext();
-				var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-				var groupToMove = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
-				if (groupToMove.Count == 1)
-				{
-					groupToMove.First().parent = null;
-					db.SubmitChanges();
-					lstGroupFill();
-				}
-			}
-		}
+        protected void btnUpdateGroup_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtGroupName.Text))
+            {
+                if (lstGroup.SelectedItem != null)
+                {
+                    var db = new ssmDataContext();
+                    var groupId = int.Parse(lstGroup.SelectedItem.Value);
+                    var groupToUpdate = db.groups.Where(g => g.id == groupId).ToList();
+                    if (groupToUpdate.Count == 1)
+                    {
+                        groupToUpdate.First().name = txtGroupName.Text;
+                        db.SubmitChanges();
+                        lstGroupFill();
+                    }
+                }
+            }
+        }
 
-		protected void btnAttachTo_Click(object sender, EventArgs e)
-		{
-			if (lstGroup.SelectedItem != null && ddlAttachTo.SelectedItem != null)
-			{
-				var db = new ssmDataContext();
-				var groupToAttachId = int.Parse(ddlAttachTo.SelectedItem.Value);
-				var groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
-				var groupForAttachId = int.Parse(lstGroup.SelectedItem.Value);
-				var groupsForAttach = db.groups.Where(g => g.id == groupForAttachId).ToList();
-				if (groupsToAttach.Count == 1 && groupsForAttach.Count == 1 && groupToAttachId != groupForAttachId)
-				{
-					groupsForAttach.First().parent = groupsToAttach.First().id;
-					db.SubmitChanges();
-					lstGroupFill();
-				}
-			}
-		}
-	
-		protected void btnShowGroups_Click(object sender, EventArgs e)
-		{
-			tblGroup.Visible = true;
-			tblItems.Visible = !tblGroup.Visible;
-		}
+        protected void btnUpdateSubGroup_Click(object sender, EventArgs e)
+        {
+            if (lstSubGroup.SelectedItem != null && !string.IsNullOrEmpty(lstSubGroup.SelectedItem.Value))
+            {
+                var db = new ssmDataContext();
+                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                var groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+                if (groupToUpdate.Count == 1)
+                {
+                    groupToUpdate.First().name = lstSubGroup.SelectedItem.Value;
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+            }
+        }
 
-		protected void btnShowItems_Click(object sender, EventArgs e)
-		{
-			tblGroup.Visible = false;
-			tblItems.Visible = !tblGroup.Visible;
-		}
+        protected void btnMoveToGroup_Click(object sender, EventArgs e)
+        {
+            if (lstSubGroup.SelectedItem != null)
+            {
+                var db = new ssmDataContext();
+                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                var groupToMove = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+                if (groupToMove.Count == 1)
+                {
+                    groupToMove.First().parent = null;
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+            }
+        }
+
+        protected void btnAttachTo_Click(object sender, EventArgs e)
+        {
+            if (lstGroup.SelectedItem != null && ddlAttachTo.SelectedItem != null)
+            {
+                var db = new ssmDataContext();
+                var groupToAttachId = int.Parse(ddlAttachTo.SelectedItem.Value);
+                var groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
+                var groupForAttachId = int.Parse(lstGroup.SelectedItem.Value);
+                var groupsForAttach = db.groups.Where(g => g.id == groupForAttachId).ToList();
+                if (groupsToAttach.Count == 1 && groupsForAttach.Count == 1 && groupToAttachId != groupForAttachId)
+                {
+                    groupsForAttach.First().parent = groupsToAttach.First().id;
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+            }
+        }
+
+        protected void btnShowGroups_Click(object sender, EventArgs e)
+        {
+            tblGroup.Visible = true;
+            tblItems.Visible = !tblGroup.Visible;
+        }
+
+        protected void btnShowItems_Click(object sender, EventArgs e)
+        {
+            tblGroup.Visible = false;
+            tblItems.Visible = !tblGroup.Visible;
+        }
 
         protected void btnGoBack_Click(object sender, EventArgs e)
         {
@@ -243,25 +248,96 @@ namespace SSManagment
             ;
         }
 
-		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
-		{
-			int id;
-			if (int.TryParse(((System.Web.UI.WebControls.TreeView)(sender)).SelectedNode.Value, out id))
-			{
-				lstItems.DataSource = item.GetAllByGroupId(id);
-				lstItems.DataTextField = "name";
-				lstItems.DataValueField = "id";
-				lstItems.DataBind();
-			
-			}
-		}
+        protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            int id;
+            if (int.TryParse(treeCategories.SelectedNode.Value, out id))
+            {
+                lstItems.DataSource = item.GetAllByGroupId(id);
+                lstItems.DataTextField = "name";
+                lstItems.DataValueField = "id";
+                lstItems.DataBind();
 
-		protected void lstItems_SelectedIndexChanged(object sender, EventArgs e)
-		{
+            }
+        }
 
-		}
+        protected void lstItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstItems.SelectedItem != null)
+            {
+                var itemId = int.Parse(lstItems.SelectedValue);
+                var db = new ssmDataContext();
+                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
 
-		#endregion
+                if (item != null)
+                {
+                    txtItemName.Text = item.name;
+                    txtItemMeasure.Text = item.measure;
+                    txtItemCount.Text = item.count != null ? item.count.Value.ToString() : "0";
+                    txtItemAdminPrice.Text = item.adminPrice != null ? item.adminPrice.Value.ToString() : "1";
+                    txtItemPct.Text = item.pct != null ? item.pct.Value.ToString() : "1";
+                    txtItemOrderCount.Text = item.countToOrder != null ? item.countToOrder.Value.ToString() : "0";
+                    chbItemCanGiveBack.Checked = item.canGiveBack != null ? item.canGiveBack.Value : false;
+                    chbItemIsActive.Checked = item.isActive != null ? item.isActive.Value : false;
+                }
+            }
+        }
 
-	}
+
+        protected void btnItemUpdate_Click(object sender, EventArgs e)
+        {
+            if (lstItems.SelectedItem != null)
+            {
+                var itemId = int.Parse(lstItems.SelectedValue);
+                var db = new ssmDataContext();
+                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
+
+                item.name = txtItemName.Text;
+                item.measure = txtItemMeasure.Text;
+                item.count = int.Parse(txtItemCount.Text);
+                item.adminPrice = float.Parse(txtItemAdminPrice.Text);
+                item.pct = float.Parse(txtItemPct.Text);
+                item.countToOrder = int.Parse(txtItemOrderCount.Text);
+                item.canGiveBack = chbItemCanGiveBack.Checked;
+                item.isActive = chbItemIsActive.Checked;
+
+                db.SubmitChanges();
+            }
+        }
+
+        protected void btnItemMove_Click(object sender, EventArgs e)
+        {
+            if (lstItems.SelectedItem != null && ddlItemToGroup.SelectedItem != null)
+            {
+                var itemId = int.Parse(lstItems.SelectedValue);
+                var db = new ssmDataContext();
+                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
+
+                var groupToAttachId = int.Parse(ddlItemToGroup.SelectedItem.Value);
+                var groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
+                if (groupsToAttach.Count == 1)
+                {
+                    item.groupId = groupsToAttach.First().id;
+                    db.SubmitChanges();
+                    treeCategories_SelectedNodeChanged(new object(), new EventArgs());
+                }
+            }
+        }
+
+        protected void btnItemAdd_Click(object sender, EventArgs e)
+        {
+            if (treeCategories.SelectedNode != null)
+            {
+                var groupId = int.Parse(treeCategories.SelectedNode.Value);
+                var db = new ssmDataContext();
+                var item = new item { name = "новый товар", groupId = groupId };
+                db.items.InsertOnSubmit(item);
+                db.SubmitChanges();
+                treeCategories_SelectedNodeChanged(new object(), new EventArgs());
+            }
+        }
+
+        #endregion
+
+    }
 }

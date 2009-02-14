@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString2"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

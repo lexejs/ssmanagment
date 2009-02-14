@@ -2,40 +2,40 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ssm">
   <DataContextMoniker Name="/ssmDataContext" />
   <nestedChildShapes>
-    <classShape Id="2e8d7a78-92c2-4beb-8e98-d06df6a2a803" absoluteBounds="0.75, 4.75, 2, 1.5331902753313376">
+    <classShape Id="2e8d7a78-92c2-4beb-8e98-d06df6a2a803" absoluteBounds="0.75, 4.75, 2, 1.5891951497395827">
       <DataClassMoniker Name="/ssmDataContext/buyer" />
       <nestedChildShapes>
-        <elementListCompartment Id="38c5b2d5-61f7-4b07-858c-09c467ac2114" absoluteBounds="0.765, 5.21, 1.9700000000000002, 0.97319027533133817" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="38c5b2d5-61f7-4b07-858c-09c467ac2114" absoluteBounds="0.765, 5.21, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="447024ea-652e-4430-957e-3b25908ee149" absoluteBounds="3.75, 4.75, 2, 1.6889214715361591">
+    <classShape Id="447024ea-652e-4430-957e-3b25908ee149" absoluteBounds="3.75, 4.75, 2, 1.7535424804687496">
       <DataClassMoniker Name="/ssmDataContext/seller" />
       <nestedChildShapes>
-        <elementListCompartment Id="625bdaea-f527-4520-b0a0-6dfedd833291" absoluteBounds="3.765, 5.21, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="625bdaea-f527-4520-b0a0-6dfedd833291" absoluteBounds="3.765, 5.21, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" absoluteBounds="0.75, 1.75, 2, 1.2217278829216958">
+    <classShape Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" absoluteBounds="0.75, 1.75, 2, 1.26050048828125">
       <DataClassMoniker Name="/ssmDataContext/group" />
       <nestedChildShapes>
-        <elementListCompartment Id="440a6ac8-1951-402a-b5e0-0cbc58bfff24" absoluteBounds="0.765, 2.21, 1.9700000000000002, 0.66172788292169571" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="440a6ac8-1951-402a-b5e0-0cbc58bfff24" absoluteBounds="0.765, 2.21, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f3ea7d7c-b7d9-4f90-8e6f-8194fa0f57de" absoluteBounds="3.5, 1, 2, 2.9347710411747294">
+    <classShape Id="f3ea7d7c-b7d9-4f90-8e6f-8194fa0f57de" absoluteBounds="3.5, 1, 2, 3.0683211263020826">
       <DataClassMoniker Name="/ssmDataContext/item" />
       <nestedChildShapes>
-        <elementListCompartment Id="596d584b-da13-484e-a7b8-44e63629eb00" absoluteBounds="3.515, 1.46, 1.9700000000000002, 2.3747710411747294" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="596d584b-da13-484e-a7b8-44e63629eb00" absoluteBounds="3.515, 1.46, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bb67443a-f58a-47d5-a9cf-f5f8f7d2374a" absoluteBounds="6.25, 6.125, 2, 1.5331902753313376">
+    <classShape Id="bb67443a-f58a-47d5-a9cf-f5f8f7d2374a" absoluteBounds="6.25, 6.125, 2, 1.5891951497395827">
       <DataClassMoniker Name="/ssmDataContext/logActivity" />
       <nestedChildShapes>
-        <elementListCompartment Id="95e54119-bb3c-40a1-ba71-c42a34bcd3dd" absoluteBounds="6.265, 6.585, 1.9700000000000002, 0.97319027533133817" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="95e54119-bb3c-40a1-ba71-c42a34bcd3dd" absoluteBounds="6.265, 6.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" absoluteBounds="6.75, 3.75, 2, 1.8446526677409807">
+    <classShape Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" absoluteBounds="6.75, 3.75, 2, 1.9178898111979166">
       <DataClassMoniker Name="/ssmDataContext/logSale" />
       <nestedChildShapes>
-        <elementListCompartment Id="9e57f758-9d22-4723-af5c-61d2389aba2a" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.2846526677409806" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9e57f758-9d22-4723-af5c-61d2389aba2a" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(1.44665868118566 : 2.9717278829217); (1.44665868118566 : 3.2217278829217); (2.06778614351979 : 3.2217278829217); (2.06778614351979 : 2.9717278829217)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -45,14 +45,14 @@
         <classShapeMoniker Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.36086394146085); (3.5 : 2.36086394146085)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.36086394146085); (3.5 : 2.36086394146085)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/group/group_item" />
       <nodes>
         <classShapeMoniker Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" />
         <classShapeMoniker Id="f3ea7d7c-b7d9-4f90-8e6f-8194fa0f57de" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.3749995); (7.75 : 2.3749995); (7.75 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 2.3749995); (7.75 : 2.3749995); (7.75 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/item/item_logSale" />
       <nodes>
         <classShapeMoniker Id="f3ea7d7c-b7d9-4f90-8e6f-8194fa0f57de" />
@@ -66,14 +66,14 @@
         <classShapeMoniker Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 4.75); (1.75 : 4.37363502058736); (6.75 : 4.37363502058736)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 4.75); (1.75 : 4.37363502058736); (6.75 : 4.37363502058736)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/buyer/buyer_logSale" />
       <nodes>
         <classShapeMoniker Id="2e8d7a78-92c2-4beb-8e98-d06df6a2a803" />
         <classShapeMoniker Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 6.28319027533134); (1.75 : 7.07980587343375); (6.25 : 7.07980587343375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 6.28319027533134); (1.75 : 7.07980587343375); (6.25 : 7.07980587343375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/buyer/buyer_logActivity" />
       <nodes>
         <classShapeMoniker Id="2e8d7a78-92c2-4beb-8e98-d06df6a2a803" />
