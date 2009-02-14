@@ -62,7 +62,10 @@
 						</tr>
 						<tr>
 							<td>
-								<asp:GridView ID="gvwProducts" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="4" ForeColor="Black" GridLines="Vertical" CaptionAlign="Top" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px">
+								<asp:GridView ID="gvwProducts" runat="server" Width="100%" 
+                                    AutoGenerateColumns="False" CellPadding="4" ForeColor="Black" 
+                                    GridLines="Vertical" CaptionAlign="Top" BackColor="White" BorderColor="#DEDFDE" 
+                                    BorderStyle="None" BorderWidth="1px" onrowcommand="gvwProducts_RowCommand">
 									<RowStyle BackColor="#F7F7DE" />
 									<Columns>
 										<asp:BoundField HeaderText="Наименование товара" ReadOnly="True" DataField="name" />
@@ -166,7 +169,10 @@
 														<span>Покупатель :</span>
 													</td>
 													<td align="left">
-														<asp:DropDownList ID="drpBuyer" runat="server" Width="120px">
+														<asp:DropDownList ID="drpBuyer" runat="server" Width="120px" 
+                                                            AutoPostBack="True" onselectedindexchanged="drpBuyer_SelectedIndexChanged">
+														    <asp:ListItem Value="1"></asp:ListItem>
+                                                            <asp:ListItem Value="2"></asp:ListItem>
 														</asp:DropDownList>
 													</td>
 												</tr>
@@ -180,7 +186,7 @@
 									</tr>
 									<tr>
 										<td>
-											<button id="btnBuy" runat="server" style="width: 100%">
+											<button id="btnBuy" runat="server" style="width: 100%" onserverclick="btnBuy_Click">
 												<span><em>Оформить покупку</em></span></button>
 										</td>
 									</tr>
@@ -219,6 +225,8 @@
 		<Triggers>
 			<asp:AsyncPostBackTrigger ControlID="gvwShoppingCart" EventName="DataBinding" />
 			<asp:AsyncPostBackTrigger ControlID="btnBuy" EventName="ServerClick" />
+		    <asp:AsyncPostBackTrigger ControlID="drpBuyer" 
+                EventName="SelectedIndexChanged" />
 		</Triggers>
 	</asp:UpdatePanel>
 </asp:Content>
