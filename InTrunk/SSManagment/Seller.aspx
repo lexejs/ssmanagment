@@ -84,6 +84,7 @@
                                     OnSelectedIndexChanged="gvwProducts_SelectedIndexChanged" Width="100%">
                                     <RowStyle BackColor="#F7F7DE" />
                                     <Columns>
+                                        <asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" Visible="False" />
                                         <asp:BoundField DataField="name" HeaderText="Название" ReadOnly="True" />
                                         <asp:BoundField DataField="count" HeaderText="В наличии" NullDisplayText="нет">
                                             <ControlStyle Width="50px" />

@@ -118,10 +118,23 @@ namespace SSManagment
 
         protected void gvwProducts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            var db = new ssmDataContext();
+            TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
+            foreach (DataControlFieldCell cell in cells)
+            {
+                if (cell.ContainingField.HeaderText.ToLower() == "id")
+                {
+
+                }
+            }
+
+
+
             switch (e.CommandName.ToLower())
             {
                 case "add":
                     {
+
                         break;
                     }
                 case "sale":
