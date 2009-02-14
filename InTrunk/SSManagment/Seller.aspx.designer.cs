@@ -68,6 +68,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.GridView gvwProducts;
         
         /// <summary>
+        /// uplShoppingCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplShoppingCart;
+        
+        /// <summary>
         /// gvwShoppingCart control.
         /// </summary>
         /// <remarks>

@@ -165,15 +165,15 @@ namespace SSManagment
             int id;
             if (int.TryParse(e.CommandArgument.ToString(), out id))
             {
-                var db = new ssmDataContext();
-                TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
-                foreach (DataControlFieldCell cell in cells)
-                {
-                    if (cell.ContainingField.HeaderText.ToLower() == "id")
-                    {
+                //var db = new ssmDataContext();
+                //TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
+                //foreach (DataControlFieldCell cell in cells)
+                //{
+                //    if (cell.ContainingField.HeaderText.ToLower() == "id")
+                //    {
 
-                    }
-                }
+                //    }
+                //}
                 item itm = item.GetById(id);
                 switch (e.CommandName.ToLower())
                 {

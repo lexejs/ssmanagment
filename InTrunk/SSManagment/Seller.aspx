@@ -158,7 +158,8 @@
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="cntBuy" ContentPlaceHolderID="cphStandartBuy" runat="server">
-
+    <asp:UpdatePanel ID="uplShoppingCart" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
@@ -283,5 +284,10 @@
                     </td>
                 </tr>
             </table>
-
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="gvwShoppingCart" EventName="DataBinding" />
+            <asp:AsyncPostBackTrigger ControlID="btnBuy" EventName="ServerClick" />
+        </Triggers>
+    </asp:UpdatePanel>
 </asp:Content>
