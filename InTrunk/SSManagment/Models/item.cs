@@ -31,6 +31,11 @@ namespace SSManagment.Models
             return result;
         }
 
+        public static item GetById(int id)
+        {
+            return new ssmDataContext().items.FirstOrDefault(itm => itm.id == id);
+        }
+
         private static IList<item> Flood()
         {
             IList<item> result = new List<item>();
