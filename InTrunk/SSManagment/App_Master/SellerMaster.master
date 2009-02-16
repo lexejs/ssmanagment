@@ -2,7 +2,7 @@
     CodeBehind="SellerMaster.master.cs" Inherits="SSManagment.App_Master.SellerMaster" %>
 
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
-    <table width="100%">
+    <table width="1024px">
         <tr>
             <td height="100%" width="20%" valign="top">
                 <asp:ContentPlaceHolder ID="cphStandartCategories" runat="server">
