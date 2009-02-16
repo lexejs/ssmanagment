@@ -343,7 +343,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td colspan="2">
+												<td colspan="2" align="center">
 												<span>Непродавать товар до</span>
 													<asp:Calendar ID="calResrvReservDateTo" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" onselectionchanged="calResrvReservDateTo_SelectionChanged">
 														<SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
