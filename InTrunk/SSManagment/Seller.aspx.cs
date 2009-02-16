@@ -25,12 +25,10 @@ namespace SSManagment
                 {
                     LoadingTree();
                     LoadingBuyers();
+                	LoadingShopingCart();
                     btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
                     gvwProducts.DataSource = null;
                     gvwProducts.DataBind();
-                    gvwShoppingCart.DataSource = null;
-                    gvwShoppingCart.DataBind();
-                	btnBuy.Visible = false;
                 }
             }
         }
@@ -91,6 +89,15 @@ namespace SSManagment
 
         private void LoadingShopingCart()
         {
+			if (ShopingCartSession.Count > 0)
+			{
+				btnBuy.Visible = true;
+			}
+			else
+			{
+				btnBuy.Visible = false;
+			}
+
             gvwShoppingCart.DataSource = ShopingCartSession;
             gvwShoppingCart.DataBind();
         }
@@ -134,12 +141,23 @@ namespace SSManagment
 
         protected void btnBuy_Click(object sender, EventArgs e)
         {
-#warning сделать модальное окно с подтверждением
-			btnBuy.Visible = false;
-            gvwShoppingCart.DataSource = null;
-            gvwShoppingCart.DataBind();
-            ShopingCartSession = new List<ShopingCart>();
+			container.Visible = true;		
         }
+
+		protected void btnYes_Click(object sender, EventArgs e)
+		{
+#warning Действия по покупке
+
+            ShopingCartSession = new List<ShopingCart>();
+			LoadingShopingCart();
+
+			container.Visible = false;
+		}
+
+		protected void btnCancel_Click(object sender, EventArgs e)
+		{
+			container.Visible = false;
+		}
 
         protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
         {
@@ -177,7 +195,6 @@ namespace SSManagment
                             int sum;
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
-							btnBuy.Visible = true;
                             LoadingShopingCart();
 
                             break;
@@ -192,15 +209,15 @@ namespace SSManagment
                             LoadingShopingCart();
 							if (ShopingCartSession.Count == 1)
 							{
-								btnBuy.Visible = true;
 								btnBuy_Click(new object(), new EventArgs());
 							}
 
                             break;
                         }
                     case "reserved":
-                        {
-                            break;
+						{
+#warning Действия по Резервации продуктов
+							break;
                         }
                 }
             }
