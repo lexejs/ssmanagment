@@ -272,7 +272,7 @@
 			</div>
 			<div id="modalReserv" runat="server" visible="false">
 				<div class="overlay"></div>
-				<div style="top: 18%; position: absolute; left: 48%;" >
+				<div style="top: 45%; position: absolute; left: 40%;" >
 					<center>
 						<div style="width: 400px;">
 							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
