@@ -176,7 +176,7 @@
                                         <td align="center">
                                             <asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False"
                                                 BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
-                                                CellPadding="4" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwShoppingCart_RowCommand">
+                                                CellPadding="4" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwShoppingCart_RowCommand" onrowdeleting="gvwShoppingCart_RowDeleting">
                                                 <RowStyle BackColor="#F7F7DE" />
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Товар" DataField="name">

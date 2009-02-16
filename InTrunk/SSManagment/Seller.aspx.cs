@@ -30,6 +30,7 @@ namespace SSManagment
                     gvwProducts.DataBind();
                     gvwShoppingCart.DataSource = null;
                     gvwShoppingCart.DataBind();
+                	btnBuy.Visible = false;
                 }
             }
         }
@@ -134,6 +135,7 @@ namespace SSManagment
         protected void btnBuy_Click(object sender, EventArgs e)
         {
 #warning сделать модальное окно с подтверждением
+			btnBuy.Visible = false;
             gvwShoppingCart.DataSource = null;
             gvwShoppingCart.DataBind();
             ShopingCartSession = new List<ShopingCart>();
@@ -172,6 +174,7 @@ namespace SSManagment
                             int sum;
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
+							btnBuy.Visible = true;
                             LoadingShopingCart();
 
                             break;
@@ -183,7 +186,9 @@ namespace SSManagment
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
                             LoadingShopingCart();
+							btnBuy.Visible = true;
                             btnBuy_Click(new object(), new EventArgs());
+
                             break;
                         }
                     case "reserved":
@@ -208,12 +213,23 @@ namespace SSManagment
                         if (int.TryParse(lblSum.Text, out sum))
                             lblSum.Text = (sum - shop.bprice).ToString();
                         ShopingCartSession.Remove(shop);
+						if (ShopingCartSession.Count <= 0)
+						{
+							btnBuy.Visible = false;
+						}
                     }
                     LoadingShopingCart();
                 }
             }
         }
 
+		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
+		{
+
+		}
+
         #endregion
+
+
     }
 }
