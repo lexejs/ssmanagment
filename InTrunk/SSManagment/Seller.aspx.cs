@@ -165,12 +165,15 @@ namespace SSManagment
 
                 //    }
                 //}
+#warning Сделать получения колличества покупаемых штук
+            	int counItemsToBuy = 0;
+
                 item itm = item.GetById(id);
                 switch (e.CommandName.ToLower())
                 {
                     case "add":
                         {
-                            ShopingCartSession.Add(SetShopingCart(itm, 0));
+							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
                             int sum;
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
@@ -181,13 +184,17 @@ namespace SSManagment
                         }
                     case "sale":
                         {
-                            ShopingCartSession.Add(SetShopingCart(itm, 0));
+
+							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
                             int sum;
                             if (int.TryParse(lblSum.Text, out sum))
                                 lblSum.Text = (sum + itm.bprice).ToString();
                             LoadingShopingCart();
-							btnBuy.Visible = true;
-                            btnBuy_Click(new object(), new EventArgs());
+							if (ShopingCartSession.Count == 1)
+							{
+								btnBuy.Visible = true;
+								btnBuy_Click(new object(), new EventArgs());
+							}
 
                             break;
                         }
@@ -225,8 +232,8 @@ namespace SSManagment
 
 		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
-
-		}
+			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
+		} 
 
         #endregion
 
