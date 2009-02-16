@@ -233,7 +233,7 @@
 					</td>
 				</tr>
 			</table>
-			<div id="container" runat="server" visible="false">
+			<div id="modalBuyConfirm" runat="server" visible="false">
 				<div class="overlay"></div>
 				<div style="top: 48%; position: absolute; left: 48%;">
 					<center>
@@ -257,6 +257,113 @@
 												</td>
 												<td>
 													<button id="btnCancel" runat="server" style="width: 75px;" onserverclick="btnCancel_Click">
+														<span><em>Нет</em></span></button>
+												</td>
+											</tr>
+										</table>
+									</center>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="Widget_Body_bottom"><span></span></div>
+						</div>
+					</center>
+				</div>
+			</div>
+			<div id="modalReserv" runat="server" visible="false">
+				<div class="overlay"></div>
+				<div style="top: 18%; position: absolute; left: 48%;" >
+					<center>
+						<div style="width: 400px;">
+							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+								<center>
+									<h2>
+										Зарезервировать товар </h2>
+								</center>
+							</div>
+							<div class="Widget_Body_container">
+								<div class="Widget_Body_top"><span></span></div>
+								<div class="Widget_Body_content">
+									<div class="clear"></div>
+									<center>
+										<table width="100%">
+											<tr>
+												<td colspan="2">
+													<table cellpadding="0" width="100%">
+														<tr>
+															<td align="right">
+																<span>Название товара :</span>
+															</td>
+															<td align="left">
+																<asp:Label ID="lblResrvName" runat="server"></asp:Label>
+																<asp:HiddenField ID="hdnResrvID" runat="server" />
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																<span>В наличии :</span>
+															</td>
+															<td align="left">
+																<asp:Label ID="lblResrvCount" runat="server"></asp:Label>
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																<span>Зарезервировано :</span>
+															</td>
+															<td align="left">
+																<asp:Label ID="lblResrvReserved" runat="server"></asp:Label>
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																<span>Цена :</span>
+															</td>
+															<td align="left">
+																<asp:Label ID="lblResrvBprice" runat="server"></asp:Label>
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																<span>Зарезервировать :</span>
+															</td>
+															<td align="left">
+																<asp:TextBox ID="txtResrvBuyCount" runat="server" ontextchanged="txtResrvBuyCount_TextChanged"></asp:TextBox>
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																<span>Итого :</span>
+															</td>
+															<td align="left">
+																<asp:Label ID="lblResrvSum" runat="server"></asp:Label>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+												<span>Непродавать товар до</span>
+													<asp:Calendar ID="calResrvReservDateTo" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" onselectionchanged="calResrvReservDateTo_SelectionChanged">
+														<SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+														<SelectorStyle BackColor="#CCCCCC" />
+														<WeekendDayStyle BackColor="#FFFFCC" />
+														<TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+														<OtherMonthDayStyle ForeColor="#808080" />
+														<NextPrevStyle VerticalAlign="Bottom" />
+														<DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+														<TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+													</asp:Calendar>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<button id="btnReservYes" runat="server" style="width: 75px;" onserverclick="btnReservYes_Click">
+														<span><em>Да</em></span></button>
+												</td>
+												<td>
+													<button id="btnReservNo" runat="server" style="width: 75px;" onserverclick="btnReservNo_Click">
 														<span><em>Нет</em></span></button>
 												</td>
 											</tr>

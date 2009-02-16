@@ -145,6 +145,7 @@
     <Content Include="App_Master\AdminMaster.master" />
     <Content Include="App_Themes\Main\alax-loading.gif" />
     <Content Include="App_Themes\Main\button.gif" />
+    <Content Include="App_Themes\Main\button.png" />
     <Content Include="App_Themes\Main\Icons\48px-Emblem-symbolic-link.svg.png" />
     <Content Include="App_Themes\Main\Widget\bg_bucke.png" />
     <Content Include="App_Themes\Main\Widget\bg_buckf.png" />

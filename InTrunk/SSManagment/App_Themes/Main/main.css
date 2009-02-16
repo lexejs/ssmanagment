@@ -13,7 +13,10 @@
 /* /////////////////////////// Opacity ///////////////////////// */
 /* //////////////////////////////////////////////////////////// */
 
-#container{
+#modalBuyConfirm{
+    position:relative;
+}
+#modalReserv{
     position:relative;
 }
 .overlay{
@@ -30,9 +33,14 @@
 .content {
     position:relative;
 }
-* html #container .overlay {
-    height: expression(document.getElementById("container").offsetHeight);
+* html #modalBuyConfirm .overlay {
+    height: expression(document.getElementById("modalBuyConfirm").offsetHeight);
 }
+
+* html #modalReserv .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+
 
 /* //////////////////////////////////////////////////////////// */
 /* /////////////////////////// Button ///////////////////////// */
@@ -59,13 +67,13 @@ button span, button em
 	margin: 0;
 	color: #954b05;
 	padding-left: 5px;
-	background: url('button.gif') no-repeat 0 0;
+	background: url('button.png') no-repeat 0 0;
 }
 button em
 {
 	font-style: normal;
 	padding-right: 5px;
-	background: url('button.gif') no-repeat 100% 0;
+	background: url('button.png') no-repeat 100% 0;
 }
 
 span

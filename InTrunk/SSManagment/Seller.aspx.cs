@@ -9,86 +9,86 @@ using SSManagment.Models;
 
 namespace SSManagment
 {
-    public class ShopingCart : item
-    {
-        public int BuyCount { get; set; }
-    }
+	public class ShopingCart : item
+	{
+		public int BuyCount { get; set; }
+	}
 
-    public partial class Seller : System.Web.UI.Page
-    {
+	public partial class Seller : System.Web.UI.Page
+	{
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (AppHelper.CurrentUser != null)
-            {
-                if (!Page.IsPostBack)
-                {
-                    LoadingTree();
-                    LoadingBuyers();
-                	LoadingShopingCart();
-                    btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
-                    gvwProducts.DataSource = null;
-                    gvwProducts.DataBind();
-                }
-            }
-        }
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			if (AppHelper.CurrentUser != null)
+			{
+				if (!Page.IsPostBack)
+				{
+					LoadingTree();
+					LoadingBuyers();
+					LoadingShopingCart();
+					btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
+					gvwProducts.DataSource = null;
+					gvwProducts.DataBind();
+				}
+			}
+		}
 
-        #region Methods
+		#region Methods
 
-        private IList<ShopingCart> ShopingCartSession
-        {
-            get
-            {
-                if (Session["ShopingCartItems"] == null)
-                {
-                    Session["ShopingCartItems"] = new List<ShopingCart>();
-                }
-                return ((IList<ShopingCart>)Session["ShopingCartItems"]);
+		private IList<ShopingCart> ShopingCartSession
+		{
+			get
+			{
+				if (Session["ShopingCartItems"] == null)
+				{
+					Session["ShopingCartItems"] = new List<ShopingCart>();
+				}
+				return ((IList<ShopingCart>)Session["ShopingCartItems"]);
 
-            }
-            set { Session["ShopingCartItems"] = value; }
-        }
+			}
+			set { Session["ShopingCartItems"] = value; }
+		}
 
-        private void LoadingBuyers()
-        {
-            var db = new ssmDataContext();
-            drpBuyer.DataSource = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
-            drpBuyer.DataTextField = "name";
-            drpBuyer.DataValueField = "id";
-            drpBuyer.DataBind();
-        }
+		private void LoadingBuyers()
+		{
+			var db = new ssmDataContext();
+			drpBuyer.DataSource = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+			drpBuyer.DataTextField = "name";
+			drpBuyer.DataValueField = "id";
+			drpBuyer.DataBind();
+		}
 
-        private void LoadingTree()
-        {
-            ssmDataContext cont = new ssmDataContext();
-            IList<group> rootCategories = cont.groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
-            IList<group> rootchild = cont.groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
+		private void LoadingTree()
+		{
+			ssmDataContext cont = new ssmDataContext();
+			IList<group> rootCategories = cont.groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
+			IList<group> rootchild = cont.groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
 
-            foreach (group categ in rootCategories)
-            {
-                TreeNode tree;
+			foreach (group categ in rootCategories)
+			{
+				TreeNode tree;
 
-                if (categ.parent == null)
-                {
-                    tree = new TreeNode(categ.name, categ.id.ToString());
+				if (categ.parent == null)
+				{
+					tree = new TreeNode(categ.name, categ.id.ToString());
 
-                    IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
+					IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
 
-                    if (cildNode.Count > 0)
-                    {
-                        foreach (group child in cildNode)
-                        {
-                            tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
-                        }
-                        tree.Expanded = false;
-                    }
-                    treeCategories.Nodes.Add(tree);
-                }
-            }
-        }
+					if (cildNode.Count > 0)
+					{
+						foreach (group child in cildNode)
+						{
+							tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
+						}
+						tree.Expanded = false;
+					}
+					treeCategories.Nodes.Add(tree);
+				}
+			}
+		}
 
-        private void LoadingShopingCart()
-        {
+		private void LoadingShopingCart()
+		{
 			if (ShopingCartSession.Count > 0)
 			{
 				btnBuy.Visible = true;
@@ -98,162 +98,232 @@ namespace SSManagment
 				btnBuy.Visible = false;
 			}
 
-            gvwShoppingCart.DataSource = ShopingCartSession;
-            gvwShoppingCart.DataBind();
-        }
+			gvwShoppingCart.DataSource = ShopingCartSession;
+			gvwShoppingCart.DataBind();
+		}
 
-        private static ShopingCart SetShopingCart(item product, int buyCount)
-        {
-            ShopingCart shop = new ShopingCart();
-            shop.adminPrice = product.adminPrice;
-            shop.bprice = product.bprice;
-            shop.canGiveBack = product.canGiveBack;
-            shop.count = product.count;
-            shop.countToOrder = product.countToOrder;
-            shop.group = product.group;
-            shop.groupId = product.groupId;
-            shop.id = product.id;
-            shop.isActive = product.isActive;
-            shop.logSales = product.logSales;
-            shop.measure = product.measure;
-            shop.name = product.name;
-            shop.order = product.order;
-            shop.pct = product.pct;
-            shop.price = product.price;
-            shop.reserveCount = product.reserveCount;
-            shop.reserveEndDate = product.reserveEndDate;
+		private static ShopingCart SetShopingCart(item product, int buyCount)
+		{
+			ShopingCart shop = new ShopingCart();
+			shop.adminPrice = product.adminPrice;
+			shop.bprice = product.bprice;
+			shop.canGiveBack = product.canGiveBack;
+			shop.count = product.count;
+			shop.countToOrder = product.countToOrder;
+			shop.group = product.group;
+			shop.groupId = product.groupId;
+			shop.id = product.id;
+			shop.isActive = product.isActive;
+			shop.logSales = product.logSales;
+			shop.measure = product.measure;
+			shop.name = product.name;
+			shop.order = product.order;
+			shop.pct = product.pct;
+			shop.price = product.price;
+			shop.reserveCount = product.reserveCount;
+			shop.reserveEndDate = product.reserveEndDate;
 
-            shop.BuyCount = buyCount;
+			shop.BuyCount = buyCount;
 
-            return shop;
-        }
+			return shop;
+		}
 
-        #endregion
+		#region Modal window buy confirm
 
-        #region Handlers
+		private void ShowModalReservation(item product, int buyCount)
+		{
+			modalReserv.Visible = true;
+			hdnResrvID.Value = product.id.ToString();
+			lblResrvName.Text = product.name;
+			lblResrvReserved.Text = product.reserveCount.ToString();
+			lblResrvBprice.Text = product.bprice.ToString();
+			lblResrvCount.Text = product.count.ToString();
+			lblResrvSum.Text = (product.bprice * buyCount).ToString();
+			txtResrvBuyCount.Text = buyCount.ToString();
+		}
+
+		#endregion
+
+		#region Modal window reservation product
+
+		private void ShowModalBuyConfirm()
+		{
+			modalBuyConfirm.Visible = true;
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Handlers
 
 
 
-        protected void btnAdminClick(object sender, EventArgs e)
-        {
-            Response.Redirect("Admin.aspx");
-        }
+		protected void btnAdminClick(object sender, EventArgs e)
+		{
+			Response.Redirect("Admin.aspx");
+		}
 
-        protected void btnBuy_Click(object sender, EventArgs e)
-        {
-			container.Visible = true;		
-        }
+		protected void btnBuy_Click(object sender, EventArgs e)
+		{
+			ShowModalBuyConfirm();
+		}
+
+		#region Modal window buy confirm
 
 		protected void btnYes_Click(object sender, EventArgs e)
 		{
 #warning Действия по покупке
 
-            ShopingCartSession = new List<ShopingCart>();
+			ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
 
-			container.Visible = false;
+			modalBuyConfirm.Visible = false;
 		}
 
 		protected void btnCancel_Click(object sender, EventArgs e)
 		{
-			container.Visible = false;
+			modalBuyConfirm.Visible = false;
 		}
 
-        protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            int id;
-            if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
-            {
-                gvwProducts.DataSource = item.GetAllByGroupId(id);
-                gvwProducts.DataBind();
-            }
-        }
+		#endregion
 
-        protected void gvwProducts_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            int id;
-            if (int.TryParse(e.CommandArgument.ToString(), out id))
-            {
-                //var db = new ssmDataContext();
-                //TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
-                //foreach (DataControlFieldCell cell in cells)
-                //{
-                //    if (cell.ContainingField.HeaderText.ToLower() == "id")
-                //    {
+		#region Modal window reservation product
 
-                //    }
-                //}
+		protected void btnReservYes_Click(object sender, EventArgs e)
+		{
+#warning Действия по Резервации продуктов
+
+			modalReserv.Visible = false;
+		}
+
+		protected void btnReservNo_Click(object sender, EventArgs e)
+		{
+			modalReserv.Visible = false;
+		}
+
+		protected void txtResrvBuyCount_TextChanged(object sender, EventArgs e)
+		{
+			int val;
+			if (int.TryParse(txtResrvBuyCount.Text, out val))
+			{
+				lblResrvSum.Text = (Convert.ToUInt32(lblResrvBprice.Text) * val).ToString();
+			}
+			else
+			{
+				lblResrvSum.Text = "";
+			}
+		}
+
+		protected void calResrvReservDateTo_SelectionChanged(object sender, EventArgs e)
+		{
+			if (calResrvReservDateTo.SelectedDate <= DateTime.Now)
+			{
+				calResrvReservDateTo.SelectedDate = DateTime.Now;
+			}
+		}
+
+		#endregion
+
+		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+		{
+			int id;
+			if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
+			{
+				gvwProducts.DataSource = item.GetAllByGroupId(id);
+				gvwProducts.DataBind();
+			}
+		}
+
+		protected void gvwProducts_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				//var db = new ssmDataContext();
+				//TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
+				//foreach (DataControlFieldCell cell in cells)
+				//{
+				//    if (cell.ContainingField.HeaderText.ToLower() == "id")
+				//    {
+
+				//    }
+				//}
 #warning Сделать получения колличества покупаемых штук
-            	int counItemsToBuy = 0;
+				int counItemsToBuy = 0;
 
-                item itm = item.GetById(id);
-                switch (e.CommandName.ToLower())
-                {
-                    case "add":
-                        {
+				item itm = item.GetById(id);
+				switch (e.CommandName.ToLower())
+				{
+					case "add":
+						{
 							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-                            int sum;
-                            if (int.TryParse(lblSum.Text, out sum))
-                                lblSum.Text = (sum + itm.bprice).ToString();
-                            LoadingShopingCart();
+							int sum;
+							if (int.TryParse(lblSum.Text, out sum))
+								lblSum.Text = (sum + itm.bprice).ToString();
+							LoadingShopingCart();
 
-                            break;
-                        }
-                    case "sale":
-                        {
+							break;
+						}
+					case "sale":
+						{
 
 							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-                            int sum;
-                            if (int.TryParse(lblSum.Text, out sum))
-                                lblSum.Text = (sum + itm.bprice).ToString();
-                            LoadingShopingCart();
+							int sum;
+							if (int.TryParse(lblSum.Text, out sum))
+								lblSum.Text = (sum + itm.bprice).ToString();
+							LoadingShopingCart();
 							if (ShopingCartSession.Count == 1)
 							{
 								btnBuy_Click(new object(), new EventArgs());
 							}
 
-                            break;
-                        }
-                    case "reserved":
-						{
-#warning Действия по Резервации продуктов
 							break;
-                        }
-                }
-            }
-        }
+						}
+					case "reserved":
+						{
+							ShowModalReservation(itm, counItemsToBuy);
+							break;
+						}
+				}
+			}
+		}
 
-        protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            int id;
-            if (int.TryParse(e.CommandArgument.ToString(), out id))
-            {
-                if (e.CommandName.ToLower() == "delete")
-                {
-                    ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
-                    if (shop != null)
-                    {
-                        int sum;
-                        if (int.TryParse(lblSum.Text, out sum))
-                            lblSum.Text = (sum - shop.bprice).ToString();
-                        ShopingCartSession.Remove(shop);
+		protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				if (e.CommandName.ToLower() == "delete")
+				{
+					ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
+					if (shop != null)
+					{
+						int sum;
+						if (int.TryParse(lblSum.Text, out sum))
+							lblSum.Text = (sum - shop.bprice).ToString();
+						ShopingCartSession.Remove(shop);
 						if (ShopingCartSession.Count <= 0)
 						{
 							btnBuy.Visible = false;
 						}
-                    }
-                    LoadingShopingCart();
-                }
-            }
-        }
+					}
+					LoadingShopingCart();
+				}
+			}
+		}
 
 		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
-		} 
+		}
 
-        #endregion
+		#endregion
 
 
-    }
+
+
+
+
+	}
 }
