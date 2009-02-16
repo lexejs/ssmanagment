@@ -86,16 +86,16 @@
 									<Columns>
 										<asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" Visible="False" />
 										<asp:BoundField DataField="name" HeaderText="Название" ReadOnly="True" />
-										<asp:BoundField DataField="count" HeaderText="В наличии" NullDisplayText="нет">
+										<asp:BoundField DataField="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Right">
 											<ControlStyle Width="50px" />
 										</asp:BoundField>
-										<asp:BoundField DataField="measure" HeaderText="Измерение" NullDisplayText="шт">
+										<asp:BoundField DataField="measure" HeaderText="Измерение" NullDisplayText="шт" ItemStyle-HorizontalAlign="Center">
 											<ControlStyle Width="50px" />
 										</asp:BoundField>
-										<asp:BoundField DataField="bprice" HeaderText="Цена" NullDisplayText="уточнить">
+										<asp:BoundField DataField="bprice" HeaderText="Цена" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
 											<ControlStyle Width="50px" />
 										</asp:BoundField>
-										<asp:BoundField DataField="reserveCount" HeaderText="Резерв">
+										<asp:BoundField DataField="reserveCount" HeaderText="Резерв" ItemStyle-HorizontalAlign="Center">
 											<ControlStyle Width="70px" />
 										</asp:BoundField>
 										<asp:TemplateField HeaderText="Кол-во">
@@ -107,7 +107,7 @@
 										<asp:TemplateField ShowHeader="False">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add"
-													ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/162px-Ambox_emblem_plus.svg.png"
+													ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png"
 													CommandArgument='<%# Eval("id") %>' />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
@@ -115,7 +115,7 @@
 										<asp:TemplateField ShowHeader="False">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale"
-													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/120px-Emblem-advertisement-dollar.svg.png"
+													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-advertisement-dollar.svg.png"
 													ToolTip="Продать" />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
@@ -183,7 +183,7 @@
 													<asp:BoundField HeaderText="Товар" DataField="name">
 														<ControlStyle Width="150px" />
 													</asp:BoundField>
-													<asp:BoundField HeaderText="Цена" DataField="bprice" NullDisplayText="уточнить">
+													<asp:BoundField HeaderText="Цена" DataField="bprice" NullDisplayText="уточнить"  ItemStyle-HorizontalAlign="Right">
 														<ControlStyle Width="50px" />
 													</asp:BoundField>
 													<asp:TemplateField HeaderText="Кол-во">
@@ -195,7 +195,7 @@
 													<asp:TemplateField ShowHeader="False">
 														<ItemTemplate>
 															<asp:ImageButton ID="btnDelete" runat="server" CausesValidation="false" CommandName="delete"
-																CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/120px-Dialog-error.svg.png"
+																CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Dialog-error.svg.png"
 																ToolTip="Удалить" />
 														</ItemTemplate>
 														<ControlStyle Height="24px" Width="24px" />
