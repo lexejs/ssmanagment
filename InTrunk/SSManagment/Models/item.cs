@@ -71,6 +71,12 @@ namespace SSManagment.Models
             }
             return result;
         }
+
+        public static IList<item> FindByName(string name)
+        {
+            return new ssmDataContext().items.Where(i => i.name.Contains(name)).ToList();           
+        }
+
     }
 
 }
