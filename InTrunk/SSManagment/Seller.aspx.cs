@@ -32,7 +32,9 @@ namespace SSManagment
 			}
 		}
 
-		#region Methods
+		private Dictionary<string, IList<Control>> collectionGvwProductsDisabledControls = new Dictionary<string, IList<Control>>();
+
+		#region Properties
 
 		private IList<ShopingCart> ShopingCartSession
 		{
@@ -47,6 +49,10 @@ namespace SSManagment
 			}
 			set { Session["ShopingCartItems"] = value; }
 		}
+
+		#endregion
+
+		#region Methods
 
 		private void LoadingBuyers()
 		{
@@ -127,7 +133,138 @@ namespace SSManagment
 			return shop;
 		}
 
+		#endregion
+
+
+		#region Handlers
+
+		protected void btnAdminClick(object sender, EventArgs e)
+		{
+			Response.Redirect("Admin.aspx");
+		}
+
+		protected void btnBuy_Click(object sender, EventArgs e)
+		{
+			ShowModalBuyConfirm();
+		}
+
+		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+		{
+			int id;
+			if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
+			{
+				IList<item> itm = item.GetAllByGroupId(id);
+				Session["Products"] = itm;
+				gvwProducts.DataSource = itm;
+				gvwProducts.DataBind();
+				gvwProducts.Sort("name", SortDirection.Ascending);
+			}
+		}
+
+		protected void gvwProducts_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				int counItemsToBuy = 0;
+				int.TryParse(((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text, out counItemsToBuy);
+
+				if (counItemsToBuy > 0)
+				{
+					item itm = item.GetById(id);
+					switch (e.CommandName.ToLower())
+					{
+						case "add":
+							{
+								ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
+								int sum;
+								if (int.TryParse(lblSum.Text, out sum))
+									lblSum.Text = (sum + itm.bprice).ToString();
+								LoadingShopingCart();
+								((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
+								((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
+								((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+
+								break;
+							}
+						case "sale":
+							{
+
+								ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
+								int sum;
+								if (int.TryParse(lblSum.Text, out sum))
+									lblSum.Text = (sum + itm.bprice).ToString();
+								LoadingShopingCart();
+								if (ShopingCartSession.Count == 1)
+								{
+									btnBuy_Click(new object(), new EventArgs());
+								}
+								((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
+								((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
+								((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+
+								break;
+							}
+						case "reserved":
+							{
+								ShowModalReservation(itm, counItemsToBuy);
+								break;
+							}
+					}
+				}
+			}
+		}
+
+		protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				if (e.CommandName.ToLower() == "delete")
+				{
+					ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
+					if (shop != null)
+					{
+						int sum;
+						if (int.TryParse(lblSum.Text, out sum))
+							lblSum.Text = (sum - shop.bprice).ToString();
+						ShopingCartSession.Remove(shop);
+						if (ShopingCartSession.Count <= 0)
+						{
+							btnBuy.Visible = false;
+						}
+						gvwProducts.DataSource = Session["Products"];
+						gvwProducts.DataBind();
+					}
+					LoadingShopingCart();
+				}
+			}
+		}
+
+		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
+		{
+			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
+		}
+
+		protected void gvwProducts_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				string str = ((Label)(e.Row.FindControl("lblID"))).Text;
+
+				if (ShopingCartSession.Any(b => b.id.ToString().Equals(str)))
+				{
+					e.Row.FindControl("ibtnAdd").Visible = false;
+					e.Row.FindControl("ibtnSale").Visible = false;
+				}
+			}
+		}
+
+		#endregion
+
 		#region Modal window buy confirm
+
+		#region Methods
 
 		private void ShowModalReservation(item product, int buyCount)
 		{
@@ -143,7 +280,30 @@ namespace SSManagment
 
 		#endregion
 
+		#region Hendlers
+
+		protected void btnYes_Click(object sender, EventArgs e)
+		{
+#warning Действия по покупке
+
+			ShopingCartSession = new List<ShopingCart>();
+			LoadingShopingCart();
+
+			modalBuyConfirm.Visible = false;
+		}
+
+		protected void btnCancel_Click(object sender, EventArgs e)
+		{
+			modalBuyConfirm.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Modal window reservation product
+
+		#region Methods
 
 		private void ShowModalBuyConfirm()
 		{
@@ -152,7 +312,48 @@ namespace SSManagment
 
 		#endregion
 
+		#region Hendlers
+
+		protected void btnReservYes_Click(object sender, EventArgs e)
+		{
+#warning Действия по Резервации продуктов
+
+			modalReserv.Visible = false;
+		}
+
+		protected void btnReservNo_Click(object sender, EventArgs e)
+		{
+			modalReserv.Visible = false;
+		}
+
+		protected void txtResrvBuyCount_TextChanged(object sender, EventArgs e)
+		{
+			int val;
+			if (int.TryParse(txtResrvBuyCount.Text, out val))
+			{
+				lblResrvSum.Text = (Convert.ToUInt32(lblResrvBprice.Text) * val).ToString();
+			}
+			else
+			{
+				lblResrvSum.Text = "";
+			}
+		}
+
+		protected void calResrvReservDateTo_SelectionChanged(object sender, EventArgs e)
+		{
+			if (calResrvReservDateTo.SelectedDate <= DateTime.Now)
+			{
+				calResrvReservDateTo.SelectedDate = DateTime.Now;
+			}
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Product grid sotring
+
+		#region Methods
 
 		private SortDirection GridViewSortDirection
 		{
@@ -270,193 +471,29 @@ namespace SSManagment
 
 		#endregion
 
-		#endregion
-
-
 		#region Handlers
-
-		protected void btnAdminClick(object sender, EventArgs e)
-		{
-			Response.Redirect("Admin.aspx");
-		}
-
-		protected void btnBuy_Click(object sender, EventArgs e)
-		{
-			ShowModalBuyConfirm();
-		}
-
-		#region Modal window buy confirm
-
-		protected void btnYes_Click(object sender, EventArgs e)
-		{
-#warning Действия по покупке
-
-			ShopingCartSession = new List<ShopingCart>();
-			LoadingShopingCart();
-
-			modalBuyConfirm.Visible = false;
-		}
-
-		protected void btnCancel_Click(object sender, EventArgs e)
-		{
-			modalBuyConfirm.Visible = false;
-		}
-
-		#endregion
-
-		#region Modal window reservation product
-
-		protected void btnReservYes_Click(object sender, EventArgs e)
-		{
-#warning Действия по Резервации продуктов
-
-			modalReserv.Visible = false;
-		}
-
-		protected void btnReservNo_Click(object sender, EventArgs e)
-		{
-			modalReserv.Visible = false;
-		}
-
-		protected void txtResrvBuyCount_TextChanged(object sender, EventArgs e)
-		{
-			int val;
-			if (int.TryParse(txtResrvBuyCount.Text, out val))
-			{
-				lblResrvSum.Text = (Convert.ToUInt32(lblResrvBprice.Text) * val).ToString();
-			}
-			else
-			{
-				lblResrvSum.Text = "";
-			}
-		}
-
-		protected void calResrvReservDateTo_SelectionChanged(object sender, EventArgs e)
-		{
-			if (calResrvReservDateTo.SelectedDate <= DateTime.Now)
-			{
-				calResrvReservDateTo.SelectedDate = DateTime.Now;
-			}
-		}
-
-		#endregion
-
-		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
-		{
-			int id;
-			if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
-			{
-				IList<item> itm = item.GetAllByGroupId(id);
-				Session["Products"] = itm;
-				gvwProducts.DataSource = itm;
-				gvwProducts.DataBind();
-
-			}
-		}
-
-		protected void gvwProducts_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-			int id;
-			if (int.TryParse(e.CommandArgument.ToString(), out id))
-			{
-				//var db = new ssmDataContext();
-				//TableCellCollection cells = ((GridView)sender).Rows[int.Parse(e.CommandArgument.ToString())].Cells;
-				//foreach (DataControlFieldCell cell in cells)
-				//{
-				//    if (cell.ContainingField.HeaderText.ToLower() == "id")
-				//    {
-
-				//    }
-				//}
-#warning Сделать получения колличества покупаемых штук
-				int counItemsToBuy = 0;
-
-				item itm = item.GetById(id);
-				switch (e.CommandName.ToLower())
-				{
-					case "add":
-						{
-							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-							int sum;
-							if (int.TryParse(lblSum.Text, out sum))
-								lblSum.Text = (sum + itm.bprice).ToString();
-							LoadingShopingCart();
-
-							break;
-						}
-					case "sale":
-						{
-
-							ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-							int sum;
-							if (int.TryParse(lblSum.Text, out sum))
-								lblSum.Text = (sum + itm.bprice).ToString();
-							LoadingShopingCart();
-							if (ShopingCartSession.Count == 1)
-							{
-								btnBuy_Click(new object(), new EventArgs());
-							}
-
-							break;
-						}
-					case "reserved":
-						{
-							ShowModalReservation(itm, counItemsToBuy);
-							break;
-						}
-				}
-			}
-		}
-
-		#region Shoping Catr
-
-		protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-			int id;
-			if (int.TryParse(e.CommandArgument.ToString(), out id))
-			{
-				if (e.CommandName.ToLower() == "delete")
-				{
-					ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
-					if (shop != null)
-					{
-						int sum;
-						if (int.TryParse(lblSum.Text, out sum))
-							lblSum.Text = (sum - shop.bprice).ToString();
-						ShopingCartSession.Remove(shop);
-						if (ShopingCartSession.Count <= 0)
-						{
-							btnBuy.Visible = false;
-						}
-					}
-					LoadingShopingCart();
-				}
-			}
-		}
-
-		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
-		{
-			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
-		}
-
-		#endregion
-
-		#region Product grid sotring
 
 		protected void gvwProducts_Sorting(object sender, GridViewSortEventArgs e)
 		{
-			string sortExpression = e.SortExpression;
-			Session["SortExpression"] = sortExpression;
-
-			if (GridViewSortDirection == SortDirection.Ascending)
+			if (e.SortExpression.Equals(Session["SortExpression"]))
 			{
-				GridViewSortDirection = SortDirection.Descending;
-				SortGridView(sortExpression, SortDirection.Descending);
+				Session["SortExpression"] = e.SortExpression;
+				if (GridViewSortDirection == SortDirection.Ascending)
+				{
+					GridViewSortDirection = SortDirection.Descending;
+					SortGridView(e.SortExpression, SortDirection.Descending);
+				}
+				else
+				{
+					GridViewSortDirection = SortDirection.Ascending;
+					SortGridView(e.SortExpression, SortDirection.Ascending);
+				}
 			}
 			else
 			{
+				Session["SortExpression"] = e.SortExpression;
 				GridViewSortDirection = SortDirection.Ascending;
-				SortGridView(sortExpression, SortDirection.Ascending);
+				SortGridView(e.SortExpression, SortDirection.Ascending);
 			}
 		}
 
@@ -475,15 +512,6 @@ namespace SSManagment
 		#endregion
 
 		#endregion
-
-
-
-
-
-
-
-
-
 
 	}
 }

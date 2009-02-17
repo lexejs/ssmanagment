@@ -1,4 +1,4 @@
-п»ї<%@ Page Title="" Language="C#" MasterPageFile="~/App_Master/SellerMaster.master"
+<%@ Page Title="" Language="C#" MasterPageFile="~/App_Master/SellerMaster.master"
 	AutoEventWireup="true" CodeBehind="Seller.aspx.cs" Inherits="SSManagment.Seller" %>
 
 <asp:Content ID="cntCategories" ContentPlaceHolderID="cphStandartCategories" runat="server">
@@ -8,7 +8,7 @@
 				<div class="Widget_heading_container">
 					<span class="Widget_heading_container_Span"></span>
 					<h2>
-						Р Р°Р·РґРµР»С‹</h2>
+						Разделы</h2>
 				</div>
 				<div class="Widget_Body_container">
 					<div class="Widget_Body_top">
@@ -51,7 +51,7 @@
 			<div class="Widget_heading_container">
 				<span class="Widget_heading_container_Span"></span>
 				<h2>
-					РўРѕРІР°СЂС‹</h2>
+					Товары</h2>
 			</div>
 			<div class="Widget_Body_container">
 				<div class="Widget_Body_top">
@@ -60,7 +60,7 @@
 				<div class="Widget_Body_content">
 					<div class="clear">
 					</div>
-					<table width="100%">
+					<table cellpadding="0" cellspacing="0" Width="500px">
 						<tr>
 							<td align="center">
 								<table>
@@ -70,7 +70,7 @@
 										</td>
 										<td>
 											<button id="btnFind" runat="server">
-												<span><em>РќР°Р№С‚Рё</em></span></button>
+												<span><em>Найти</em></span></button>
 										</td>
 									</tr>
 								</table>
@@ -80,30 +80,40 @@
 							<td>
 								<asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White"
 									BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="2" ForeColor="Black"
-									GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="485px" AllowPaging="False"
+									GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="99%"
 									Font-Size="8pt" AllowSorting="True" onrowcreated="gvwProducts_RowCreated" 
-									onsorting="gvwProducts_Sorting">
+									onsorting="gvwProducts_Sorting" PagerStyle-Wrap="False" DataKeyNames="id" onrowdatabound="gvwProducts_RowDataBound">
 									<RowStyle BackColor="#F7F7DE" />
 									<Columns>
-										<asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" Visible="False" />
-										<asp:BoundField DataField="name" SortExpression="name" HeaderText="РќР°Р·РІР°РЅРёРµ" ReadOnly="True" />
-										<asp:BoundField DataField="count" SortExpression="count" HeaderText="Р’ РЅР°Р»РёС‡РёРё" NullDisplayText="РЅРµС‚" ItemStyle-HorizontalAlign="Right">
+										<asp:TemplateField HeaderText="id" Visible="False">
+											<ItemTemplate>
+												<asp:Label ID="lblID" runat="server" Text='<%# Bind("id") %>'></asp:Label>
+											</ItemTemplate>
+										</asp:TemplateField>
+										<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True" HeaderStyle-Wrap="False" >
+											<HeaderStyle Wrap="False" />
+										</asp:BoundField>
+										<asp:BoundField DataField="count" SortExpression="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="False">
 											<ControlStyle Width="50px" />
+											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Right" />
 										</asp:BoundField>
-										<asp:BoundField DataField="measure" SortExpression="measure" HeaderText="РР·РјРµСЂРµРЅРёРµ" NullDisplayText="С€С‚" ItemStyle-HorizontalAlign="Center">
+										<asp:BoundField DataField="measure" SortExpression="measure" HeaderText="Измерение" NullDisplayText="шт" ItemStyle-HorizontalAlign="Center" HeaderStyle-Wrap="False">
 											<ControlStyle Width="50px" />
+											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Center" />
 										</asp:BoundField>
-										<asp:BoundField DataField="bprice" SortExpression="bprice" HeaderText="Р¦РµРЅР°" NullDisplayText="СѓС‚РѕС‡РЅРёС‚СЊ" ItemStyle-HorizontalAlign="Right">
+										<asp:BoundField DataField="bprice" SortExpression="bprice" HeaderText="Цена" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="False">
 											<ControlStyle Width="50px" />
+											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Right" />
 										</asp:BoundField>
-										<asp:BoundField DataField="reserveCount"  SortExpression="reserveCount" HeaderText="Р РµР·РµСЂРІ" ItemStyle-HorizontalAlign="Center">
+										<asp:BoundField DataField="reserveCount"  SortExpression="reserveCount" HeaderText="Резерв" ItemStyle-HorizontalAlign="Center" HeaderStyle-Wrap="False">
 											<ControlStyle Width="70px" />
+											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Center" />
 										</asp:BoundField>
-										<asp:TemplateField HeaderText="РљРѕР»-РІРѕ">
+										<asp:TemplateField HeaderText="Кол-во">
 											<ItemTemplate>
 												<asp:TextBox ID="txtBuyCount" runat="server"></asp:TextBox>
 											</ItemTemplate>
@@ -112,7 +122,7 @@
 										<asp:TemplateField ShowHeader="False">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add"
-													ToolTip="Р”РѕР±Р°РІР°РёС‚СЊ РІ РєРѕСЂР·РёРЅСѓ" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png"
+													ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png"
 													CommandArgument='<%# Eval("id") %>' />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
@@ -121,7 +131,7 @@
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale"
 													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-advertisement-dollar.svg.png"
-													ToolTip="РџСЂРѕРґР°С‚СЊ" />
+													ToolTip="Продать" />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
 										</asp:TemplateField>
@@ -129,19 +139,19 @@
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnReserv" runat="server" CausesValidation="false" CommandName="reserved"
 													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-symbolic-link.svg.png"
-													ToolTip="Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°С‚СЊ" />
+													ToolTip="Зарезервировать" />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
 										</asp:TemplateField>
 									</Columns>
 									<EmptyDataTemplate>
 										<center>
-											<span>Р’ РІС‹Р±СЂР°РЅРѕРј РІР°РјРё СЂР°Р·РґРµР»Рµ РїСЂРѕРґСѓРєС‚РѕРІ РЅРµРЅР°Р№РґРµРЅРѕ!</span></center>
+											<span>В выбраном вами разделе продуктов ненайдено!</span></center>
 									</EmptyDataTemplate>
 									<FooterStyle BackColor="#CCCC99" />
 									<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
 									<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-									<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+									<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Wrap="False" />
 									<AlternatingRowStyle BackColor="White" />
 								</asp:GridView>
 								&nbsp;
@@ -167,7 +177,7 @@
 						<div class="Widget_heading_container">
 							<span class="Widget_heading_container_Span"></span>
 							<h2>
-								РЎРїРёСЃРѕРє РїРѕРєСѓРїРѕРє ( РєРѕСЂР·РёРЅР°)</h2>
+								Список покупок ( корзина)</h2>
 						</div>
 						<div class="Widget_Body_container">
 							<div class="Widget_Body_top">
@@ -185,13 +195,13 @@
 												Font-Size="8pt">
 												<RowStyle BackColor="#F7F7DE" />
 												<Columns>
-													<asp:BoundField HeaderText="РўРѕРІР°СЂ" DataField="name">
+													<asp:BoundField HeaderText="Товар" DataField="name">
 														<ControlStyle Width="150px" />
 													</asp:BoundField>
-													<asp:BoundField HeaderText="Р¦РµРЅР°" DataField="bprice" NullDisplayText="СѓС‚РѕС‡РЅРёС‚СЊ"  ItemStyle-HorizontalAlign="Right">
+													<asp:BoundField HeaderText="Цена" DataField="bprice" NullDisplayText="уточнить"  ItemStyle-HorizontalAlign="Right">
 														<ControlStyle Width="50px" />
 													</asp:BoundField>
-													<asp:TemplateField HeaderText="РљРѕР»-РІРѕ">
+													<asp:TemplateField HeaderText="Кол-во">
 														<ItemTemplate>
 															<asp:TextBox ID="txtBuyCount" runat="server" Text='<%# Eval("BuyCount") %>'></asp:TextBox>
 														</ItemTemplate>
@@ -201,14 +211,14 @@
 														<ItemTemplate>
 															<asp:ImageButton ID="btnDelete" runat="server" CausesValidation="false" CommandName="delete"
 																CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Dialog-error.svg.png"
-																ToolTip="РЈРґР°Р»РёС‚СЊ" />
+																ToolTip="Удалить" />
 														</ItemTemplate>
 														<ControlStyle Height="24px" Width="24px" />
 													</asp:TemplateField>
 												</Columns>
 												<EmptyDataTemplate>
 													<center>
-														<span>РЎРїРёСЃРѕРє РїРѕРєСѓРїРѕРє РїСѓСЃС‚</span></center>
+														<span>Список покупок пуст</span></center>
 												</EmptyDataTemplate>
 												<FooterStyle BackColor="#CCCC99" />
 												<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
@@ -223,7 +233,7 @@
 											<table>
 												<tr>
 													<td align="left" style="width: 90px">
-														<span>РџРѕРєСѓРїР°С‚РµР»СЊ :</span>
+														<span>Покупатель :</span>
 													</td>
 													<td align="left">
 														<asp:DropDownList ID="drpBuyer" runat="server" Width="120px" AutoPostBack="True">
@@ -235,13 +245,13 @@
 									</tr>
 									<tr>
 										<td>
-											&nbsp; <span>РС‚РѕРіРѕ :</span><asp:Label ID="lblSum" runat="server"></asp:Label>
+											&nbsp; <span>Итого :</span><asp:Label ID="lblSum" runat="server"></asp:Label>
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<button id="btnBuy" runat="server" style="width: 100%" onserverclick="btnBuy_Click">
-												<span><em>РћС„РѕСЂРјРёС‚СЊ РїРѕРєСѓРїРєСѓ</em></span></button>
+												<span><em>Оформить покупку</em></span></button>
 										</td>
 									</tr>
 								</table>
@@ -259,7 +269,7 @@
 						<div class="Widget_heading_container">
 							<span class="Widget_heading_container_Span"></span>
 							<h2>
-								Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ</h2>
+								Дополнительно</h2>
 						</div>
 						<div class="Widget_Body_container">
 							<div class="Widget_Body_top">
@@ -270,10 +280,10 @@
 								</div>
 								<center>
 									<button id="btnAdmin" runat="server" style="width: 180px" onserverclick="btnAdminClick">
-										<span><em>РђРґРјРёРЅРёСЃС‚СЂРёСЂРѕРІР°РЅРёРµ</em></span></button>
+										<span><em>Администрирование</em></span></button>
 									<br />
 									<button id="btnReturn" runat="server" style="width: 180px">
-										<span><em>Р’РѕР·РІСЂР°С‚ С‚РѕРІР°СЂР°</em></span></button>
+										<span><em>Возврат товара</em></span></button>
 								</center>
 								<div class="clear">
 								</div>
@@ -295,7 +305,7 @@
 								<span class="Widget_heading_container_Span"></span>
 								<center>
 									<h2>
-										РћС„РѕСЂРјРёС‚СЊ РїРѕРєСѓРїРєСѓ?
+										Оформить покупку?
 									</h2>
 								</center>
 							</div>
@@ -311,11 +321,11 @@
 											<tr>
 												<td>
 													<button id="btnYes" runat="server" style="width: 75px;" onserverclick="btnYes_Click">
-														<span><em>Р”Р°</em></span></button>
+														<span><em>Да</em></span></button>
 												</td>
 												<td>
 													<button id="btnCancel" runat="server" style="width: 75px;" onserverclick="btnCancel_Click">
-														<span><em>РќРµС‚</em></span></button>
+														<span><em>Нет</em></span></button>
 												</td>
 											</tr>
 										</table>
@@ -341,7 +351,7 @@
 								<span class="Widget_heading_container_Span"></span>
 								<center>
 									<h2>
-										Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°С‚СЊ С‚РѕРІР°СЂ
+										Зарезервировать товар
 									</h2>
 								</center>
 							</div>
@@ -359,7 +369,7 @@
 													<table cellpadding="0" width="100%">
 														<tr>
 															<td align="right">
-																<span>РќР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° :</span>
+																<span>Название товара :</span>
 															</td>
 															<td align="left">
 																<asp:Label ID="lblResrvName" runat="server"></asp:Label>
@@ -368,7 +378,7 @@
 														</tr>
 														<tr>
 															<td align="right">
-																<span>Р’ РЅР°Р»РёС‡РёРё :</span>
+																<span>В наличии :</span>
 															</td>
 															<td align="left">
 																<asp:Label ID="lblResrvCount" runat="server"></asp:Label>
@@ -376,7 +386,7 @@
 														</tr>
 														<tr>
 															<td align="right">
-																<span>Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРѕ :</span>
+																<span>Зарезервировано :</span>
 															</td>
 															<td align="left">
 																<asp:Label ID="lblResrvReserved" runat="server"></asp:Label>
@@ -384,7 +394,7 @@
 														</tr>
 														<tr>
 															<td align="right">
-																<span>Р¦РµРЅР° :</span>
+																<span>Цена :</span>
 															</td>
 															<td align="left">
 																<asp:Label ID="lblResrvBprice" runat="server"></asp:Label>
@@ -392,7 +402,7 @@
 														</tr>
 														<tr>
 															<td align="right">
-																<span>Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°С‚СЊ :</span>
+																<span>Зарезервировать :</span>
 															</td>
 															<td align="left">
 																<asp:TextBox ID="txtResrvBuyCount" runat="server" OnTextChanged="txtResrvBuyCount_TextChanged"></asp:TextBox>
@@ -400,7 +410,7 @@
 														</tr>
 														<tr>
 															<td align="right">
-																<span>РС‚РѕРіРѕ :</span>
+																<span>Итого :</span>
 															</td>
 															<td align="left">
 																<asp:Label ID="lblResrvSum" runat="server"></asp:Label>
@@ -411,7 +421,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<span>РќРµРїСЂРѕРґР°РІР°С‚СЊ С‚РѕРІР°СЂ РґРѕ</span>
+													<span>Непродавать товар до</span>
 													<asp:Calendar ID="calResrvReservDateTo" runat="server" BackColor="White" BorderColor="#999999"
 														CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
 														ForeColor="Black" Height="180px" Width="200px" OnSelectionChanged="calResrvReservDateTo_SelectionChanged">
@@ -429,11 +439,11 @@
 											<tr>
 												<td>
 													<button id="btnReservYes" runat="server" style="width: 75px;" onserverclick="btnReservYes_Click">
-														<span><em>Р”Р°</em></span></button>
+														<span><em>Да</em></span></button>
 												</td>
 												<td>
 													<button id="btnReservNo" runat="server" style="width: 75px;" onserverclick="btnReservNo_Click">
-														<span><em>РќРµС‚</em></span></button>
+														<span><em>Нет</em></span></button>
 												</td>
 											</tr>
 										</table>
