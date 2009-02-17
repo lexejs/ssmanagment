@@ -288,6 +288,8 @@ namespace SSManagment
 
 			ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
+			gvwProducts.DataSource = Session["Products"];
+			gvwProducts.DataBind();
 
 			modalBuyConfirm.Visible = false;
 		}
