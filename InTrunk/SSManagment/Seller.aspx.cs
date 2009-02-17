@@ -16,9 +16,6 @@ namespace SSManagment
 
 	public partial class Seller : System.Web.UI.Page
 	{
-		private const string ASCENDING = " ASC";
-		private const string DESCENDING = " DESC";
-
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (AppHelper.CurrentUser != null)
@@ -163,24 +160,87 @@ namespace SSManagment
 			{
 				if (Session["sortDirection"] == null)
 					Session["sortDirection"] = SortDirection.Ascending;
-				return (SortDirection)ViewState["sortDirection"];
+				return (SortDirection)Session["sortDirection"];
 			}
 			set { Session["sortDirection"] = value; }
 		}
 
-		private void SortGridView(string sortExpression, string direction)
+		private void SortGridView(string sortExpression, SortDirection direction)
 		{
-			Session["Products"]
-			gvwProducts.DataSource = dv;
+			if (direction.Equals(SortDirection.Ascending))
+			{
+				switch (sortExpression)
+				{
+					case "name":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderBy(b => b.name).ToList();
+							break;
+						}
+					case "count":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderBy(b => b.count).ToList();
+							break;
+						}
+					case "measure":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderBy(b => b.measure).ToList();
+							break;
+						}
+					case "bprice":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderBy(b => b.bprice).ToList();
+							break;
+						}
+					case "reserveCount":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderBy(b => b.reserveCount).ToList();
+							break;
+						}
+				}
+			}
+			else
+			{
+				switch (sortExpression)
+				{
+					case "name":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderByDescending(b => b.name).ToList();
+							break;
+						}
+					case "count":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderByDescending(b => b.count).ToList();
+							break;
+						}
+					case "measure":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderByDescending(b => b.measure).ToList();
+							break;
+						}
+					case "bprice":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderByDescending(b => b.bprice).ToList();
+							break;
+						}
+					case "reserveCount":
+						{
+							Session["Products"] = ((IList<item>)Session["Products"]).OrderByDescending(b => b.reserveCount).ToList();
+							break;
+						}
+				}
+			}
+
+			gvwProducts.DataSource = Session["Products"];
 			gvwProducts.DataBind();
 		}
 
 		private int GetSortColumnIndex()
 		{
+
 			foreach (DataControlField field in gvwProducts.Columns)
 			{
 				if (field.SortExpression ==
-							 (string)ViewState["SortExpression"])
+							 (string)Session["SortExpression"])
 				{
 					return gvwProducts.Columns.IndexOf(field);
 				}
@@ -191,15 +251,19 @@ namespace SSManagment
 		private void AddSortImage(int columnIndex, GridViewRow headerRow)
 		{
 			Image sortImage = new Image();
+			sortImage.Width = 16;
+			sortImage.Height = 16;
+			sortImage.Visible = true;
+
 			if (GridViewSortDirection == SortDirection.Ascending)
 			{
-				sortImage.ImageUrl = "~/images/uparrow.gif";
-				sortImage.AlternateText = "Ascending Order";
+				sortImage.ImageUrl = "~/App_Themes/Main/SortOrder/16px-Up.png";
+				sortImage.AlternateText = "По возрастанию";
 			}
 			else
 			{
-				sortImage.ImageUrl = "~/images/downarrow.gif";
-				sortImage.AlternateText = "Descending Order";
+				sortImage.ImageUrl = "~/App_Themes/Main/SortOrder/16px-Down.png";
+				sortImage.AlternateText = "По убыванию";
 			}
 			headerRow.Cells[columnIndex].Controls.Add(sortImage);
 		}
@@ -286,7 +350,7 @@ namespace SSManagment
 				Session["Products"] = itm;
 				gvwProducts.DataSource = itm;
 				gvwProducts.DataBind();
-				
+
 			}
 		}
 
@@ -387,12 +451,12 @@ namespace SSManagment
 			if (GridViewSortDirection == SortDirection.Ascending)
 			{
 				GridViewSortDirection = SortDirection.Descending;
-				SortGridView(sortExpression, DESCENDING);
+				SortGridView(sortExpression, SortDirection.Descending);
 			}
 			else
 			{
 				GridViewSortDirection = SortDirection.Ascending;
-				SortGridView(sortExpression, ASCENDING);
+				SortGridView(sortExpression, SortDirection.Ascending);
 			}
 		}
 

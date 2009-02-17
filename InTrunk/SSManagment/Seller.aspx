@@ -128,7 +128,7 @@
 										<asp:TemplateField ShowHeader="False">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnReserv" runat="server" CausesValidation="false" CommandName="reserved"
-													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/48px-Emblem-symbolic-link.svg.png"
+													CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-symbolic-link.svg.png"
 													ToolTip="Зарезервировать" />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
