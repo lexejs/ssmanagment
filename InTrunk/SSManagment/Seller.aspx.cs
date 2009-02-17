@@ -250,13 +250,26 @@ namespace SSManagment
 		{
 			if (e.Row.RowType == DataControlRowType.DataRow)
 			{
-				string str = ((Label)(e.Row.FindControl("lblID"))).Text;
-
-				if (ShopingCartSession.Any(b => b.id.ToString().Equals(str)))
+				if (ShopingCartSession.Any(b => b.id == ((item)(e.Row.DataItem)).id))
 				{
 					e.Row.FindControl("ibtnAdd").Visible = false;
 					e.Row.FindControl("ibtnSale").Visible = false;
 				}
+
+#warning Сделать невидимой кнопку резервации если максимаьльно число резерваций достигнуто 
+				//if (((item)(e.Row.DataItem)).)
+				//{
+				//    e.Row.FindControl("ibtnReserv").Visible = false;
+				//}
+
+#warning Сделать Невидимым текст бокс для кол-ва заказываемого товара если товара на складе больше нету, а вместо него кнопку заказать 
+				//if (((item)(e.Row.DataItem)).count <= 0)
+				//{
+				//    e.Row.FindControl("txtBuyCount").Visible = false;
+				//}
+
+#warning Добавить функционал дозаказа заканфивающего ся товара (Спрос)
+
 			}
 		}
 

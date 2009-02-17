@@ -93,7 +93,7 @@
 										<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True" HeaderStyle-Wrap="False" >
 											<HeaderStyle Wrap="False" />
 										</asp:BoundField>
-										<asp:BoundField DataField="count" SortExpression="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="False">
+										<asp:BoundField DataField="count" SortExpression="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Center" HeaderStyle-Wrap="False">
 											<ControlStyle Width="50px" />
 											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Right" />
@@ -186,13 +186,13 @@
 							<div class="Widget_Body_content">
 								<div class="clear">
 								</div>
-								<table cellpadding="0" cellspacing="0" width="100%">
+								<table cellpadding="0" cellspacing="0" width="100%" style="margin-left: -3px">
 									<tr>
 										<td align="center">
 											<asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False"
 												BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black"
 												GridLines="Vertical" OnRowCommand="gvwShoppingCart_RowCommand" OnRowDeleting="gvwShoppingCart_RowDeleting"
-												Font-Size="8pt">
+												Font-Size="7pt">
 												<RowStyle BackColor="#F7F7DE" />
 												<Columns>
 													<asp:BoundField HeaderText="Товар" DataField="name">
