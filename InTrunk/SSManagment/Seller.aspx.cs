@@ -16,6 +16,8 @@ namespace SSManagment
 
 	public partial class Seller : System.Web.UI.Page
 	{
+		private const string ASCENDING = " ASC";
+		private const string DESCENDING = " DESC";
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -153,11 +155,61 @@ namespace SSManagment
 
 		#endregion
 
+		#region Product grid sotring
+
+		private SortDirection GridViewSortDirection
+		{
+			get
+			{
+				if (Session["sortDirection"] == null)
+					Session["sortDirection"] = SortDirection.Ascending;
+				return (SortDirection)ViewState["sortDirection"];
+			}
+			set { Session["sortDirection"] = value; }
+		}
+
+		private void SortGridView(string sortExpression, string direction)
+		{
+			Session["Products"]
+			gvwProducts.DataSource = dv;
+			gvwProducts.DataBind();
+		}
+
+		private int GetSortColumnIndex()
+		{
+			foreach (DataControlField field in gvwProducts.Columns)
+			{
+				if (field.SortExpression ==
+							 (string)ViewState["SortExpression"])
+				{
+					return gvwProducts.Columns.IndexOf(field);
+				}
+			}
+			return -1;
+		}
+
+		private void AddSortImage(int columnIndex, GridViewRow headerRow)
+		{
+			Image sortImage = new Image();
+			if (GridViewSortDirection == SortDirection.Ascending)
+			{
+				sortImage.ImageUrl = "~/images/uparrow.gif";
+				sortImage.AlternateText = "Ascending Order";
+			}
+			else
+			{
+				sortImage.ImageUrl = "~/images/downarrow.gif";
+				sortImage.AlternateText = "Descending Order";
+			}
+			headerRow.Cells[columnIndex].Controls.Add(sortImage);
+		}
+
 		#endregion
 
+		#endregion
+
+
 		#region Handlers
-
-
 
 		protected void btnAdminClick(object sender, EventArgs e)
 		{
@@ -230,8 +282,11 @@ namespace SSManagment
 			int id;
 			if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
 			{
-				gvwProducts.DataSource = item.GetAllByGroupId(id);
+				IList<item> itm = item.GetAllByGroupId(id);
+				Session["Products"] = itm;
+				gvwProducts.DataSource = itm;
 				gvwProducts.DataBind();
+				
 			}
 		}
 
@@ -289,6 +344,8 @@ namespace SSManagment
 			}
 		}
 
+		#region Shoping Catr
+
 		protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			int id;
@@ -319,6 +376,45 @@ namespace SSManagment
 		}
 
 		#endregion
+
+		#region Product grid sotring
+
+		protected void gvwProducts_Sorting(object sender, GridViewSortEventArgs e)
+		{
+			string sortExpression = e.SortExpression;
+			Session["SortExpression"] = sortExpression;
+
+			if (GridViewSortDirection == SortDirection.Ascending)
+			{
+				GridViewSortDirection = SortDirection.Descending;
+				SortGridView(sortExpression, DESCENDING);
+			}
+			else
+			{
+				GridViewSortDirection = SortDirection.Ascending;
+				SortGridView(sortExpression, ASCENDING);
+			}
+		}
+
+		protected void gvwProducts_RowCreated(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.Header)
+			{
+				int sortColumnIndex = GetSortColumnIndex();
+				if (sortColumnIndex != -1)
+				{
+					AddSortImage(sortColumnIndex, e.Row);
+				}
+			}
+		}
+
+		#endregion
+
+		#endregion
+
+
+
+
 
 
 

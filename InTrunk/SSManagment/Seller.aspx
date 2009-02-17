@@ -81,22 +81,27 @@
 								<asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White"
 									BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="2" ForeColor="Black"
 									GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="485px" AllowPaging="False"
-									Font-Size="8pt">
+									Font-Size="8pt" AllowSorting="True" onrowcreated="gvwProducts_RowCreated" 
+									onsorting="gvwProducts_Sorting">
 									<RowStyle BackColor="#F7F7DE" />
 									<Columns>
 										<asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" Visible="False" />
-										<asp:BoundField DataField="name" HeaderText="Название" ReadOnly="True" />
-										<asp:BoundField DataField="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Right">
+										<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True" />
+										<asp:BoundField DataField="count" SortExpression="count" HeaderText="В наличии" NullDisplayText="нет" ItemStyle-HorizontalAlign="Right">
 											<ControlStyle Width="50px" />
+											<ItemStyle HorizontalAlign="Right" />
 										</asp:BoundField>
-										<asp:BoundField DataField="measure" HeaderText="Измерение" NullDisplayText="шт" ItemStyle-HorizontalAlign="Center">
+										<asp:BoundField DataField="measure" SortExpression="measure" HeaderText="Измерение" NullDisplayText="шт" ItemStyle-HorizontalAlign="Center">
 											<ControlStyle Width="50px" />
+											<ItemStyle HorizontalAlign="Center" />
 										</asp:BoundField>
-										<asp:BoundField DataField="bprice" HeaderText="Цена" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
+										<asp:BoundField DataField="bprice" SortExpression="bprice" HeaderText="Цена" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
 											<ControlStyle Width="50px" />
+											<ItemStyle HorizontalAlign="Right" />
 										</asp:BoundField>
-										<asp:BoundField DataField="reserveCount" HeaderText="Резерв" ItemStyle-HorizontalAlign="Center">
+										<asp:BoundField DataField="reserveCount"  SortExpression="reserveCount" HeaderText="Резерв" ItemStyle-HorizontalAlign="Center">
 											<ControlStyle Width="70px" />
+											<ItemStyle HorizontalAlign="Center" />
 										</asp:BoundField>
 										<asp:TemplateField HeaderText="Кол-во">
 											<ItemTemplate>
