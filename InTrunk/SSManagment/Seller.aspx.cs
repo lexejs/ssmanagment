@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net.Mime;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SSManagment.Models;
+using Image = System.Web.UI.WebControls.Image;
 
 namespace SSManagment
 {
@@ -31,8 +34,6 @@ namespace SSManagment
 				}
 			}
 		}
-
-		private Dictionary<string, IList<Control>> collectionGvwProductsDisabledControls = new Dictionary<string, IList<Control>>();
 
 		#region Properties
 
@@ -133,6 +134,13 @@ namespace SSManagment
 			return shop;
 		}
 
+		private void LoadProductsGridView()
+		{
+			Session["Products"] = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
+			gvwProducts.DataSource = Session["Products"];
+			gvwProducts.DataBind();
+		}
+
 		#endregion
 
 
@@ -153,6 +161,7 @@ namespace SSManagment
 			int id;
 			if (int.TryParse(((TreeView)(sender)).SelectedNode.Value, out id))
 			{
+				((TreeView)(sender)).SelectedNode.Expand();
 				IList<item> itm = item.GetAllByGroupId(id);
 				Session["Products"] = itm;
 				gvwProducts.DataSource = itm;
@@ -166,53 +175,82 @@ namespace SSManagment
 			int id;
 			if (int.TryParse(e.CommandArgument.ToString(), out id))
 			{
-				int counItemsToBuy = 0;
-				int.TryParse(((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text, out counItemsToBuy);
+				item itm = item.GetById(id);
 
-				if (counItemsToBuy > 0)
+				switch (e.CommandName.ToLower())
 				{
-					item itm = item.GetById(id);
-					switch (e.CommandName.ToLower())
-					{
-						case "add":
-							{
-								ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-								int sum;
-								if (int.TryParse(lblSum.Text, out sum))
-									lblSum.Text = (sum + itm.bprice).ToString();
-								LoadingShopingCart();
-								((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
-								((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
-								((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+					case "unreserv":
+						{
+							ShowModalUnReservConfirm(itm.id);
 
-								break;
-							}
-						case "sale":
-							{
+							break;
+						}
+					case "order":
+						{
+							ShowModalOrderConfirm(itm.id);
 
-								ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-								int sum;
-								if (int.TryParse(lblSum.Text, out sum))
-									lblSum.Text = (sum + itm.bprice).ToString();
-								LoadingShopingCart();
-								if (ShopingCartSession.Count == 1)
+							break;
+						}
+					default:
+						{
+							int counItemsToBuy = 0;
+							int.TryParse(((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text, out counItemsToBuy);
+							((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+
+							if (counItemsToBuy > 0 && itm.count > 0)
+							{
+								if (counItemsToBuy <= (itm.count - (itm.reserveCount ?? 0)))
 								{
-									btnBuy_Click(new object(), new EventArgs());
-								}
-								((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
-								((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
-								((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+									switch (e.CommandName.ToLower())
+									{
+										case "add":
+											{
+												ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
+												int sum;
+												if (int.TryParse(lblSum.Text, out sum))
+													lblSum.Text = (sum + itm.bprice).ToString();
+												LoadingShopingCart();
+												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
+												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
 
-								break;
+												break;
+											}
+										case "sale":
+											{
+
+												ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
+												int sum;
+												if (int.TryParse(lblSum.Text, out sum))
+													lblSum.Text = (sum + itm.bprice).ToString();
+												LoadingShopingCart();
+												if (ShopingCartSession.Count == 1)
+												{
+													btnBuy_Click(new object(), new EventArgs());
+												}
+												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
+												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
+
+												break;
+											}
+										case "reserved":
+											{
+												ShowModalReservation(itm, counItemsToBuy);
+												break;
+											}
+									}
+								}
+								else
+								{
+									((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+								}
+
 							}
-						case "reserved":
-							{
-								ShowModalReservation(itm, counItemsToBuy);
-								break;
-							}
-					}
+						}
+						break;
 				}
+
 			}
+
 		}
 
 		protected void gvwShoppingCart_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -256,30 +294,32 @@ namespace SSManagment
 					e.Row.FindControl("ibtnSale").Visible = false;
 				}
 
-#warning Сделать невидимой кнопку резервации если максимаьльно число резерваций достигнуто 
-                /// нет максимального числа резервации: пока есть товар - можно резервировать. 
-                /// предлагаю реализовать резервацию следующим образом: продавец в поле кол-во вписывает скока единиц
-                ///  резервируется и наживает кнопку резервации)) возможно, показывать конфирм с выставлением даты окончания резервации
-                ///  а на тему покупки резервированного товара - предлагаю сделать просто: 
-                ///  зарезервированное кол-во отображать как ссылку, 
-                ///  при клике по которой происходит перенос зарезервированного кол-ва в доступное. 
+				if (((item)(e.Row.DataItem)).count <= 0 || (((item)(e.Row.DataItem)).count <= ((item)(e.Row.DataItem)).reserveCount))
+				{
+					e.Row.FindControl("ibtnAdd").Visible = false;
+					e.Row.FindControl("ibtnSale").Visible = false;
+					e.Row.FindControl("ibtnReserv").Visible = false;
+					e.Row.FindControl("txtBuyCount").Visible = false;
+				}
 
-				//if (((item)(e.Row.DataItem)).)
-				//{
-				//    e.Row.FindControl("ibtnReserv").Visible = false;
-				//}
+				if (((item)(e.Row.DataItem)).reserveCount == null || ((item)(e.Row.DataItem)).reserveCount <= 0)
+				{
+					e.Row.FindControl("spanCountCalc").Visible = false;
+				}
+				else
+				{
+					e.Row.FindControl("spanCountCalc").Visible = true;
+					((System.Web.UI.HtmlControls.HtmlGenericControl)e.Row.FindControl("spanSum")).InnerText = (((item)(e.Row.DataItem)).count - ((item)(e.Row.DataItem)).reserveCount).ToString();
+				}
 
-#warning Сделать Невидимым текст бокс для кол-ва заказываемого товара если товара на складе больше нету, а вместо него кнопку заказать 
-                /// выполнить заказ должно быть можно не только, если товара 
-                /// нет или кол-во достигло минимального значения. 
-                /// предлагаю добавить checkbox отдельным столбцом или внутрь столбца "В наличии"
-				//if (((item)(e.Row.DataItem)).count <= 0)
-				//{
-				//    e.Row.FindControl("txtBuyCount").Visible = false;
-				//}
+
+#warning Сделать Невидимым текст бокс для кол-ва заказываемого товара если товара на складе больше нету, а вместо него кнопку заказать
+				/// выполнить заказ должно быть можно не только, если товара 
+				/// нет или кол-во достигло минимального значения. 
+				/// предлагаю добавить checkbox отдельным столбцом или внутрь столбца "В наличии"
 
 #warning Добавить функционал дозаказа заканфивающего ся товара (Спрос)
-                /// предлагаю реализовать кнопкой в раздел дополнительно 
+				/// предлагаю реализовать кнопкой в раздел дополнительно 
 
 
 			}
@@ -287,20 +327,75 @@ namespace SSManagment
 
 		#endregion
 
+		#region Modal window UnReserv Product
+
+		#region Methods
+
+		private void ShowModalUnReservConfirm(int id)
+		{
+			hdnUnReservId.Value = id.ToString();
+			modalUnReservConfirm.Visible = true;
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnUnReservYes_Click(object sender, EventArgs e)
+		{
+			item.UnReservForItemId(Convert.ToInt32(hdnUnReservId.Value));
+			LoadProductsGridView();
+
+			modalUnReservConfirm.Visible = false;
+		}
+
+		protected void btnUnReservNo_Click(object sender, EventArgs e)
+		{
+			modalUnReservConfirm.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Modal window Order Product
+
+		#region Methods
+
+		private void ShowModalOrderConfirm(int id)
+		{
+			hdnOrder.Value = id.ToString();
+			modalOrderConfirm.Visible = true;
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnOrderYes_Click(object sender, EventArgs e)
+		{
+#warning Сделать функционал заказа
+			//item.OrderItemId(Convert.ToInt32(hdnOrder.Value));
+
+			modalOrderConfirm.Visible = false;
+		}
+
+		protected void btnOrderNo_Click(object sender, EventArgs e)
+		{
+			modalOrderConfirm.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Modal window buy confirm
 
 		#region Methods
 
-		private void ShowModalReservation(item product, int buyCount)
+		private void ShowModalBuyConfirm()
 		{
-			modalReserv.Visible = true;
-			hdnResrvID.Value = product.id.ToString();
-			lblResrvName.Text = product.name;
-			lblResrvReserved.Text = product.reserveCount.ToString();
-			lblResrvBprice.Text = product.bprice.ToString();
-			lblResrvCount.Text = product.count.ToString();
-			lblResrvSum.Text = (product.bprice * buyCount).ToString();
-			txtResrvBuyCount.Text = buyCount.ToString();
+			modalBuyConfirm.Visible = true;
 		}
 
 		#endregion
@@ -332,9 +427,17 @@ namespace SSManagment
 
 		#region Methods
 
-		private void ShowModalBuyConfirm()
+		private void ShowModalReservation(item product, int buyCount)
 		{
-			modalBuyConfirm.Visible = true;
+			modalReserv.Visible = true;
+			hdnResrvID.Value = product.id.ToString();
+			lblResrvName.Text = product.name;
+			lblResrvReserved.Text = product.reserveCount.ToString();
+			lblResrvBprice.Text = product.bprice.ToString();
+			lblResrvCount.Text = product.count.ToString();
+			lblResrvSum.Text = (product.bprice * buyCount).ToString();
+			txtResrvBuyCount.Text = buyCount.ToString();
+			calResrvReservDateTo.SelectedDate = DateTime.Now;
 		}
 
 		#endregion
@@ -343,7 +446,18 @@ namespace SSManagment
 
 		protected void btnReservYes_Click(object sender, EventArgs e)
 		{
-#warning Действия по Резервации продуктов
+			int count = 0;
+			if (int.TryParse(txtResrvBuyCount.Text, out count) && count > 0)
+			{
+				if (item.ReservItem(Convert.ToInt32(hdnResrvID.Value), count, calResrvReservDateTo.SelectedDate))
+				{
+					LoadProductsGridView();
+				}
+				else
+				{
+#warning Вывести окно предупреждения
+				}
+			}
 
 			modalReserv.Visible = false;
 		}

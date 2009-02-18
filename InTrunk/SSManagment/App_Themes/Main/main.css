@@ -31,6 +31,13 @@ span
 #modalReserv{
     position:relative;
 }
+#modalUnReservConfirm{
+    position:relative;
+}
+#modalOrderConfirm{
+    position:relative;
+}
+
 .overlay{
     position:absolute;
     top:0;
@@ -51,6 +58,14 @@ span
 }
 
 * html #modalReserv .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+
+* html #modalOrderConfirm .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+
+* html #modalUnReservConfirm .overlay {
     height: expression(document.getElementById("modalReserv").offsetHeight);
 }
 

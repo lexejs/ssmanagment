@@ -77,6 +77,48 @@ namespace SSManagment.Models
             return new ssmDataContext().items.Where(i => i.name.Contains(name)).ToList();           
         }
 
+		public static bool ReservItem(int id, int count, DateTime endDate)
+		{
+			ssmDataContext cont = new ssmDataContext();
+			item resvItem = cont.items.FirstOrDefault(b => b.id == id);
+			if (resvItem != null)
+			{
+				if (resvItem.reserveCount != null && resvItem.reserveCount > 0)
+				{
+					if ((resvItem.reserveCount + count) <= resvItem.count)
+					{
+						resvItem.reserveCount = count + resvItem.reserveCount;
+						if (resvItem.reserveEndDate < endDate)
+						{
+							resvItem.reserveEndDate = endDate;
+						}
+					}
+				}
+				else
+				{
+					resvItem.reserveCount = count;
+					resvItem.reserveEndDate = endDate;
+				}
+
+				cont.SubmitChanges();
+				return true;
+			}
+			return false;
+		}
+
+		public static  void UnReservForItemId(int id)
+		{
+			ssmDataContext cont = new ssmDataContext();
+			item resvItem = cont.items.FirstOrDefault(b => b.id == id);
+			if (resvItem != null)
+			{
+				resvItem.reserveCount = null;
+				resvItem.reserveEndDate = null;
+				cont.SubmitChanges();
+			}
+
+		}
+
     }
 
 }
