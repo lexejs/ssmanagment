@@ -194,6 +194,33 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnUnReservNo;
         
         /// <summary>
+        /// modalWarningConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalWarningConfirm;
+        
+        /// <summary>
+        /// lblWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarning;
+        
+        /// <summary>
+        /// btnWarningOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnWarningOk;
+        
+        /// <summary>
         /// modalOrderConfirm control.
         /// </summary>
         /// <remarks>

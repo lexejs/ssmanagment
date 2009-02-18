@@ -318,10 +318,6 @@ namespace SSManagment
 				/// нет или кол-во достигло минимального значения. 
 				/// предлагаю добавить checkbox отдельным столбцом или внутрь столбца "В наличии"
 
-#warning Добавить функционал дозаказа заканфивающего ся товара (Спрос)
-				/// предлагаю реализовать кнопкой в раздел дополнительно 
-
-
 			}
 		}
 
@@ -455,7 +451,7 @@ namespace SSManagment
 				}
 				else
 				{
-#warning Вывести окно предупреждения
+					ShowWarningConfirm("Неудалось выполнить операцию резервирования продукта, попробуйте еще раз. ");
 				}
 			}
 
@@ -491,6 +487,33 @@ namespace SSManagment
 		#endregion
 
 		#endregion
+
+
+		#region Modal window Warning 
+
+		#region Methods
+
+		private void ShowWarningConfirm(string msg)
+		{
+			lblWarning.Text = msg;
+			modalWarningConfirm.Visible = true;	
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnWarningOk_Click(object sender, EventArgs e)
+		{
+			modalWarningConfirm.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
+
+
 
 		#region Product grid sotring
 
