@@ -52,7 +52,7 @@ span
 	opacity: 0.65;
 	-moz-opacity: 0.65; /* для старых браузеров на основе Gecko */
 	filter: alpha(opacity=65);
-	height: expression(document.getElementById("ctl00_ctl00_cphMain_cphStandartProducts_gvwProducts").offsetHeight + 150 + "px");
+	height: 2500px;
 }
 /*window.pageXOffset/pageYOffset*/
 .content {
