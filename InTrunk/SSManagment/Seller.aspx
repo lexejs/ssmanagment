@@ -314,9 +314,9 @@
 			<div id="modalBuyConfirm" runat="server" visible="false">
 				<div class="overlay">
 				</div>
-				<div style="top: 48%; position: absolute; left: 48%;">
+				<div class="content">
 					<center>
-						<div style="width: 180px;">
+						<div>
 							<div class="Widget_heading_container">
 								<span class="Widget_heading_container_Span"></span>
 								<center>
@@ -360,9 +360,9 @@
 			<div id="modalUnReservConfirm" runat="server" visible="false">
 				<div class="overlay">
 				</div>
-				<div style="top: 48%; position: absolute; left: 48%;">
+				<div class="content">
 					<center>
-						<div style="width: 400px;">
+						<div>
 							<div class="Widget_heading_container">
 								<span class="Widget_heading_container_Span"></span>
 								<center>
@@ -407,9 +407,9 @@
 			<div id="modalWarningConfirm" runat="server" visible="false">
 				<div class="overlay">
 				</div>
-				<div style="top: 48%; position: absolute; left: 48%;">
+				<div class="content">
 					<center>
-						<div style="width: 400px;">
+						<div>
 							<div class="Widget_heading_container">
 								<span class="Widget_heading_container_Span"></span>
 								<center>
@@ -520,9 +520,9 @@
 			<div id="modalReserv" runat="server" visible="false">
 				<div class="overlay">
 				</div>
-				<div style="top: 45%; position: absolute; left: 40%;">
+				<div class="content">
 					<center>
-						<div style="width: 400px;">
+						<div>
 							<div class="Widget_heading_container">
 								<span class="Widget_heading_container_Span"></span>
 								<center>
