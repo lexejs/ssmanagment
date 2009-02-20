@@ -15,6 +15,7 @@ namespace SSManagment
 	public class ShopingCart : item
 	{
 		public int BuyCount { get; set; }
+		public double? ResultPrice { get; set; }
 	}
 
 	public partial class Seller : System.Web.UI.Page
@@ -130,6 +131,7 @@ namespace SSManagment
 			shop.reserveEndDate = product.reserveEndDate;
 
 			shop.BuyCount = buyCount;
+			shop.ResultPrice = shop.BuyCount * shop.bprice;
 
 			return shop;
 		}
@@ -206,9 +208,7 @@ namespace SSManagment
 										case "add":
 											{
 												ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-												int sum;
-												if (int.TryParse(lblSum.Text, out sum))
-													lblSum.Text = (sum + itm.bprice).ToString();
+												lblSum.Text = ShopingCartSession.Sum(b => b.ResultPrice).ToString();
 												LoadingShopingCart();
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
@@ -250,6 +250,10 @@ namespace SSManagment
 				}
 
 			}
+			else
+			{
+				((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+			}
 
 		}
 
@@ -278,7 +282,7 @@ namespace SSManagment
 				}
 			}
 		}
-
+#warning Что то придумать с отображение конечной стоимости указанного колличества товаров в gvwShopingCart
 		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
@@ -311,14 +315,37 @@ namespace SSManagment
 					e.Row.FindControl("spanCountCalc").Visible = true;
 					((System.Web.UI.HtmlControls.HtmlGenericControl)e.Row.FindControl("spanSum")).InnerText = (((item)(e.Row.DataItem)).count - ((item)(e.Row.DataItem)).reserveCount).ToString();
 				}
-
-
-#warning Сделать Невидимым текст бокс для кол-ва заказываемого товара если товара на складе больше нету, а вместо него кнопку заказать
-				/// выполнить заказ должно быть можно не только, если товара 
-				/// нет или кол-во достигло минимального значения. 
-				/// предлагаю добавить checkbox отдельным столбцом или внутрь столбца "В наличии"
-
 			}
+		}
+
+		protected void txtBuyCount_Click(object sender, EventArgs e)
+		{
+			ShopingCart shop =
+					ShopingCartSession.FirstOrDefault(
+						b => b.id == Convert.ToInt32(((Label)((Control)(sender)).FindControl("lblID")).Text));
+			int count;
+			if (int.TryParse(((TextBox)sender).Text,out count))
+			{
+				if (shop != null)
+				{
+					if (count <= (shop.count - (shop.reserveCount ?? 0)))
+					{
+						shop.BuyCount = count;
+						shop.ResultPrice = shop.BuyCount*shop.bprice;
+						LoadingShopingCart();
+					}
+					else
+					{
+						((TextBox) sender).Text = shop.BuyCount.ToString();
+					}
+				}
+			}
+			else
+			{
+				((TextBox)sender).Text = shop.BuyCount.ToString();
+			}
+
+
 		}
 
 		#endregion
@@ -391,6 +418,9 @@ namespace SSManagment
 
 		private void ShowModalBuyConfirm()
 		{
+			lblShopConfirmSum.Text = ShopingCartSession.Sum(b => b.ResultPrice).ToString();
+			gvwShpingCartConfirm.DataSource = ShopingCartSession;
+			gvwShpingCartConfirm.DataBind();
 			modalBuyConfirm.Visible = true;
 		}
 
@@ -488,15 +518,14 @@ namespace SSManagment
 
 		#endregion
 
-
-		#region Modal window Warning 
+		#region Modal window Warning
 
 		#region Methods
 
 		private void ShowWarningConfirm(string msg)
 		{
 			lblWarning.Text = msg;
-			modalWarningConfirm.Visible = true;	
+			modalWarningConfirm.Visible = true;
 		}
 
 		#endregion
@@ -512,9 +541,7 @@ namespace SSManagment
 
 		#endregion
 
-
-
-
+#warning Обработать сортировку по умолчанию при первой загрузке продуктов, каждый раз сортирует в разную сторану
 		#region Product grid sotring
 
 		#region Methods
