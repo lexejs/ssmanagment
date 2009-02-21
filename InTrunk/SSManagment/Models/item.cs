@@ -9,10 +9,12 @@ namespace SSManagment.Models
     {
         public double? bprice
         {
-            get {
+            get
+            {
                 if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
                     return adminPrice + adminPrice * (pct / 100);
-                return null; }
+                return null;
+            }
             set { }
         }
 
@@ -74,51 +76,67 @@ namespace SSManagment.Models
 
         public static IList<item> FindByName(string name)
         {
-            return new ssmDataContext().items.Where(i => i.name.Contains(name)).ToList();           
+            return new ssmDataContext().items.Where(i => i.name.Contains(name)).ToList();
         }
 
-		public static bool ReservItem(int id, int count, DateTime endDate)
-		{
-			ssmDataContext cont = new ssmDataContext();
-			item resvItem = cont.items.FirstOrDefault(b => b.id == id);
-			if (resvItem != null)
-			{
-				if (resvItem.reserveCount != null && resvItem.reserveCount > 0)
-				{
-					if ((resvItem.reserveCount + count) <= resvItem.count)
-					{
-						resvItem.reserveCount = count + resvItem.reserveCount;
-						if (resvItem.reserveEndDate < endDate)
-						{
-							resvItem.reserveEndDate = endDate;
-						}
-					}
-				}
-				else
-				{
-					resvItem.reserveCount = count;
-					resvItem.reserveEndDate = endDate;
-				}
+        public static bool ReservItem(int id, int count, DateTime endDate)
+        {
+            ssmDataContext cont = new ssmDataContext();
+            item resvItem = cont.items.FirstOrDefault(b => b.id == id);
+            if (resvItem != null)
+            {
+                if (resvItem.reserveCount != null && resvItem.reserveCount > 0)
+                {
+                    if ((resvItem.reserveCount + count) <= resvItem.count)
+                    {
+                        resvItem.reserveCount = count + resvItem.reserveCount;
+                        if (resvItem.reserveEndDate < endDate)
+                        {
+                            resvItem.reserveEndDate = endDate;
+                        }
+                    }
+                }
+                else
+                {
+                    resvItem.reserveCount = count;
+                    resvItem.reserveEndDate = endDate;
+                }
 
-				cont.SubmitChanges();
-				return true;
-			}
-			return false;
-		}
+                cont.SubmitChanges();
+                return true;
+            }
+            return false;
+        }
 
-		public static  void UnReservForItemId(int id)
-		{
-			ssmDataContext cont = new ssmDataContext();
-			item resvItem = cont.items.FirstOrDefault(b => b.id == id);
-			if (resvItem != null)
-			{
-				resvItem.reserveCount = null;
-				resvItem.reserveEndDate = null;
-				cont.SubmitChanges();
-			}
+        public static void UnReservForItemId(int id)
+        {
+            ssmDataContext cont = new ssmDataContext();
+            item resvItem = cont.items.FirstOrDefault(b => b.id == id);
+            if (resvItem != null)
+            {
+                resvItem.reserveCount = null;
+                resvItem.reserveEndDate = null;
+                cont.SubmitChanges();
+            }
 
-		}
+        }
 
+        public static void Order(int id)
+        {
+            ssmDataContext db = new ssmDataContext();
+            item orderItem = db.items.FirstOrDefault(b => b.id == id);
+            orderItem.order = true;
+            db.SubmitChanges();
+        }
+        
+        public static void CheckForOrder(int id)
+        {
+            ssmDataContext db = new ssmDataContext();
+            item orderItem = db.items.FirstOrDefault(b => b.id == id);
+            if (orderItem.count.HasValue && orderItem.countToOrder.HasValue)
+                orderItem.order = orderItem.count <= orderItem.countToOrder;
+            db.SubmitChanges();
+        }
     }
 
 }
