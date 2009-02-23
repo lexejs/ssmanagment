@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SSManagment.Models
 {
@@ -19,6 +20,7 @@ namespace SSManagment.Models
                                   sid = sid
                               };
             db.logSales.InsertOnSubmit(logSale);
+            db.items.First(i => i.id == itemId).count -= itemsCount;
             db.SubmitChanges();
         }
 
