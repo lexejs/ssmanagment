@@ -40,6 +40,12 @@ span
 #modalWarningConfirm{
     position:relative;
 }
+#modalDemand{
+    position:relative;
+}
+#modalReturn{
+    position:relative;
+}
 
 .overlay
 {
@@ -82,6 +88,12 @@ span
     height: expression(document.getElementById("modalReserv").offsetHeight);
 }
 
+* html #modalDemand .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+* html #modalReturn .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
 
 /* //////////////////////////////////////////////////////////// */
 /* /////////////////////////// Button ///////////////////////// */

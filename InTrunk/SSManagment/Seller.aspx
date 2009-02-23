@@ -249,8 +249,11 @@
 									<button id="btnAdmin" runat="server" style="width: 180px" onserverclick="btnAdminClick">
 										<span><em>Администрирование</em></span></button>
 									<br />
-									<button id="btnReturn" runat="server" style="width: 180px">
+									<button id="btnReturn" runat="server" style="width: 180px" onserverclick="btnReturn_Click">
 										<span><em>Возврат товара</em></span></button>
+									<br />
+									<button id="btnDemand" runat="server" style="width: 180px" onserverclick="btnDemand_Click">
+										<span><em>Спрос на товар</em></span></button>
 								</center>
 								<div class="clear"></div>
 							</div>
@@ -420,6 +423,122 @@
 					</center>
 				</div>
 			</div>
+			<div id="modalDemand" runat="server" visible="false">
+				<div class="overlay"></div>
+				<div class="content">
+					<center>
+						<div>
+							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+								<center>
+									<h2>
+										Оформить спрос на товар который не представлен в ассортименте.</h2>
+								</center>
+							</div>
+							<div class="Widget_Body_container">
+								<div class="Widget_Body_top"><span></span></div>
+								<div class="Widget_Body_content">
+									<div class="clear"></div>
+									<center>
+										<table width="100%">
+											<tr>
+												<td align="center" colspan="2">
+													<span>Название товара :&nbsp;</span><asp:TextBox ID="txtDemandProduct" runat="server" Width="250px"></asp:TextBox>
+													<br />
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<button id="btnDemandOk" runat="server" style="width: 75px;" onserverclick="btnDemandOk_Click">
+														<span><em>Да</em></span></button>
+												</td>
+												<td>
+													<button id="btnDemandNo" runat="server" style="width: 75px;" onserverclick="btnDemandNo_Click">
+														<span><em>Нет</em></span></button>
+												</td>
+											</tr>
+										</table>
+									</center>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="Widget_Body_bottom"><span></span></div>
+						</div>
+					</center>
+				</div>
+			</div>
+			<div id="modalReturn" runat="server" visible="false">
+				<div class="overlay"></div>
+				<div class="content">
+					<center>
+						<div>
+							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+								<center>
+									<h2>
+										Оформить возврат товара </h2>
+								</center>
+							</div>
+							<div class="Widget_Body_container">
+								<div class="Widget_Body_top"><span></span></div>
+								<div class="Widget_Body_content">
+									<div class="clear"></div>
+									<center>
+										<table width="100%">
+											<tr>
+												<td align="center" colspan="2">
+													<table cellpadding="0" cellspacing="0" width="100%">
+														<tr>
+															<td align="right">
+																Введите код листа товаров:&nbsp;
+															</td>
+															<td align="left">
+																<asp:TextBox ID="txtReturnProductCode" runat="server" Width="150px"></asp:TextBox>
+															</td>
+														</tr>
+														<tr>
+															<td align="right">
+																Введите дату покупки:&nbsp;
+															</td>
+															<td align="left">
+																<asp:TextBox ID="txtReturnProductSoldDate" runat="server"></asp:TextBox>
+															</td>
+														</tr>
+														<tr>
+															<td colspan="2" align="center">
+																<button id="btnReturnShowProducts" runat="server" style="width: 75px;" onserverclick="btnReturnShowProducts_Click">
+														<span><em>Показать список товаров</em></span></button>																
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td align="center" colspan="2">
+													<br />
+													<br />
+													<h4><span>Вернуть товар в магазин ?</span></h4>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<button id="btnReturnOk" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
+														<span><em>Да</em></span></button>
+												</td>
+												<td>
+													<button id="btnReturnNo" runat="server" style="width: 75px;" onserverclick="btnReturnNo_Click">
+														<span><em>Нет</em></span></button>
+												</td>
+											</tr>
+										</table>
+									</center>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="Widget_Body_bottom"><span></span></div>
+						</div>
+					</center>
+				</div>
+			</div>
 			<div id="modalOrderConfirm" runat="server" visible="false">
 				<div class="overlay"></div>
 				<div class="content">
@@ -437,21 +556,6 @@
 									<div class="clear"></div>
 									<center>
 										<table width="100%">
-											<tr visible="false">
-												<td colspan="2">
-													<table cellpadding="0" cellspacing="0" width="100%">
-														<tr>
-															<td align="right">
-																Сколько до заказать:&nbsp;
-															</td>
-															<td align="left">
-																<asp:TextBox ID="txtOrderCount" runat="server"></asp:TextBox>
-															</td>
-														</tr>
-													</table>
-													<br />
-												</td>
-											</tr>
 											<tr>
 												<td>
 													<asp:HiddenField ID="hdnOrder" runat="server" />

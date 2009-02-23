@@ -158,6 +158,16 @@ namespace SSManagment
 			ShowModalBuyConfirm();
 		}
 
+		protected void btnDemand_Click(object sender, EventArgs e)
+		{
+			ShowDemand();
+		}
+
+		protected void btnReturn_Click(object sender, EventArgs e)
+		{
+			ShowReturn();
+		}
+
 		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
 		{
 			int id;
@@ -252,7 +262,10 @@ namespace SSManagment
 			}
 			else
 			{
-				((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+				if (((Control)(e.CommandSource)).FindControl("txtBuyCount") != null)
+				{
+					((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
+				}
 			}
 
 		}
@@ -282,7 +295,7 @@ namespace SSManagment
 				}
 			}
 		}
-#warning Что то придумать с отображение конечной стоимости указанного колличества товаров в gvwShopingCart
+
 		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
@@ -324,19 +337,19 @@ namespace SSManagment
 					ShopingCartSession.FirstOrDefault(
 						b => b.id == Convert.ToInt32(((Label)((Control)(sender)).FindControl("lblID")).Text));
 			int count;
-			if (int.TryParse(((TextBox)sender).Text,out count))
+			if (int.TryParse(((TextBox)sender).Text, out count))
 			{
 				if (shop != null)
 				{
 					if (count <= (shop.count - (shop.reserveCount ?? 0)))
 					{
 						shop.BuyCount = count;
-						shop.ResultPrice = shop.BuyCount*shop.bprice;
+						shop.ResultPrice = shop.BuyCount * shop.bprice;
 						LoadingShopingCart();
 					}
 					else
 					{
-						((TextBox) sender).Text = shop.BuyCount.ToString();
+						((TextBox)sender).Text = shop.BuyCount.ToString();
 					}
 				}
 			}
@@ -397,9 +410,7 @@ namespace SSManagment
 
 		protected void btnOrderYes_Click(object sender, EventArgs e)
 		{
-#warning Сделать функционал заказа
-			//item.OrderItemId(Convert.ToInt32(hdnOrder.Value));
-
+			item.Order(Convert.ToInt32(hdnOrder.Value));
 			modalOrderConfirm.Visible = false;
 		}
 
@@ -430,7 +441,7 @@ namespace SSManagment
 
 		protected void btnYes_Click(object sender, EventArgs e)
 		{
-#warning Действия по покупке
+			item.BuyShopingCart(ShopingCartSession,AppHelper.CurrentUser.id,Convert.ToInt32(drpBuyer.SelectedValue));
 
 			ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
@@ -535,6 +546,69 @@ namespace SSManagment
 		protected void btnWarningOk_Click(object sender, EventArgs e)
 		{
 			modalWarningConfirm.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Modal window Demand
+
+		#region Methods
+
+		private void ShowDemand()
+		{
+			modalDemand.Visible = true;
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnDemandOk_Click(object sender, EventArgs e)
+		{
+#warning Функционал добавления спроса
+
+			modalDemand.Visible = false;
+		}
+
+		protected void btnDemandNo_Click(object sender, EventArgs e)
+		{
+			modalDemand.Visible = false;
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Modal window Return
+
+		#region Methods
+
+		private void ShowReturn()
+		{
+			modalReturn.Visible = true;
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnReturnOk_Click(object sender, EventArgs e)
+		{
+#warning Функционал возврата
+
+			modalReturn.Visible = false;
+		}
+
+		protected void btnReturnNo_Click(object sender, EventArgs e)
+		{
+			modalReturn.Visible = false;
+		}
+
+		protected void btnReturnShowProducts_Click(object sender, EventArgs e)
+		{
+#warning Показать список купленных товаров с возможностьюй возврата
 		}
 
 		#endregion

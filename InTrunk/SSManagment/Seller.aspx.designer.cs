@@ -131,6 +131,15 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnReturn;
         
         /// <summary>
+        /// btnDemand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDemand;
+        
+        /// <summary>
         /// modalBuyConfirm control.
         /// </summary>
         /// <remarks>
@@ -239,6 +248,96 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnWarningOk;
         
         /// <summary>
+        /// modalDemand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalDemand;
+        
+        /// <summary>
+        /// txtDemandProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDemandProduct;
+        
+        /// <summary>
+        /// btnDemandOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDemandOk;
+        
+        /// <summary>
+        /// btnDemandNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDemandNo;
+        
+        /// <summary>
+        /// modalReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalReturn;
+        
+        /// <summary>
+        /// txtReturnProductCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReturnProductCode;
+        
+        /// <summary>
+        /// txtReturnProductSoldDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReturnProductSoldDate;
+        
+        /// <summary>
+        /// btnReturnShowProducts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnShowProducts;
+        
+        /// <summary>
+        /// btnReturnOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnOk;
+        
+        /// <summary>
+        /// btnReturnNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnNo;
+        
+        /// <summary>
         /// modalOrderConfirm control.
         /// </summary>
         /// <remarks>
@@ -246,15 +345,6 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalOrderConfirm;
-        
-        /// <summary>
-        /// txtOrderCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrderCount;
         
         /// <summary>
         /// hdnOrder control.
