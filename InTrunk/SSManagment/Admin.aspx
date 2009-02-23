@@ -63,7 +63,7 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    <table runat="server" id="tblGroup" visible="false" cellpadding="0" cellspacing="0">
+                    <table runat="server" id="tblGroup" visible="true" cellpadding="0" cellspacing="0">
                         <tr>
                             <td>
                                 <center>
@@ -84,11 +84,15 @@
                                                     <tr>
                                                         <td>
                                                             <asp:ListBox ID="lstGroup" runat="server" Height="300px" Width="300px" OnSelectedIndexChanged="lstGroup_SelectedIndexChanged"
-                                                                AutoPostBack="True"></asp:ListBox>
+                                                                AutoPostBack="True"></asp:ListBox><br />
+                                                            <asp:Label ID="lblPGroup" runat="server" Text=""></asp:Label>
                                                         </td>
                                                         <td>
-                                                            <asp:ListBox ID="lstSubGroup" runat="server" Height="300px" Width="300px" TabIndex="40">
-                                                            </asp:ListBox>
+                                                            <asp:ListBox ID="lstSubGroup" runat="server" Height="300px" Width="300px" 
+                                                                TabIndex="40" AutoPostBack='true' 
+                                                                onselectedindexchanged="lstSubGroup_SelectedIndexChanged">
+                                                            </asp:ListBox><br />
+                                                            <asp:Label ID="lblSubGroup" runat="server" Text=""></asp:Label>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -173,7 +177,7 @@
             </tr>
             <tr>
                 <td>
-                    <table runat="server" id="tblItems" cellpadding="0" cellspacing="0">
+                    <table runat="server" id="tblItems" cellpadding="0" cellspacing="0" visible="false">
                         <tr>
                             <td>
                                 <center>
@@ -204,6 +208,7 @@
                                                             </div>
                                                         </td>
                                                         <td valign="bottom">
+                                                            <asp:Label ID="lblGroupName" runat="server" Text=""></asp:Label><br />
                                                             <asp:ListBox ID="lstItems" runat="server" Height="300px" Width="410px" AutoPostBack="true"
                                                                 OnSelectedIndexChanged="lstItems_SelectedIndexChanged"></asp:ListBox>
                                                         </td>
@@ -240,8 +245,6 @@
                                                                     </td>
                                                                     <td align="left">
                                                                         <asp:TextBox ID="txtItemMeasure" runat="server"></asp:TextBox>
-                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="RequiredFieldValidator"
-                                                                            ControlToValidate="txtItemMeasure" ValidationGroup="itemChanged">*</asp:RequiredFieldValidator>
                                                                         <br />
                                                                     </td>
                                                                 </tr>
@@ -318,8 +321,8 @@
                 </td>
             </tr>
             <tr>
-            <td>
-            <table runat="server" id="tblBuyers" visible="false" cellpadding="0" cellspacing="0">
+                <td>
+                    <table runat="server" id="tblBuyers" visible="false" cellpadding="0" cellspacing="0">
                         <tr>
                             <td>
                                 <center>
@@ -337,7 +340,31 @@
                                             </div>
                                             <center>
                                                 <table>
-                                                Список
+                                                    <tr>
+                                                        <td>
+                                                            <asp:ListBox ID="lstBuyers" runat="server" AutoPostBack="true" OnSelectedIndexChanged="lstBuyers_SelectedIndexChanged"
+                                                                Width="200px" Height="100px"></asp:ListBox>
+                                                        </td>
+                                                        <td>
+                                                            Имя<br />
+                                                            <asp:TextBox ID="txtBuyerName" runat="server"></asp:TextBox>
+                                                        </td>
+                                                        <td>
+                                                            Скидка (%)<br />
+                                                            <asp:TextBox ID="txtBuyerPct" runat="server" Width="70"></asp:TextBox>
+                                                        </td>
+                                                        <td>
+                                                            <asp:CheckBox ID="chkBuyerCanBuyOnTick" runat="server" Text="Покупка в кредит" /><br />
+                                                            <asp:CheckBox ID="chkBuyerIsActive" runat="server" Text="Активен" />
+                                                        </td>
+                                                        <td>
+                                                            <button id="btnBuyerUpd" runat="server" tabindex="60" style="width: 130px" onserverclick="btnBuyerUpdate_Click">
+                                                                <span><em>Изменить</em></span></button>
+                                                            <button id="btnBuyerAdd" runat="server" tabindex="65" style="width: 130px" validationgroup="itemChanged"
+                                                                onserverclick="btnBuyerAdd_Click">
+                                                                <span><em>Добавить</em></span></button>
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </center>
                                             <div class="clear">
@@ -351,7 +378,7 @@
                             </td>
                         </tr>
                     </table>
-            <td>
+                    <td>
             </tr>
         </table>
     </div>

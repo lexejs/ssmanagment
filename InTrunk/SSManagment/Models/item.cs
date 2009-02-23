@@ -29,7 +29,7 @@ namespace SSManagment.Models
         {
             var db = new ssmDataContext();
             var groupIDs = db.groups.Where(g => g.id == groupId || g.parent == groupId).Select(g => g.id).ToList();
-            var result = db.items.Where(itm => groupIDs.Contains(itm.groupId.Value)).ToList();
+            var result = db.items.Where(itm => groupIDs.Contains(itm.groupId.Value) && (itm.isActive.HasValue && itm.isActive.Value || (AppHelper.CurrentUser.isAdmin.HasValue && AppHelper.CurrentUser.isAdmin.Value))).ToList();
             return result;
         }
 
@@ -76,8 +76,9 @@ namespace SSManagment.Models
 
         public static IList<item> FindByName(string name)
         {
-            return new ssmDataContext().items.Where(i => i.name.Contains(name)).ToList();
+            return new ssmDataContext().items.Where(i => i.name.Contains(name) && (i.isActive.HasValue && i.isActive.Value || (AppHelper.CurrentUser.isAdmin.HasValue && AppHelper.CurrentUser.isAdmin.Value))).ToList();
         }
+
 
         public static bool ReservItem(int id, int count, DateTime endDate)
         {
@@ -121,6 +122,18 @@ namespace SSManagment.Models
 
         }
 
+        public static void CheckForExpiredItems()
+        {
+            var db = new ssmDataContext();
+            var result = db.items.Where(i => i.reserveEndDate<=DateTime.Now).ToList();
+            foreach (var item in result)
+            {
+                item.reserveCount = null;
+                item.reserveEndDate = null;
+            }
+            db.SubmitChanges();
+        }
+
         public static void Order(int id)
         {
             ssmDataContext db = new ssmDataContext();
@@ -128,7 +141,7 @@ namespace SSManagment.Models
             orderItem.order = true;
             db.SubmitChanges();
         }
-        
+
         public static void CheckForOrder(int id)
         {
             ssmDataContext db = new ssmDataContext();
@@ -138,20 +151,20 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-		public static void BuyShopingCart(IList<ShopingCart> shop, int sellerId,int buyerId)
-		{
-			foreach(ShopingCart shpProduct in shop)
-			{
+        public static void BuyShopingCart(IList<ShopingCart> shop, int sellerId, int buyerId)
+        {
+            foreach (ShopingCart shpProduct in shop)
+            {
 #warning Добавить функционал покупки
 
 #warning Немогу понять какие параметры передавать дальше
-				//logSale.Sale(buyerId, sellerId, shpProduct.id,shpProduct.BuyCount,);
-				item.CheckForOrder(shpProduct.id);
-			}
-			
-		}
+                //logSale.Sale(buyerId, sellerId, shpProduct.id,shpProduct.BuyCount,);
+                item.CheckForOrder(shpProduct.id);
+            }
 
-    	
+        }
+
+
     }
 
 }

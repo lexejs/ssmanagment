@@ -77,6 +77,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.ListBox lstGroup;
         
         /// <summary>
+        /// lblPGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPGroup;
+        
+        /// <summary>
         /// lstSubGroup control.
         /// </summary>
         /// <remarks>
@@ -84,6 +93,15 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox lstSubGroup;
+        
+        /// <summary>
+        /// lblSubGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubGroup;
         
         /// <summary>
         /// txtGroupName control.
@@ -203,6 +221,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.TreeView treeCategories;
         
         /// <summary>
+        /// lblGroupName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupName;
+        
+        /// <summary>
         /// lstItems control.
         /// </summary>
         /// <remarks>
@@ -255,15 +282,6 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtItemMeasure;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// txtItemAdminPrice control.
@@ -390,5 +408,59 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox lstBuyers;
+        
+        /// <summary>
+        /// txtBuyerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBuyerName;
+        
+        /// <summary>
+        /// txtBuyerPct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBuyerPct;
+        
+        /// <summary>
+        /// chkBuyerCanBuyOnTick control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkBuyerCanBuyOnTick;
+        
+        /// <summary>
+        /// chkBuyerIsActive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkBuyerIsActive;
+        
+        /// <summary>
+        /// btnBuyerUpd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnBuyerUpd;
+        
+        /// <summary>
+        /// btnBuyerAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnBuyerAdd;
     }
 }

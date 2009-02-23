@@ -11,7 +11,7 @@ namespace SSManagment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Models.item.CheckForExpiredItems();
         }
 
         protected void btnLogin_Click1(object sender, EventArgs e)

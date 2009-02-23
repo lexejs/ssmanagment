@@ -22,7 +22,6 @@ namespace SSManagment
             if (!Page.IsPostBack)
             {
                 lstGroupFill();
-                LoadingTree();
             }
         }
 
@@ -60,6 +59,16 @@ namespace SSManagment
             }
         }
 
+        private void lstBuyersFill()
+        {
+            var db = new ssmDataContext();
+            lstBuyers.DataSource = db.buyers.OrderBy(g => g.name).ToList();
+            lstBuyers.DataTextField = "name";
+            lstBuyers.DataValueField = "id";
+            lstBuyers.DataBind();
+
+        }
+
         private void LoadingTree()
         {
             IList<group> rootCategories = groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
@@ -94,15 +103,25 @@ namespace SSManagment
             lstSubGroup.DataValueField = "id";
             lstSubGroup.DataBind();
             txtGroupName.Text = lstGroup.SelectedItem.Text;
+            var group = new ssmDataContext().groups.First(g => g.id == parentId);
+            lblPGroup.Text = "Наименований товаров: " + group.items.Count.ToString();
         }
 
+        protected void lstSubGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+            var db = new ssmDataContext();
+            var group = db.groups.First(g => g.id == groupId);
+            txtSubGroupName.Text = group.name;
+            lblSubGroup.Text = "Наименований товаров: " + group.items.Count.ToString();
+        }
 
         protected void btnAddGroup_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtGroupName.Text))
             {
                 var db = new ssmDataContext();
-                var nGroup = new group {name = txtGroupName.Text};
+                var nGroup = new group { name = string.IsNullOrEmpty(txtGroupName.Text) ? "НОВАЯ ГРУППА" : txtGroupName.Text };
                 db.groups.InsertOnSubmit(nGroup);
                 db.SubmitChanges();
                 lstGroupFill();
@@ -132,7 +151,7 @@ namespace SSManagment
             {
                 var db = new ssmDataContext();
                 int parentId = int.Parse(lstGroup.SelectedItem.Value);
-                var nGroup = new group {name = txtSubGroupName.Text, parent = parentId};
+                var nGroup = new group { name = string.IsNullOrEmpty(txtSubGroupName.Text) ? "Новая Группа" : txtSubGroupName.Text, parent = parentId };
                 db.groups.InsertOnSubmit(nGroup);
                 db.SubmitChanges();
                 lstGroupFill();
@@ -184,7 +203,7 @@ namespace SSManagment
                 List<group> groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
                 if (groupToUpdate.Count == 1)
                 {
-                    groupToUpdate.First().name = lstSubGroup.SelectedItem.Value;
+                    groupToUpdate.First().name = txtSubGroupName.Text;
                     db.SubmitChanges();
                     lstGroupFill();
                 }
@@ -225,13 +244,11 @@ namespace SSManagment
             }
         }
 
-        //protected void btnShowGroups_Click(object sender, EventArgs e)
-        //{
-        //}
+
 
         protected void btnShowItems_Click(object sender, EventArgs e)
         {
-            var button = ((HtmlButton) sender);
+            var button = ((HtmlButton)sender);
             if (button != null)
             {
                 if (button.ID.ToLower().Contains("items"))
@@ -239,18 +256,23 @@ namespace SSManagment
                     tblGroup.Visible = false;
                     tblItems.Visible = !tblGroup.Visible;
                     tblBuyers.Visible = false;
+                    LoadingTree();
+                    lstGroupFill();
                 }
                 else if (button.ID.ToLower().Contains("groups"))
                 {
                     tblGroup.Visible = true;
                     tblItems.Visible = !tblGroup.Visible;
                     tblBuyers.Visible = false;
+                    lstGroupFill();
                 }
                 else if (button.ID.ToLower().Contains("buyer"))
                 {
                     tblGroup.Visible = false;
                     tblItems.Visible = false;
                     tblBuyers.Visible = true;
+                    lstBuyersFill();
+                    lstGroupFill();
                 }
             }
             else
@@ -275,7 +297,9 @@ namespace SSManagment
                 lstItems.DataTextField = "name";
                 lstItems.DataValueField = "id";
                 lstItems.DataBind();
+                lblGroupName.Text = new ssmDataContext().groups.First(g => g.id == id).name;
             }
+
         }
 
         protected void lstItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -347,7 +371,7 @@ namespace SSManagment
             {
                 int groupId = int.Parse(treeCategories.SelectedNode.Value);
                 var db = new ssmDataContext();
-                var item = new item {name = "новый товар", groupId = groupId};
+                var item = new item { name = "новый товар", groupId = groupId };
                 db.items.InsertOnSubmit(item);
                 db.SubmitChanges();
                 treeCategories_SelectedNodeChanged(new object(), new EventArgs());
@@ -355,5 +379,47 @@ namespace SSManagment
         }
 
         #endregion
+
+        protected void lstBuyers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lstBuyers.SelectedValue))
+            {
+                int buyerId = int.Parse(lstBuyers.SelectedValue);
+                var db = new ssmDataContext();
+                buyer buyer = db.buyers.First(b => b.id == buyerId);
+                txtBuyerName.Text = buyer.name;
+                chkBuyerCanBuyOnTick.Checked = buyer.canBuyOnTick.HasValue && buyer.canBuyOnTick.Value;
+                chkBuyerIsActive.Checked = buyer.isActive.HasValue && buyer.isActive.Value;
+                txtBuyerPct.Text = buyer.pct.HasValue ? buyer.pct.Value.ToString() : "0";
+            }
+        }
+
+        protected void btnBuyerAdd_Click(object sender, EventArgs e)
+        {
+            var db = new ssmDataContext();
+            buyer buyer = new buyer { isActive = false, name = "новый покупатель", canBuyOnTick = false, pct = 0 };
+            db.buyers.InsertOnSubmit(buyer);
+            db.SubmitChanges();
+            lstBuyersFill();
+        }
+
+        protected void btnBuyerUpdate_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lstBuyers.SelectedValue))
+            {
+                int buyerId = int.Parse(lstBuyers.SelectedValue);
+                var db = new ssmDataContext();
+                buyer buyer = db.buyers.First(b => b.id == buyerId);
+                buyer.name = txtBuyerName.Text;
+                buyer.canBuyOnTick = chkBuyerCanBuyOnTick.Checked;
+                float pct = 0;
+                buyer.pct = float.TryParse(txtBuyerPct.Text, out pct) ? pct : 0;
+                buyer.isActive = chkBuyerIsActive.Checked;
+                db.SubmitChanges();
+            }
+            lstBuyersFill();
+        }
+
+
     }
 }
