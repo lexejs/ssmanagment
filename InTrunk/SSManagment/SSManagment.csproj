@@ -98,6 +98,8 @@
     <Compile Include="Models\AppHelper.cs" />
     <Compile Include="Models\group.cs" />
     <Compile Include="Models\item.cs" />
+    <Compile Include="Models\logActivity.cs" />
+    <Compile Include="Models\logSale.cs" />
     <Compile Include="Models\ssm.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

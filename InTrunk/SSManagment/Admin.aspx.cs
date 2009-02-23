@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using SSManagment.Models;
-using System.Web.UI.HtmlControls;
 
 namespace SSManagment
 {
-    public partial class Admin : System.Web.UI.Page
+    public partial class Admin : Page
     {
-        IList<group> groups;
+        private IList<group> groups;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var db = new ssmDataContext();
@@ -25,11 +25,11 @@ namespace SSManagment
                 LoadingTree();
             }
         }
+
         #region Methods
 
         private void lstGroupFill()
         {
-
             var db = new ssmDataContext();
             int groupId = 0;
             if (lstGroup.SelectedIndex > -1)
@@ -67,24 +67,18 @@ namespace SSManagment
 
             foreach (group categ in rootCategories)
             {
-                TreeNode tree;
-
-                if (categ.parent == null)
+                if (categ.parent != null) continue;
+                var tree = new TreeNode(categ.name, categ.id.ToString());
+                IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
+                if (cildNode.Count > 0)
                 {
-                    tree = new TreeNode(categ.name, categ.id.ToString());
-
-                    IList<group> cildNode = rootchild.Where(b => b.parent == categ.id).ToList();
-
-                    if (cildNode.Count > 0)
+                    foreach (group child in cildNode)
                     {
-                        foreach (group child in cildNode)
-                        {
-                            tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
-                        }
-                        tree.Expanded = false;
+                        tree.ChildNodes.Add(new TreeNode(child.name, child.id.ToString()));
                     }
-                    treeCategories.Nodes.Add(tree);
+                    tree.Expanded = false;
                 }
+                treeCategories.Nodes.Add(tree);
             }
         }
 
@@ -92,10 +86,9 @@ namespace SSManagment
 
         #region Handlers
 
-
         protected void lstGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var parentId = int.Parse(lstGroup.SelectedItem.Value);
+            int parentId = int.Parse(lstGroup.SelectedItem.Value);
             lstSubGroup.DataSource = groups.Where(g => g.parent != null && g.parent.Value == parentId).ToList();
             lstSubGroup.DataTextField = "name";
             lstSubGroup.DataValueField = "id";
@@ -109,7 +102,7 @@ namespace SSManagment
             if (!string.IsNullOrEmpty(txtGroupName.Text))
             {
                 var db = new ssmDataContext();
-                var nGroup = new group { name = txtGroupName.Text };
+                var nGroup = new group {name = txtGroupName.Text};
                 db.groups.InsertOnSubmit(nGroup);
                 db.SubmitChanges();
                 lstGroupFill();
@@ -121,8 +114,9 @@ namespace SSManagment
             if (lstGroup.SelectedItem != null)
             {
                 var db = new ssmDataContext();
-                var groupId = int.Parse(lstGroup.SelectedItem.Value);
-                var groupToDelete = db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && g.items.Count == 0).ToList();
+                int groupId = int.Parse(lstGroup.SelectedItem.Value);
+                List<group> groupToDelete =
+                    db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && g.items.Count == 0).ToList();
                 if (groupToDelete.Count == 1)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());
@@ -137,8 +131,8 @@ namespace SSManagment
             if (lstGroup.SelectedIndex > -1 && !string.IsNullOrEmpty(txtSubGroupName.Text))
             {
                 var db = new ssmDataContext();
-                var parentId = int.Parse(lstGroup.SelectedItem.Value);
-                var nGroup = new group { name = txtSubGroupName.Text, parent = parentId };
+                int parentId = int.Parse(lstGroup.SelectedItem.Value);
+                var nGroup = new group {name = txtSubGroupName.Text, parent = parentId};
                 db.groups.InsertOnSubmit(nGroup);
                 db.SubmitChanges();
                 lstGroupFill();
@@ -151,8 +145,8 @@ namespace SSManagment
             if (lstSubGroup.SelectedItem != null)
             {
                 var db = new ssmDataContext();
-                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                var groupToDelete = db.groups.Where(g => g.id == groupId && g.items.Count == 0).ToList();
+                int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                List<group> groupToDelete = db.groups.Where(g => g.id == groupId && g.items.Count == 0).ToList();
                 if (groupToDelete.Count == 1)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());
@@ -169,8 +163,8 @@ namespace SSManagment
                 if (lstGroup.SelectedItem != null)
                 {
                     var db = new ssmDataContext();
-                    var groupId = int.Parse(lstGroup.SelectedItem.Value);
-                    var groupToUpdate = db.groups.Where(g => g.id == groupId).ToList();
+                    int groupId = int.Parse(lstGroup.SelectedItem.Value);
+                    List<group> groupToUpdate = db.groups.Where(g => g.id == groupId).ToList();
                     if (groupToUpdate.Count == 1)
                     {
                         groupToUpdate.First().name = txtGroupName.Text;
@@ -186,8 +180,8 @@ namespace SSManagment
             if (lstSubGroup.SelectedItem != null && !string.IsNullOrEmpty(lstSubGroup.SelectedItem.Value))
             {
                 var db = new ssmDataContext();
-                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                var groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+                int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                List<group> groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
                 if (groupToUpdate.Count == 1)
                 {
                     groupToUpdate.First().name = lstSubGroup.SelectedItem.Value;
@@ -202,8 +196,8 @@ namespace SSManagment
             if (lstSubGroup.SelectedItem != null)
             {
                 var db = new ssmDataContext();
-                var groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                var groupToMove = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+                int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+                List<group> groupToMove = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
                 if (groupToMove.Count == 1)
                 {
                     groupToMove.First().parent = null;
@@ -218,10 +212,10 @@ namespace SSManagment
             if (lstGroup.SelectedItem != null && ddlAttachTo.SelectedItem != null)
             {
                 var db = new ssmDataContext();
-                var groupToAttachId = int.Parse(ddlAttachTo.SelectedItem.Value);
-                var groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
-                var groupForAttachId = int.Parse(lstGroup.SelectedItem.Value);
-                var groupsForAttach = db.groups.Where(g => g.id == groupForAttachId).ToList();
+                int groupToAttachId = int.Parse(ddlAttachTo.SelectedItem.Value);
+                List<group> groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
+                int groupForAttachId = int.Parse(lstGroup.SelectedItem.Value);
+                List<group> groupsForAttach = db.groups.Where(g => g.id == groupForAttachId).ToList();
                 if (groupsToAttach.Count == 1 && groupsForAttach.Count == 1 && groupToAttachId != groupForAttachId)
                 {
                     groupsForAttach.First().parent = groupsToAttach.First().id;
@@ -231,14 +225,13 @@ namespace SSManagment
             }
         }
 
-        protected void btnShowGroups_Click(object sender, EventArgs e)
-        {
-
-        }
+        //protected void btnShowGroups_Click(object sender, EventArgs e)
+        //{
+        //}
 
         protected void btnShowItems_Click(object sender, EventArgs e)
         {
-            HtmlButton button = ((HtmlButton)sender);
+            var button = ((HtmlButton) sender);
             if (button != null)
             {
                 if (button.ID.ToLower().Contains("items"))
@@ -246,26 +239,22 @@ namespace SSManagment
                     tblGroup.Visible = false;
                     tblItems.Visible = !tblGroup.Visible;
                 }
-                else
-                    if (button.ID.ToLower().Contains("groups"))
-                    {
-                        tblGroup.Visible = true;
-                        tblItems.Visible = !tblGroup.Visible;
-                    }
-
+                else if (button.ID.ToLower().Contains("groups"))
+                {
+                    tblGroup.Visible = true;
+                    tblItems.Visible = !tblGroup.Visible;
+                }
             }
             else
             {
                 tblGroup.Visible = false;
                 tblItems.Visible = !tblGroup.Visible;
             }
-
         }
 
         protected void btnGoBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("Seller.aspx");
-            ;
         }
 
         protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
@@ -277,7 +266,6 @@ namespace SSManagment
                 lstItems.DataTextField = "name";
                 lstItems.DataValueField = "id";
                 lstItems.DataBind();
-
             }
         }
 
@@ -285,9 +273,9 @@ namespace SSManagment
         {
             if (lstItems.SelectedItem != null)
             {
-                var itemId = int.Parse(lstItems.SelectedValue);
+                int itemId = int.Parse(lstItems.SelectedValue);
                 var db = new ssmDataContext();
-                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
+                item item = db.items.Where(i => i.id == itemId).FirstOrDefault();
 
                 if (item != null)
                 {
@@ -308,9 +296,9 @@ namespace SSManagment
         {
             if (lstItems.SelectedItem != null)
             {
-                var itemId = int.Parse(lstItems.SelectedValue);
+                int itemId = int.Parse(lstItems.SelectedValue);
                 var db = new ssmDataContext();
-                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
+                item item = db.items.Where(i => i.id == itemId).FirstOrDefault();
 
                 item.name = txtItemName.Text;
                 item.measure = txtItemMeasure.Text;
@@ -329,12 +317,12 @@ namespace SSManagment
         {
             if (lstItems.SelectedItem != null && ddlItemToGroup.SelectedItem != null)
             {
-                var itemId = int.Parse(lstItems.SelectedValue);
+                int itemId = int.Parse(lstItems.SelectedValue);
                 var db = new ssmDataContext();
-                var item = db.items.Where(i => i.id == itemId).FirstOrDefault();
+                item item = db.items.Where(i => i.id == itemId).FirstOrDefault();
 
-                var groupToAttachId = int.Parse(ddlItemToGroup.SelectedItem.Value);
-                var groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
+                int groupToAttachId = int.Parse(ddlItemToGroup.SelectedItem.Value);
+                List<group> groupsToAttach = db.groups.Where(g => g.id == groupToAttachId).ToList();
                 if (groupsToAttach.Count == 1)
                 {
                     item.groupId = groupsToAttach.First().id;
@@ -348,9 +336,9 @@ namespace SSManagment
         {
             if (treeCategories.SelectedNode != null)
             {
-                var groupId = int.Parse(treeCategories.SelectedNode.Value);
+                int groupId = int.Parse(treeCategories.SelectedNode.Value);
                 var db = new ssmDataContext();
-                var item = new item { name = "новый товар", groupId = groupId };
+                var item = new item {name = "новый товар", groupId = groupId};
                 db.items.InsertOnSubmit(item);
                 db.SubmitChanges();
                 treeCategories_SelectedNodeChanged(new object(), new EventArgs());
@@ -358,6 +346,5 @@ namespace SSManagment
         }
 
         #endregion
-
     }
 }
