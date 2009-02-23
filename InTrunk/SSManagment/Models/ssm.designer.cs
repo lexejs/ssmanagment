@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString2"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString3"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1422,6 +1422,10 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _isGiveBack;
 		
+		private System.Nullable<float> _cash;
+		
+		private System.Nullable<int> _sid;
+		
 		private EntityRef<item> _item;
 		
 		private EntityRef<seller> _seller;
@@ -1446,6 +1450,10 @@ namespace SSManagment.Models
     partial void OndateChanged();
     partial void OnisGiveBackChanging(System.Nullable<bool> value);
     partial void OnisGiveBackChanged();
+    partial void OncashChanging(System.Nullable<float> value);
+    partial void OncashChanged();
+    partial void OnsidChanging(System.Nullable<int> value);
+    partial void OnsidChanged();
     #endregion
 		
 		public logSale()
@@ -1604,6 +1612,46 @@ namespace SSManagment.Models
 					this._isGiveBack = value;
 					this.SendPropertyChanged("isGiveBack");
 					this.OnisGiveBackChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_cash")]
+		public System.Nullable<float> cash
+		{
+			get
+			{
+				return this._cash;
+			}
+			set
+			{
+				if ((this._cash != value))
+				{
+					this.OncashChanging(value);
+					this.SendPropertyChanging();
+					this._cash = value;
+					this.SendPropertyChanged("cash");
+					this.OncashChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_sid")]
+		public System.Nullable<int> sid
+		{
+			get
+			{
+				return this._sid;
+			}
+			set
+			{
+				if ((this._sid != value))
+				{
+					this.OnsidChanging(value);
+					this.SendPropertyChanging();
+					this._sid = value;
+					this.SendPropertyChanged("sid");
+					this.OnsidChanged();
 				}
 			}
 		}

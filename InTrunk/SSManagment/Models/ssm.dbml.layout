@@ -32,10 +32,10 @@
         <elementListCompartment Id="95e54119-bb3c-40a1-ba71-c42a34bcd3dd" absoluteBounds="6.265, 6.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" absoluteBounds="6.75, 3.75, 2, 1.9178898111979166">
+    <classShape Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" absoluteBounds="6.75, 3.75, 2, 2.2465844726562496">
       <DataClassMoniker Name="/ssmDataContext/logSale" />
       <nestedChildShapes>
-        <elementListCompartment Id="9e57f758-9d22-4723-af5c-61d2389aba2a" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9e57f758-9d22-4723-af5c-61d2389aba2a" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(1.44665868118566 : 2.9717278829217); (1.44665868118566 : 3.2217278829217); (2.06778614351979 : 3.2217278829217); (2.06778614351979 : 2.9717278829217)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -59,14 +59,14 @@
         <classShapeMoniker Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 5.17232633387049); (6.75 : 5.17232633387049)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 5.37329223632812); (6.75 : 5.37329223632812)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/seller/seller_logSale" />
       <nodes>
         <classShapeMoniker Id="447024ea-652e-4430-957e-3b25908ee149" />
         <classShapeMoniker Id="0d3c0bfc-d499-4a2e-9675-fe87b0d17938" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 4.75); (1.75 : 4.37363502058736); (6.75 : 4.37363502058736)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 4.75); (1.75 : 4.44041006315104); (6.75 : 4.44041006315104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ssmDataContext/buyer/buyer_logSale" />
       <nodes>
         <classShapeMoniker Id="2e8d7a78-92c2-4beb-8e98-d06df6a2a803" />
