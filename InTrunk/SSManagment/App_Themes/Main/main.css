@@ -46,6 +46,9 @@ span
 #modalReturn{
     position:relative;
 }
+#modalReturnConfirm{
+    position:relative;
+}
 
 .overlay
 {
@@ -91,7 +94,12 @@ span
 * html #modalDemand .overlay {
     height: expression(document.getElementById("modalReserv").offsetHeight);
 }
+
 * html #modalReturn .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+
+* html #modalReturnConfirm .overlay {
     height: expression(document.getElementById("modalReserv").offsetHeight);
 }
 
