@@ -137,6 +137,21 @@ namespace SSManagment.Models
                 orderItem.order = orderItem.count <= orderItem.countToOrder;
             db.SubmitChanges();
         }
+
+		public static void BuyShopingCart(IList<ShopingCart> shop, int sellerId,int buyerId)
+		{
+			foreach(ShopingCart shpProduct in shop)
+			{
+#warning Добавить функционал покупки
+
+#warning Немогу понять какие параметры передавать дальше
+				//logSale.Sale(buyerId, sellerId, shpProduct.id,shpProduct.BuyCount,);
+				item.CheckForOrder(shpProduct.id);
+			}
+			
+		}
+
+    	
     }
 
 }
