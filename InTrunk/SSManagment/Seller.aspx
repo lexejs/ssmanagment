@@ -475,7 +475,7 @@
 							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
 								<center>
 									<h2>
-										Оформить возврат товара </h2>
+										Возврат товара </h2>
 								</center>
 							</div>
 							<div class="Widget_Body_container">
@@ -505,12 +505,12 @@
 														</tr>
 														<tr>
 															<td colspan="2" align="center">
-																<button id="btnReturnShowProducts" runat="server" style="width: 120px;" onserverclick="btnReturnShowProducts_Click">
+																<button id="btnReturnShowProducts" runat="server" style="width: 185px;" onserverclick="btnReturnShowProducts_Click">
 																	<span><em>Показать список товаров</em></span></button>
 															</td>
 														</tr>
 														<tr>
-															<td>
+															<td colspan="2" align="center">
 																<asp:GridView ID="gvwReturn" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt" OnRowCommand="gvwReturn_RowCommand" OnRowDeleting="gvwReturn_RowDeleting">
 																	<RowStyle BackColor="#F7F7DE" />
 																	<Columns>
@@ -559,7 +559,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td>
+												<td colspan="2">
 													<br />
 													<br />
 													<button id="btnReturnOk" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
