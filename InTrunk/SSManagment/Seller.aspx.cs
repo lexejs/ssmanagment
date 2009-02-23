@@ -296,7 +296,7 @@ namespace SSManagment
 			}
 		}
 
-		protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
+	protected void gvwShoppingCart_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
 		}
@@ -596,19 +596,61 @@ namespace SSManagment
 
 		protected void btnReturnOk_Click(object sender, EventArgs e)
 		{
-#warning Функционал возврата
-
-			modalReturn.Visible = false;
-		}
-
-		protected void btnReturnNo_Click(object sender, EventArgs e)
-		{
 			modalReturn.Visible = false;
 		}
 
 		protected void btnReturnShowProducts_Click(object sender, EventArgs e)
 		{
 #warning Показать список купленных товаров с возможностьюй возврата
+
+			gvwReturn.DataSource = null;
+			gvwReturn.DataBind();
+		}
+
+		protected void gvwReturn_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				if (e.CommandName.ToLower() == "return")
+				{
+					ShowReturnConfirm();
+
+				}
+			}
+		}
+
+		protected void gvwReturn_RowDeleting(object sender, GridViewDeleteEventArgs e)
+		{
+			// Необходимо присутствие етого метода для правильного удаление строк из GridView gvwShoppingCart
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Modal window Return Confirm
+
+		#region Methods
+
+		private void ShowReturnConfirm()
+		{
+			modalWarningConfirm.Visible = true;
+		}
+
+		#endregion
+
+		#region Hendlers
+
+		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
+		{
+#warning Функционал возврата
+			modalWarningConfirm.Visible = false;
+		}
+
+		protected void ReturnConfirmNo_Click(object sender, EventArgs e)
+		{
+			modalWarningConfirm.Visible = false;
 		}
 
 		#endregion

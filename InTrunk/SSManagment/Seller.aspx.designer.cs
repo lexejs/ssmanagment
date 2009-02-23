@@ -320,6 +320,15 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnShowProducts;
         
         /// <summary>
+        /// gvwReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwReturn;
+        
+        /// <summary>
         /// btnReturnOk control.
         /// </summary>
         /// <remarks>
@@ -329,13 +338,40 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnOk;
         
         /// <summary>
-        /// btnReturnNo control.
+        /// modalReturnConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnNo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalReturnConfirm;
+        
+        /// <summary>
+        /// HiddenField1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        
+        /// <summary>
+        /// btnReturnConfirmOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReturnConfirmOk;
+        
+        /// <summary>
+        /// ReturnConfirmNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton ReturnConfirmNo;
         
         /// <summary>
         /// modalOrderConfirm control.
