@@ -238,17 +238,26 @@ namespace SSManagment
                 {
                     tblGroup.Visible = false;
                     tblItems.Visible = !tblGroup.Visible;
+                    tblBuyers.Visible = false;
                 }
                 else if (button.ID.ToLower().Contains("groups"))
                 {
                     tblGroup.Visible = true;
                     tblItems.Visible = !tblGroup.Visible;
+                    tblBuyers.Visible = false;
+                }
+                else if (button.ID.ToLower().Contains("buyer"))
+                {
+                    tblGroup.Visible = false;
+                    tblItems.Visible = false;
+                    tblBuyers.Visible = true;
                 }
             }
             else
             {
                 tblGroup.Visible = false;
                 tblItems.Visible = !tblGroup.Visible;
+                tblBuyers.Visible = false;
             }
         }
 

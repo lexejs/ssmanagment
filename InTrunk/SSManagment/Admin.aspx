@@ -317,6 +317,42 @@
                     </table>
                 </td>
             </tr>
+            <tr>
+            <td>
+            <table runat="server" id="tblBuyers" visible="false" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <center>
+                                    <div class="Widget_heading_container">
+                                        <span class="Widget_heading_container_Span"></span>
+                                        <h2>
+                                            ПОКУПАТЕЛИ</h2>
+                                    </div>
+                                    <div class="Widget_Body_container">
+                                        <div class="Widget_Body_top">
+                                            <span></span>
+                                        </div>
+                                        <div class="Widget_Body_content">
+                                            <div class="clear">
+                                            </div>
+                                            <center>
+                                                <table>
+                                                Список
+                                                </table>
+                                            </center>
+                                            <div class="clear">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="Widget_Body_bottom">
+                                        <span></span>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+            <td>
+            </tr>
         </table>
     </div>
 </asp:Content>
