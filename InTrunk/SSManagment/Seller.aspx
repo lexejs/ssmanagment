@@ -62,7 +62,7 @@
 						</tr>
 						<tr>
 							<td>
-								<asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="2" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="99%" Font-Size="8pt" AllowSorting="True" OnRowCreated="gvwProducts_RowCreated" OnSorting="gvwProducts_Sorting" PagerStyle-Wrap="False" DataKeyNames="id" OnRowDataBound="gvwProducts_RowDataBound">
+								<asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="0" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="99%" Font-Size="8pt" AllowSorting="True" OnRowCreated="gvwProducts_RowCreated" OnSorting="gvwProducts_Sorting" PagerStyle-Wrap="False" DataKeyNames="id" OnRowDataBound="gvwProducts_RowDataBound">
 									<RowStyle BackColor="#F7F7DE" />
 									<Columns>
 										<asp:TemplateField HeaderText="id" Visible="False">
@@ -102,26 +102,27 @@
 												</table>
 											</ItemTemplate>
 											<HeaderStyle Wrap="False" />
+											<ItemStyle Wrap="False" Width="65px" />
 										</asp:TemplateField>
-										<asp:TemplateField HeaderText="Кол-во">
+										<asp:TemplateField HeaderText="Кол-во" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
-												<asp:TextBox ID="txtBuyCount" runat="server"></asp:TextBox>
+												<asp:TextBox ID="txtBuyCount" runat="server" Width="35px"></asp:TextBox>
 											</ItemTemplate>
 											<ControlStyle Width="40px" />
 										</asp:TemplateField>
-										<asp:TemplateField ShowHeader="False">
+										<asp:TemplateField ShowHeader="False"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add" ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png" CommandArgument='<%# Eval("id") %>' />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
 										</asp:TemplateField>
-										<asp:TemplateField ShowHeader="False">
+										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать" />
 											</ItemTemplate>
 											<ControlStyle Height="24px" Width="24px" />
 										</asp:TemplateField>
-										<asp:TemplateField ShowHeader="False">
+										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnReserv" runat="server" CausesValidation="false" CommandName="reserved" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-symbolic-link.svg.png" ToolTip="Зарезервировать" />
 											</ItemTemplate>

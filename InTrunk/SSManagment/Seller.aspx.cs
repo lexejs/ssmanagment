@@ -222,6 +222,8 @@ namespace SSManagment
 												LoadingShopingCart();
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
+												((Control)(e.CommandSource)).FindControl("ibtnReserv").Visible = false;
+												((Control)(e.CommandSource)).FindControl("txtBuyCount").Visible = false;
 
 												break;
 											}
@@ -239,6 +241,8 @@ namespace SSManagment
 												}
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
+												((Control)(e.CommandSource)).FindControl("ibtnReserv").Visible = false;
+												((Control)(e.CommandSource)).FindControl("txtBuyCount").Visible = false;
 
 												break;
 											}
@@ -309,6 +313,8 @@ namespace SSManagment
 				{
 					e.Row.FindControl("ibtnAdd").Visible = false;
 					e.Row.FindControl("ibtnSale").Visible = false;
+					e.Row.FindControl("ibtnReserv").Visible = false;
+					e.Row.FindControl("txtBuyCount").Visible = false;
 				}
 
 				if (((item)(e.Row.DataItem)).count <= 0 || (((item)(e.Row.DataItem)).count <= ((item)(e.Row.DataItem)).reserveCount))
