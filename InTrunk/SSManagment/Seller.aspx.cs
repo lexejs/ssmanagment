@@ -325,6 +325,11 @@ namespace SSManagment
 					e.Row.FindControl("txtBuyCount").Visible = false;
 				}
 
+				if (((item)(e.Row.DataItem)).order == true)
+				{
+					e.Row.FindControl("lbtnOrder").Visible = false;
+				}
+
 				if (((item)(e.Row.DataItem)).reserveCount == null || ((item)(e.Row.DataItem)).reserveCount <= 0)
 				{
 					e.Row.FindControl("spanCountCalc").Visible = false;

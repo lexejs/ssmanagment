@@ -73,6 +73,12 @@
 										<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True" HeaderStyle-Wrap="False">
 											<HeaderStyle Wrap="False" />
 										</asp:BoundField>
+										<asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+											<ItemTemplate>
+												<asp:LinkButton ID="lbtnOrder" runat="server" CommandName="order" CausesValidation="false" CommandArgument='<%# Eval("id") %>'>
+													<asp:Image ID="img" runat="server" ImageUrl="~/App_Themes/Main/Icons/24px-Dialog-information_on.svg.png" Width="16px" Height="16px" /></asp:LinkButton>
+											</ItemTemplate>
+										</asp:TemplateField>
 										<asp:BoundField DataField="measure" SortExpression="measure" HeaderText="Изм." NullDisplayText="шт" ItemStyle-HorizontalAlign="Center" HeaderStyle-Wrap="False">
 											<ControlStyle Width="10px" />
 											<HeaderStyle Wrap="False" />
@@ -83,24 +89,12 @@
 											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Right" />
 										</asp:BoundField>
-										<asp:TemplateField HeaderText="В наличии" SortExpression="count" ItemStyle-Wrap="false">
+										<asp:TemplateField HeaderText="В наличии" SortExpression="count" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
-												<table cellpadding="0" cellspacing="0" width="100%">
-													<tr>
-														<td align="left">
-															<asp:LinkButton ID="lbtnOrder" runat="server" CommandName="order" CausesValidation="false" CommandArgument='<%# Eval("id") %>'>Заказать</asp:LinkButton>
-														</td>
-													</tr>
-													<tr>
-														<td align="right" nowrap="nowrap">
-															<asp:Label ID="lblCount" runat="server" Text='<%# Bind("count") %>' ForeColor="Black"></asp:Label>
-															<span id="spanCountCalc" runat="server" visible="false">-
-																<asp:Button ID="btnUnReserv" runat="server" Text='<%# Bind("reserveCount") %>' CommandName="unreserv" CausesValidation="false" CommandArgument='<%# Eval("id") %>' Height="18px" Font-Size="8pt" />
-																= <span id="spanSum" runat="server" style="color: #33CC33; font-size: 9pt; font-weight: bold; font-style: normal; font-variant: normal"></span></span>
-														</td>
-													</tr>
-												</table>
-											</ItemTemplate>
+												<asp:Label ID="lblCount" runat="server" Text='<%# Bind("count") %>' ForeColor="Black"></asp:Label>
+												<span id="spanCountCalc" runat="server" visible="false">-
+													<asp:Button ID="btnUnReserv" runat="server" Text='<%# Bind("reserveCount") %>' CommandName="unreserv" CausesValidation="false" CommandArgument='<%# Eval("id") %>' Height="18px" Font-Size="8pt" />
+													= <span id="spanSum" runat="server" style="color: #33CC33; font-size: 9pt; font-weight: bold; font-style: normal; font-variant: normal"></span></span></ItemTemplate>
 											<HeaderStyle Wrap="False" />
 											<ItemStyle Wrap="False" Width="65px" />
 										</asp:TemplateField>
@@ -110,7 +104,7 @@
 											</ItemTemplate>
 											<ControlStyle Width="40px" />
 										</asp:TemplateField>
-										<asp:TemplateField ShowHeader="False"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add" ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png" CommandArgument='<%# Eval("id") %>' />
 											</ItemTemplate>
