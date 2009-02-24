@@ -53,7 +53,7 @@
 											<asp:TextBox ID="txtFind" runat="server" Width="200px"></asp:TextBox>
 										</td>
 										<td>
-											<button id="btnFind" runat="server">
+											<button id="btnFind" runat="server"  onserverclick="btnFind_Click">
 												<span><em>Найти</em></span></button>
 										</td>
 									</tr>
@@ -100,7 +100,7 @@
 										</asp:TemplateField>
 										<asp:TemplateField HeaderText="Кол-во" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
-												<asp:TextBox ID="txtBuyCount" runat="server" Width="35px"></asp:TextBox>
+												<asp:TextBox ID="txtBuyCount" runat="server" Width="35px" Height="10px" Font-Size="9pt" Font-Bold="False"></asp:TextBox>
 											</ItemTemplate>
 											<ControlStyle Width="40px" />
 										</asp:TemplateField>
@@ -108,19 +108,19 @@
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add" ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png" CommandArgument='<%# Eval("id") %>' />
 											</ItemTemplate>
-											<ControlStyle Height="24px" Width="24px" />
+											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать" />
 											</ItemTemplate>
-											<ControlStyle Height="24px" Width="24px" />
+											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnReserv" runat="server" CausesValidation="false" CommandName="reserved" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/24px-Emblem-symbolic-link.svg.png" ToolTip="Зарезервировать" />
 											</ItemTemplate>
-											<ControlStyle Height="24px" Width="24px" />
+											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
 									</Columns>
 									<EmptyDataTemplate>

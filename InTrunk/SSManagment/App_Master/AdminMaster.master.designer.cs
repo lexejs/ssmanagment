@@ -14,6 +14,15 @@ namespace SSManagment.App_Master {
     public partial class Admin {
         
         /// <summary>
+        /// uplAdminMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplAdminMenu;
+        
+        /// <summary>
         /// cphAdminMenu control.
         /// </summary>
         /// <remarks>
@@ -21,6 +30,15 @@ namespace SSManagment.App_Master {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder cphAdminMenu;
+        
+        /// <summary>
+        /// uplAdminObject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplAdminObject;
         
         /// <summary>
         /// cphAdminObject control.

@@ -140,6 +140,7 @@ namespace SSManagment
 		{
 			Session["Products"] = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
 			gvwProducts.DataSource = Session["Products"];
+			gvwProducts.Sort("name", SortDirection.Ascending);
 			gvwProducts.DataBind();
 		}
 
@@ -151,6 +152,14 @@ namespace SSManagment
 		protected void btnAdminClick(object sender, EventArgs e)
 		{
 			Response.Redirect("Admin.aspx");
+		}
+		
+		protected void btnFind_Click(object sender, EventArgs e)
+		{
+			Session["Products"] = item.FindByName(txtFind.Text);
+			gvwProducts.DataSource = Session["Products"];
+			gvwProducts.Sort("name", SortDirection.Ascending);
+			gvwProducts.DataBind();
 		}
 
 		protected void btnBuy_Click(object sender, EventArgs e)
@@ -177,8 +186,8 @@ namespace SSManagment
 				IList<item> itm = item.GetAllByGroupId(id);
 				Session["Products"] = itm;
 				gvwProducts.DataSource = itm;
-				gvwProducts.DataBind();
 				gvwProducts.Sort("name", SortDirection.Ascending);
+				gvwProducts.DataBind();
 			}
 		}
 
@@ -294,6 +303,7 @@ namespace SSManagment
 						}
 						gvwProducts.DataSource = Session["Products"];
 						gvwProducts.DataBind();
+						
 					}
 					LoadingShopingCart();
 				}
