@@ -98,12 +98,6 @@
 											<HeaderStyle Wrap="False" />
 											<ItemStyle Wrap="False" Width="65px" />
 										</asp:TemplateField>
-										<asp:TemplateField HeaderText="Кол-во" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
-											<ItemTemplate>
-												<asp:TextBox ID="txtBuyCount" runat="server" Width="35px" Height="10px" Font-Size="9pt" Font-Bold="False"></asp:TextBox>
-											</ItemTemplate>
-											<ControlStyle Width="40px" />
-										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
 												<asp:ImageButton ID="ibtnAdd" runat="server" CausesValidation="false" CommandName="add" ToolTip="Добаваить в корзину" ImageUrl="~/App_Themes/Main/Icons/24px-Ambox_emblem_plus.svg.png" CommandArgument='<%# Eval("id") %>' />

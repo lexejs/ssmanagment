@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SSManagment.Models
@@ -41,5 +42,39 @@ namespace SSManagment.Models
             db.logSales.InsertOnSubmit(logSale);
             db.SubmitChanges();
         }
+
+		public static IList<logSale> GetGiveBackList(string GUID, string buyTime)
+		{
+			IList<logSale> list = null;
+			var db = new ssmDataContext();
+
+			if (!string.IsNullOrEmpty(buyTime))
+			{
+				DateTime buyDate;
+				if (DateTime.TryParse(buyTime, out buyDate))
+				{
+					if (!string.IsNullOrEmpty(GUID))
+					{
+						//list = db.logSales.Where(b => b.isGiveBack)
+					}
+					else
+					{
+						
+					}
+					return list;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(GUID))
+			{
+
+			}
+			else
+			{
+
+			}
+			return list;
+#warning Выборка возвратов
+		}
     }
 }

@@ -109,7 +109,7 @@ namespace SSManagment
 			gvwShoppingCart.DataBind();
 		}
 
-		private static ShopingCart SetShopingCart(item product, int buyCount)
+		private ShopingCart SetShopingCart(item product, int buyCount)
 		{
 			ShopingCart shop = new ShopingCart();
 			shop.adminPrice = product.adminPrice;
@@ -131,7 +131,7 @@ namespace SSManagment
 			shop.reserveEndDate = product.reserveEndDate;
 
 			shop.BuyCount = buyCount;
-			shop.ResultPrice = shop.BuyCount * shop.bprice;
+			shop.ResultPrice = CalcResultPrice(shop);
 
 			return shop;
 		}
@@ -144,6 +144,19 @@ namespace SSManagment
 			gvwProducts.DataBind();
 		}
 
+		private double? CalcResultPrice(ShopingCart shop)
+		{
+			return (shop.BuyCount * shop.bprice);
+
+		}
+
+		private void CalcSum()
+		{
+			if (ShopingCartSession != null)
+			{
+				lblSum.Text = ShopingCartSession.Sum(b => b.ResultPrice).ToString();
+			}
+		}
 		#endregion
 
 
@@ -214,10 +227,8 @@ namespace SSManagment
 						}
 					default:
 						{
-							int counItemsToBuy = 0;
-							int.TryParse(((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text, out counItemsToBuy);
-							((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
-
+							int counItemsToBuy = 1;
+	
 							if (counItemsToBuy > 0 && itm.count > 0)
 							{
 								if (counItemsToBuy <= (itm.count - (itm.reserveCount ?? 0)))
@@ -227,12 +238,11 @@ namespace SSManagment
 										case "add":
 											{
 												ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-												lblSum.Text = ShopingCartSession.Sum(b => b.ResultPrice).ToString();
+												CalcSum();
 												LoadingShopingCart();
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnReserv").Visible = false;
-												((Control)(e.CommandSource)).FindControl("txtBuyCount").Visible = false;
 
 												break;
 											}
@@ -240,9 +250,7 @@ namespace SSManagment
 											{
 
 												ShopingCartSession.Add(SetShopingCart(itm, counItemsToBuy));
-												int sum;
-												if (int.TryParse(lblSum.Text, out sum))
-													lblSum.Text = (sum + itm.bprice).ToString();
+												CalcSum();
 												LoadingShopingCart();
 												if (ShopingCartSession.Count == 1)
 												{
@@ -251,7 +259,6 @@ namespace SSManagment
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnReserv").Visible = false;
-												((Control)(e.CommandSource)).FindControl("txtBuyCount").Visible = false;
 
 												break;
 											}
@@ -262,22 +269,9 @@ namespace SSManagment
 											}
 									}
 								}
-								else
-								{
-									((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
-								}
-
 							}
 						}
 						break;
-				}
-
-			}
-			else
-			{
-				if (((Control)(e.CommandSource)).FindControl("txtBuyCount") != null)
-				{
-					((TextBox)(((Control)(e.CommandSource)).FindControl("txtBuyCount"))).Text = "";
 				}
 			}
 
@@ -293,10 +287,7 @@ namespace SSManagment
 					ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
 					if (shop != null)
 					{
-						int sum;
-						if (int.TryParse(lblSum.Text, out sum))
-							lblSum.Text = (sum - shop.bprice).ToString();
-						ShopingCartSession.Remove(shop);
+						CalcSum();
 						if (ShopingCartSession.Count <= 0)
 						{
 							btnBuy.Visible = false;
@@ -324,7 +315,6 @@ namespace SSManagment
 					e.Row.FindControl("ibtnAdd").Visible = false;
 					e.Row.FindControl("ibtnSale").Visible = false;
 					e.Row.FindControl("ibtnReserv").Visible = false;
-					e.Row.FindControl("txtBuyCount").Visible = false;
 				}
 
 				if (((item)(e.Row.DataItem)).count <= 0 || (((item)(e.Row.DataItem)).count <= ((item)(e.Row.DataItem)).reserveCount))
@@ -332,7 +322,6 @@ namespace SSManagment
 					e.Row.FindControl("ibtnAdd").Visible = false;
 					e.Row.FindControl("ibtnSale").Visible = false;
 					e.Row.FindControl("ibtnReserv").Visible = false;
-					e.Row.FindControl("txtBuyCount").Visible = false;
 				}
 
 				if (((item)(e.Row.DataItem)).order == true)
@@ -365,7 +354,7 @@ namespace SSManagment
 					if (count <= (shop.count - (shop.reserveCount ?? 0)))
 					{
 						shop.BuyCount = count;
-						shop.ResultPrice = shop.BuyCount * shop.bprice;
+						CalcResultPrice(shop);
 						LoadingShopingCart();
 					}
 					else
@@ -624,9 +613,7 @@ namespace SSManagment
 
 		protected void btnReturnShowProducts_Click(object sender, EventArgs e)
 		{
-#warning Показать список купленных товаров с возможностьюй возврата
-			// все записи в logsale это проданные товары у которых флаг isGiveBack = false
-			gvwReturn.DataSource = null;
+			gvwReturn.DataSource = logSale.GetGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
 			gvwReturn.DataBind();
 		}
 
@@ -643,7 +630,6 @@ namespace SSManagment
 			}
 		}
 
-#warning Убрать поле колличества из грида продуктов
 #warning Округлять сумму итого десятков в большую сторану
 #warning Считать проценты для именного покупателя в суме итого, и сбрасывать значение дроп дауна после зделки
 
@@ -672,7 +658,7 @@ namespace SSManagment
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
 #warning Функционал возврата
-		 //logSale.GiveBack();
+//			logSale.GiveBack();
 			modalWarningConfirm.Visible = false;
 		}
 
@@ -685,7 +671,6 @@ namespace SSManagment
 
 		#endregion
 
-#warning Обработать сортировку по умолчанию при первой загрузке продуктов, каждый раз сортирует в разную сторану
 		#region Product grid sotring
 
 		#region Methods
