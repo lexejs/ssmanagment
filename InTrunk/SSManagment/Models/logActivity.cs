@@ -29,7 +29,7 @@
         public static void Warning(string message, int buyerId)
         {
             var db = new ssmDataContext();
-            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = false};
+            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = true};
             db.logActivities.InsertOnSubmit(logActivity);
             db.SubmitChanges();
         }

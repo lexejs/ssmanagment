@@ -558,7 +558,7 @@
 													<br />
 													<br />
 													<button id="btnReturnOk" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
-														<span><em>Да</em></span></button>
+														<span><em>Закрыть</em></span></button>
 												</td>
 											</tr>
 										</table>

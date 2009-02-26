@@ -433,6 +433,9 @@ namespace SSManagment
 		{
 			item.Order(Convert.ToInt32(hdnOrder.Value));
 			modalOrderConfirm.Visible = false;
+			((IList<item>) Session["Products"]).First(b => b.id == Convert.ToInt32(hdnOrder.Value)).order = true;
+			gvwProducts.DataSource = Session["Products"];
+			gvwProducts.DataBind();
 		}
 
 		protected void btnOrderNo_Click(object sender, EventArgs e)
@@ -588,9 +591,8 @@ namespace SSManagment
 
 		protected void btnDemandOk_Click(object sender, EventArgs e)
 		{
-#warning Функционал добавления спроса
-
-			modalDemand.Visible = false;
+			logActivity.Warning(string.Format("Спрос на товар: {0}", txtDemandProduct.Text), AppHelper.CurrentUser.id);
+            modalDemand.Visible = false;
 		}
 
 		protected void btnDemandNo_Click(object sender, EventArgs e)
@@ -623,7 +625,7 @@ namespace SSManagment
 		protected void btnReturnShowProducts_Click(object sender, EventArgs e)
 		{
 #warning Показать список купленных товаров с возможностьюй возврата
-
+			// все записи в logsale это проданные товары у которых флаг isGiveBack = false
 			gvwReturn.DataSource = null;
 			gvwReturn.DataBind();
 		}
@@ -640,6 +642,10 @@ namespace SSManagment
 				}
 			}
 		}
+
+#warning Убрать поле колличества из грида продуктов
+#warning Округлять сумму итого десятков в большую сторану
+#warning Считать проценты для именного покупателя в суме итого, и сбрасывать значение дроп дауна после зделки
 
 		protected void gvwReturn_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
@@ -666,6 +672,7 @@ namespace SSManagment
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
 #warning Функционал возврата
+		 //logSale.GiveBack();
 			modalWarningConfirm.Visible = false;
 		}
 

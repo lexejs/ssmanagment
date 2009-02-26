@@ -19,5 +19,10 @@ namespace SSManagment.Models
 			}
 		}
 
+		public static int GetSID()
+		{
+			return 0;
+		}
+
 	}
 }

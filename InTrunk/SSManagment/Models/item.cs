@@ -7,12 +7,12 @@ namespace SSManagment.Models
 {
     public partial class item
     {
-        public double? bprice
+		public float? bprice
         {
             get
             {
                 if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
-                    return adminPrice + adminPrice * (pct / 100);
+                    return (float) (adminPrice + adminPrice * (pct / 100));
                 return null;
             }
             set { }
@@ -153,13 +153,11 @@ namespace SSManagment.Models
 
         public static void BuyShopingCart(IList<ShopingCart> shop, int sellerId, int buyerId)
         {
+        	int sid = AppHelper.GetSID();
             foreach (ShopingCart shpProduct in shop)
             {
-#warning Добавить функционал покупки
-
-#warning Немогу понять какие параметры передавать дальше
-                //logSale.Sale(buyerId, sellerId, shpProduct.id,shpProduct.BuyCount,);
-                item.CheckForOrder(shpProduct.id);
+				logSale.Sale(buyerId, sellerId, shpProduct.id, shpProduct.BuyCount, shpProduct.bprice.Value, sid);
+                CheckForOrder(shpProduct.id);
             }
 
         }
