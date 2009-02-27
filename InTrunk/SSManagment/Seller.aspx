@@ -53,7 +53,7 @@
 											<asp:TextBox ID="txtFind" runat="server" Width="200px"></asp:TextBox>
 										</td>
 										<td>
-											<button id="btnFind" runat="server"  onserverclick="btnFind_Click">
+											<button id="btnFind" runat="server" onserverclick="btnFind_Click">
 												<span><em>Найти</em></span></button>
 										</td>
 									</tr>
@@ -167,7 +167,7 @@
 													<asp:BoundField HeaderText="Цена" DataField="bprice" DataFormatString="{0:C}" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
 													<asp:TemplateField HeaderText="Кол-во">
 														<ItemTemplate>
-															<asp:TextBox ID="txtBuyCount" OnTextChanged="txtBuyCount_Click" runat="server" Text='<%# Eval("BuyCount") %>' Width="20px" AutoPostBack="True"></asp:TextBox>
+															<asp:TextBox ID="txtBuyCount" OnTextChanged="txtBuyCount_TextChanged" runat="server" Text='<%# Eval("BuyCount") %>' Width="20px" AutoPostBack="True"></asp:TextBox>
 														</ItemTemplate>
 														<ControlStyle Width="27px" />
 													</asp:TemplateField>
@@ -208,7 +208,7 @@
 									</tr>
 									<tr>
 										<td>
-											&nbsp; <span>Итого :&nbsp;</span><asp:Label ID="lblSum" runat="server"></asp:Label>
+											&nbsp; <span id="spanShopingCartSum" runat="server" visible="false">Итого :&nbsp;</span><asp:Label ID="lblSum" runat="server"></asp:Label>
 										</td>
 									</tr>
 									<tr>
@@ -259,7 +259,7 @@
 							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
 								<center>
 									<h2>
-										Оформить покупку? </h2>
+										Оформить покупки? </h2>
 								</center>
 							</div>
 							<div class="Widget_Body_container">
@@ -301,7 +301,7 @@
 														<AlternatingRowStyle BackColor="White" />
 													</asp:GridView>
 													<br />
-													<span>Итого :&nbsp;</span><asp:Label ID="lblShopConfirmSum" runat="server" Font-Size="12pt"></asp:Label>
+													<span id="spanShopConfirm" runat="server">Итого :&nbsp;</span><asp:Label ID="lblShopConfirmSum" runat="server" Font-Size="12pt"></asp:Label>
 												</td>
 											</tr>
 											<tr>
@@ -316,6 +316,96 @@
 												</td>
 												<td>
 													<button id="btnCancel" runat="server" style="width: 75px;" onserverclick="btnCancel_Click">
+														<span><em>Нет</em></span></button>
+												</td>
+											</tr>
+										</table>
+									</center>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="Widget_Body_bottom"><span></span></div>
+						</div>
+					</center>
+				</div>
+			</div>
+			<div id="modalSingleBuy" runat="server" visible="false">
+				<div class="overlay"></div>
+				<div class="content">
+					<center>
+						<div>
+							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+								<center>
+									<h2>
+										Оформить покупку? </h2>
+								</center>
+							</div>
+							<div class="Widget_Body_container">
+								<div class="Widget_Body_top"><span></span></div>
+								<div class="Widget_Body_content">
+									<div class="clear"></div>
+									<center>
+										<table cellpadding="0" cellspacing="0">
+											<tr>
+												<td align="center" colspan="2">
+													<asp:GridView ID="gvwSingleBuy" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt">
+														<RowStyle BackColor="#F7F7DE" />
+														<Columns>
+															<asp:TemplateField HeaderText="id" Visible="False">
+																<ItemTemplate>
+																	<asp:Label ID="lblID" runat="server" Text='<%# Bind("id") %>'></asp:Label>
+																</ItemTemplate>
+															</asp:TemplateField>
+															<asp:BoundField HeaderText="Товар" DataField="name">
+																<ControlStyle Width="100%" />
+																<ItemStyle HorizontalAlign="Left" />
+															</asp:BoundField>
+															<asp:BoundField HeaderText="Цена" DataFormatString="{0:C}" DataField="bprice" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
+																<ControlStyle Width="50px" />
+																<ItemStyle HorizontalAlign="Right" />
+															</asp:BoundField>
+															<asp:TemplateField HeaderText="Кол-во">
+																<ItemTemplate>
+																	<asp:TextBox ID="txtSingleBuyCount" OnTextChanged="txtSingleBuyCount_TextChanged" runat="server" Text='<%# Eval("BuyCount") %>' Width="20px" AutoPostBack="True"></asp:TextBox>
+																</ItemTemplate>
+																<ControlStyle Width="27px" />
+															</asp:TemplateField>
+														</Columns>
+														<EmptyDataTemplate>
+															<center>
+																<span>Список покупок пуст</span></center>
+														</EmptyDataTemplate>
+														<FooterStyle BackColor="#CCCC99" />
+														<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+														<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+														<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+														<AlternatingRowStyle BackColor="White" />
+													</asp:GridView>
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td align="left">
+													<table cellpadding="0" cellspacing="0">
+														<tr>
+															<td>
+																<asp:DropDownList ID="drpSingleBuyBuyerList" runat="server" Width="120px" AutoPostBack="True">
+																</asp:DropDownList>
+															</td>
+															<td>
+																<span id="spanSingleBuySum" runat="server">Итого :&nbsp;</span><asp:Label ID="lblSingleBuySum" runat="server" Font-Size="12pt"></asp:Label>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<button id="btnSingleBuyYes" runat="server" style="width: 75px;" onserverclick="btnSingleBuyYes_Click">
+														<span><em>Да</em></span></button>
+												</td>
+												<td>
+													<button id="btnSingleBuyNo" runat="server" style="width: 75px;" onserverclick="btnSingleBuyNo_Click">
 														<span><em>Нет</em></span></button>
 												</td>
 											</tr>

@@ -151,13 +151,15 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-        public static void BuyShopingCart(IList<ShopingCart> shop, int sellerId, int buyerId)
+        public static void BuyShopingCart(IList<ShopingCart> shop, IList<item> products, int sellerId, int buyerId)
         {
         	int sid = AppHelper.GetSID();
             foreach (ShopingCart shpProduct in shop)
             {
 				logSale.Sale(buyerId, sellerId, shpProduct.id, shpProduct.BuyCount, shpProduct.bprice.Value, sid);
-                CheckForOrder(shpProduct.id);
+				products.Remove(products.First(b => b.id == shpProduct.id));
+				CheckForOrder(shpProduct.id);
+            	
             }
 
         }

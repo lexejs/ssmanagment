@@ -49,6 +49,9 @@ span
 #modalReturnConfirm{
     position:relative;
 }
+#modalSingleBuy{
+    position:relative;
+}
 
 .overlay
 {
@@ -100,6 +103,10 @@ span
 }
 
 * html #modalReturnConfirm .overlay {
+    height: expression(document.getElementById("modalReserv").offsetHeight);
+}
+
+* html #modalSingleBuy .overlay {
     height: expression(document.getElementById("modalReserv").offsetHeight);
 }
 

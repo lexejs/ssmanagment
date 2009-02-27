@@ -95,6 +95,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.DropDownList drpBuyer;
         
         /// <summary>
+        /// spanShopingCartSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanShopingCartSum;
+        
+        /// <summary>
         /// lblSum control.
         /// </summary>
         /// <remarks>
@@ -158,6 +167,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.GridView gvwShpingCartConfirm;
         
         /// <summary>
+        /// spanShopConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanShopConfirm;
+        
+        /// <summary>
         /// lblShopConfirmSum control.
         /// </summary>
         /// <remarks>
@@ -183,6 +201,69 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnCancel;
+        
+        /// <summary>
+        /// modalSingleBuy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalSingleBuy;
+        
+        /// <summary>
+        /// gvwSingleBuy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwSingleBuy;
+        
+        /// <summary>
+        /// drpSingleBuyBuyerList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpSingleBuyBuyerList;
+        
+        /// <summary>
+        /// spanSingleBuySum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanSingleBuySum;
+        
+        /// <summary>
+        /// lblSingleBuySum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSingleBuySum;
+        
+        /// <summary>
+        /// btnSingleBuyYes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSingleBuyYes;
+        
+        /// <summary>
+        /// btnSingleBuyNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSingleBuyNo;
         
         /// <summary>
         /// modalUnReservConfirm control.
