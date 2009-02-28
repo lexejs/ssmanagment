@@ -140,11 +140,16 @@
     <Content Include="App_Master\AdminMaster.master" />
     <Content Include="App_Themes\Main\alax-loading.gif" />
     <Content Include="App_Themes\Main\button.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Ambox_emblem_plus.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Dialog-information_on.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Emblem-advertisement-dollar.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Emblem-symbolic-link.svg.png" />
     <Content Include="App_Themes\Main\Icons\24px-Ambox_emblem_plus.svg.png" />
     <Content Include="App_Themes\Main\Icons\24px-Dialog-error.svg.png" />
     <Content Include="App_Themes\Main\Icons\24px-Dialog-information_on.svg.png" />
     <Content Include="App_Themes\Main\Icons\24px-Emblem-advertisement-dollar.svg.png" />
     <Content Include="App_Themes\Main\Icons\24px-Emblem-symbolic-link.svg.png" />
+    <Content Include="App_Themes\Main\Icons\Source\48px-Ambox_emblem_arrow.svg.png" />
     <Content Include="App_Themes\Main\Icons\Source\48px-Emblem-symbolic-link.svg.png" />
     <Content Include="App_Themes\Main\SortOrder\16px-Down.png" />
     <Content Include="App_Themes\Main\SortOrder\16px-Up.png" />

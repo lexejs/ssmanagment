@@ -102,16 +102,23 @@ namespace SSManagment
 
 		private void LoadingBuyers()
 		{
-			var db = new ssmDataContext();
-			drpBuyer.DataSource = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+			ssmDataContext db = new ssmDataContext();
+			IList<buyer> tmpList = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+
+			drpBuyer.DataSource = tmpList;
 			drpBuyer.DataTextField = "name";
 			drpBuyer.DataValueField = "id";
 			drpBuyer.DataBind();
 
-			drpSingleBuyBuyerList.DataSource = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+			drpSingleBuyBuyerList.DataSource = tmpList;
 			drpSingleBuyBuyerList.DataTextField = "name";
 			drpSingleBuyBuyerList.DataValueField = "id";
 			drpSingleBuyBuyerList.DataBind();
+
+			drpShopConfirmBuyer.DataSource = tmpList;
+			drpShopConfirmBuyer.DataTextField = "name";
+			drpShopConfirmBuyer.DataValueField = "id";
+			drpShopConfirmBuyer.DataBind();
 		}
 
 		private void LoadingTree()
@@ -154,8 +161,7 @@ namespace SSManagment
 				btnBuy.Visible = false;
 			}
 
-#warning При изменении покупателя в дропе пересчитывать итого
-			CalcShopingCartSum(lblSum, spanShopingCartSum);
+			CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
 
 			gvwShoppingCart.DataSource = ShopingCartSession;
 			gvwShoppingCart.DataBind();
@@ -169,20 +175,24 @@ namespace SSManagment
 			gvwProducts.DataBind();
 		}
 
-		private void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp)
+		private void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp)
 		{
 			if (ShopingCartSession != null || ShopingCartSession.Count > 0)
 			{
 				spanTmp.Visible = true;
-#warning Округлять сумму итого десятков в большую сторану
-#warning  * (1-Buyer.pct)
-				lblTmp.Text = ShopingCartSession.Sum(b => b.ResultPrice).ToString();
+				ssmDataContext db = new ssmDataContext();
+				buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
+				if (br != null)
+				{
+					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
+					lblTmp.Text = (sum - (sum/100) * br.pct).ToString();
+					return;
+				}
 			}
-			else
-			{
-				spanTmp.Visible = false;
-				lblTmp.Text = "0";
-			}
+
+			spanTmp.Visible = false;
+			lblTmp.Text = "0";
+
 		}
 		#endregion
 
@@ -215,6 +225,11 @@ namespace SSManagment
 		protected void btnReturn_Click(object sender, EventArgs e)
 		{
 			ShowReturn();
+		}
+
+		protected void drpBuyer_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
 		}
 
 		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
@@ -314,7 +329,7 @@ namespace SSManagment
 						ShopingCartSession.Remove(shop);
 						if (ShopingCartSession.Count <= 0)
 						{
-							
+
 							btnBuy.Visible = false;
 						}
 						gvwProducts.DataSource = ProductsSession;
@@ -361,7 +376,7 @@ namespace SSManagment
 				else
 				{
 					e.Row.FindControl("spanCountCalc").Visible = true;
-					((System.Web.UI.HtmlControls.HtmlGenericControl)e.Row.FindControl("spanSum")).InnerText = (((item)(e.Row.DataItem)).count - ((item)(e.Row.DataItem)).reserveCount).ToString();
+					((HtmlGenericControl)e.Row.FindControl("spanSum")).InnerText = (((item)(e.Row.DataItem)).count - ((item)(e.Row.DataItem)).reserveCount).ToString();
 				}
 			}
 		}
@@ -464,7 +479,8 @@ namespace SSManagment
 
 		private void ShowModalBuyConfirm()
 		{
-			CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm);
+			drpShopConfirmBuyer.SelectedIndex = drpBuyer.SelectedIndex;
+			CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
 			gvwShpingCartConfirm.DataSource = ShopingCartSession;
 			gvwShpingCartConfirm.DataBind();
 			modalBuyConfirm.Visible = true;
@@ -491,6 +507,11 @@ namespace SSManagment
 			modalBuyConfirm.Visible = false;
 		}
 
+		protected void drpShopConfirmBuyer_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
+		}
+
 		#endregion
 
 		#endregion
@@ -501,8 +522,8 @@ namespace SSManagment
 
 		private void ShowModalSingleBuyConfirm()
 		{
-#warning При изменении покупателя в дропе пересчитывать итого
-			CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum);
+			drpSingleBuyBuyerList.SelectedIndex = drpBuyer.SelectedIndex;
+			CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
 			gvwSingleBuy.DataSource = ShopingCartSession;
 			gvwSingleBuy.DataBind();
 			modalSingleBuy.Visible = true;
@@ -515,7 +536,6 @@ namespace SSManagment
 		protected void btnSingleBuyYes_Click(object sender, EventArgs e)
 		{
 			item.BuyShopingCart(ShopingCartSession, ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
-
 			ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
 			gvwProducts.DataSource = ProductsSession;
@@ -526,7 +546,13 @@ namespace SSManagment
 
 		protected void btnSingleBuyNo_Click(object sender, EventArgs e)
 		{
+			drpBuyer.SelectedIndex = drpSingleBuyBuyerList.SelectedIndex;
 			modalSingleBuy.Visible = false;
+		}
+
+		protected void drpSingleBuyBuyerList_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
 		}
 
 		protected void txtSingleBuyCount_TextChanged(object sender, EventArgs e)
@@ -542,7 +568,7 @@ namespace SSManagment
 					if (count <= (shop.count - (shop.reserveCount ?? 0)))
 					{
 						shop.BuyCount = count;
-						CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum);
+						CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
 					}
 					else
 					{

@@ -23,6 +23,7 @@ namespace SSManagment.Models
             db.logSales.InsertOnSubmit(logSale);
             db.items.First(i => i.id == itemId).count -= itemsCount;
             db.SubmitChanges();
+#warning Violation of PRIMARY KEY constraint 'PK_logSales'. Cannot insert duplicate key in object 'dbo.logSales'. The statement has been terminated.
         }
 
         public static void GiveBack(int buyerId, int sellerId, int itemId, int itemsCount, float cash, int sid)

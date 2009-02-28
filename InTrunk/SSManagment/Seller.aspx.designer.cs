@@ -167,6 +167,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.GridView gvwShpingCartConfirm;
         
         /// <summary>
+        /// drpShopConfirmBuyer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpShopConfirmBuyer;
+        
+        /// <summary>
         /// spanShopConfirm control.
         /// </summary>
         /// <remarks>

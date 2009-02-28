@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString3"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["App_Data(SQLEXPRESS)"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
