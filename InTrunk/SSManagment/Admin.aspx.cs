@@ -12,6 +12,8 @@ namespace SSManagment
     {
         private IList<group> groups;
 
+        #region Constructor
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var db = new ssmDataContext();
@@ -24,6 +26,8 @@ namespace SSManagment
                 lstGroupFill();
             }
         }
+        #endregion
+
 
         #region Methods
 
@@ -66,7 +70,15 @@ namespace SSManagment
             lstBuyers.DataTextField = "name";
             lstBuyers.DataValueField = "id";
             lstBuyers.DataBind();
+        }
 
+        private void lstsellersFill()
+        {
+            var db = new ssmDataContext();
+            lstSellers.DataSource = db.sellers.OrderBy(g => g.fullName).ToList();
+            lstSellers.DataTextField = "fullName";
+            lstSellers.DataValueField = "id";
+            lstSellers.DataBind();
         }
 
         private void LoadingTree()
@@ -94,6 +106,8 @@ namespace SSManagment
         #endregion
 
         #region Handlers
+
+        #region Groups
 
         protected void lstGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -244,6 +258,7 @@ namespace SSManagment
             }
         }
 
+        #endregion
 
 
         protected void btnShowItems_Click(object sender, EventArgs e)
@@ -256,6 +271,7 @@ namespace SSManagment
                     tblGroup.Visible = false;
                     tblItems.Visible = !tblGroup.Visible;
                     tblBuyers.Visible = false;
+                    tblSellers.Visible = false;
                     LoadingTree();
                     lstGroupFill();
                 }
@@ -264,15 +280,27 @@ namespace SSManagment
                     tblGroup.Visible = true;
                     tblItems.Visible = !tblGroup.Visible;
                     tblBuyers.Visible = false;
+                    tblSellers.Visible = false;
                     lstGroupFill();
                 }
                 else if (button.ID.ToLower().Contains("buyer"))
                 {
                     tblGroup.Visible = false;
                     tblItems.Visible = false;
+                    tblSellers.Visible = false;
                     tblBuyers.Visible = true;
+
                     lstBuyersFill();
                     lstGroupFill();
+                }
+                else if (button.ID.ToLower().Contains("seller"))
+                {
+                    tblGroup.Visible = false;
+                    tblItems.Visible = false;
+                    tblBuyers.Visible = false;
+                    tblSellers.Visible = true;
+                    lstsellersFill();
+
                 }
             }
             else
@@ -287,6 +315,8 @@ namespace SSManagment
         {
             Response.Redirect("Seller.aspx");
         }
+
+        #region Items
 
         protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
         {
@@ -378,7 +408,10 @@ namespace SSManagment
             }
         }
 
+
         #endregion
+
+        #region Buyers
 
         protected void lstBuyers_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -420,6 +453,54 @@ namespace SSManagment
             lstBuyersFill();
         }
 
+        #endregion
+
+        #region Sellers
+
+        protected void lstSeller_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lstSellers.SelectedValue))
+            {
+                int sellerID = int.Parse(lstSellers.SelectedValue);
+                var db = new ssmDataContext();
+                seller seller = db.sellers.First(b => b.id == sellerID);
+                txtSellerName.Text = seller.fullName;
+                txtSellerLogin.Text = seller.login;
+                txtSellerPass.Text = seller.password;
+                chkIsActive.Checked = seller.isActive.GetValueOrDefault();
+                chkIsAdmin.Checked = seller.isAdmin.GetValueOrDefault();
+            }
+        }
+
+        protected void btnSellerAdd_Click(object sender, EventArgs e)
+        {
+            var db = new ssmDataContext();
+            seller seller = new seller { isActive = false, fullName = "Продавец", isAdmin = false, password = "pass", login = "login" };
+            db.sellers.InsertOnSubmit(seller);
+            db.SubmitChanges();
+            lstsellersFill();
+        }
+
+        protected void btnSellerUpdate_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lstSellers.SelectedValue))
+            {
+                int sellerID = int.Parse(lstSellers.SelectedValue);
+                var db = new ssmDataContext();
+                seller seller = db.sellers.First(b => b.id == sellerID);
+                seller.fullName = txtSellerName.Text;
+                seller.login = txtSellerLogin.Text;
+                seller.password = txtSellerPass.Text;
+                seller.isActive = chkIsActive.Checked;
+                seller.isAdmin = chkIsAdmin.Checked;
+                db.SubmitChanges();
+            }
+            lstsellersFill();
+        }
+
+        #endregion
+
+        #endregion
 
     }
 }
