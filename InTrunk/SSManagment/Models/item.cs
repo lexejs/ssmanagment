@@ -7,13 +7,13 @@ namespace SSManagment.Models
 {
     public partial class item
     {
-		public float? bprice
+		public int? bprice
         {
             get
             {
-                if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
-                    return (float) (adminPrice + adminPrice * (pct / 100));
-                return null;
+				if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
+					return AppHelper.RoundTo10(adminPrice + adminPrice*(pct/100));
+            	return null;
             }
             set { }
         }

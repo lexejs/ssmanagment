@@ -47,35 +47,41 @@ namespace SSManagment.Models
 		public static IList<logSale> GetGiveBackList(string GUID, string buyTime)
 		{
 			IList<logSale> list = null;
-			var db = new ssmDataContext();
+			ssmDataContext db = new ssmDataContext();
+			int sid;
 
 			if (!string.IsNullOrEmpty(buyTime))
 			{
 				DateTime buyDate;
 				if (DateTime.TryParse(buyTime, out buyDate))
 				{
-					if (!string.IsNullOrEmpty(GUID))
+					if ((!string.IsNullOrEmpty(GUID)) && (int.TryParse(GUID, out sid)))
 					{
-						//list = db.logSales.Where(b => b.isGiveBack)
+						list = db.logSales.Where(b => b.isGiveBack == false && b.sid == sid && b.date == buyDate).ToList();
 					}
 					else
 					{
-						
+						list = db.logSales.Where(b => b.isGiveBack == false && b.date == buyDate).ToList();
 					}
 					return list;
 				}
 			}
-
-			if (!string.IsNullOrEmpty(GUID))
+			if ((!string.IsNullOrEmpty(GUID)) && (int.TryParse(GUID, out sid)))
 			{
-
+				list = db.logSales.Where(b => b.isGiveBack == false && b.sid == sid).ToList();
 			}
 			else
 			{
-
+#warning Specified cast is not valid.
+				list = db.logSales.Where(b => b.isGiveBack == false).ToList();
 			}
 			return list;
-#warning Выборка возвратов
+		}
+
+		public static logSale GetLogSalesById(int id)
+		{
+			ssmDataContext db = new ssmDataContext();
+			return db.logSales.FirstOrDefault(b => b.id == id);
 		}
     }
 }

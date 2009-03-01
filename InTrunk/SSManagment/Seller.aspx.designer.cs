@@ -437,13 +437,49 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl modalReturnConfirm;
         
         /// <summary>
-        /// HiddenField1 control.
+        /// lblReturnModalCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        protected global::System.Web.UI.WebControls.Label lblReturnModalCount;
+        
+        /// <summary>
+        /// lblReturnModalProductMeasure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReturnModalProductMeasure;
+        
+        /// <summary>
+        /// lblReturnModalProductName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReturnModalProductName;
+        
+        /// <summary>
+        /// lbleturnModalSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbleturnModalSum;
+        
+        /// <summary>
+        /// hdnReturnID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnReturnID;
         
         /// <summary>
         /// btnReturnConfirmOk control.

@@ -108,7 +108,7 @@
 											<HeaderStyle Wrap="False" />
 											<ItemStyle HorizontalAlign="Center" />
 										</asp:BoundField>
-										<asp:BoundField DataField="bprice" DataFormatString="{0:C}" SortExpression="bprice"
+										<asp:BoundField DataField="bprice" DataFormatString="{0}р." SortExpression="bprice"
 											HeaderText="Цена" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right"
 											HeaderStyle-Wrap="False">
 											<ControlStyle Width="50px" />
@@ -210,7 +210,7 @@
 														</ItemTemplate>
 													</asp:TemplateField>
 													<asp:BoundField HeaderText="Товар" DataField="name"></asp:BoundField>
-													<asp:BoundField HeaderText="Цена" DataField="bprice" DataFormatString="{0:C}" NullDisplayText="уточнить"
+													<asp:BoundField HeaderText="Цена" DataField="bprice" DataFormatString="{0}р." NullDisplayText="уточнить"
 														ItemStyle-HorizontalAlign="Right"></asp:BoundField>
 													<asp:TemplateField HeaderText="Кол-во">
 														<ItemTemplate>
@@ -219,7 +219,7 @@
 														</ItemTemplate>
 														<ControlStyle Width="27px" />
 													</asp:TemplateField>
-													<asp:BoundField HeaderText="Итого" DataField="ResultPrice" DataFormatString="{0:C}"
+													<asp:BoundField HeaderText="Итого" DataField="ResultPrice" DataFormatString="{0}р."
 														NullDisplayText="0" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
 													<asp:TemplateField ShowHeader="False">
 														<ItemTemplate>
@@ -250,7 +250,8 @@
 														<span>Покупатель :</span>
 													</td>
 													<td align="left">
-														<asp:DropDownList ID="drpBuyer" runat="server" OnSelectedIndexChanged="drpBuyer_SelectedIndexChanged" Width="120px" AutoPostBack="True">
+														<asp:DropDownList ID="drpBuyer" runat="server" OnSelectedIndexChanged="drpBuyer_SelectedIndexChanged"
+															Width="120px" AutoPostBack="True">
 														</asp:DropDownList>
 													</td>
 												</tr>
@@ -347,7 +348,7 @@
 																<ControlStyle Width="100%" />
 																<ItemStyle HorizontalAlign="Left" />
 															</asp:BoundField>
-															<asp:BoundField HeaderText="Цена" DataFormatString="{0:C}" DataField="bprice" NullDisplayText="уточнить"
+															<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="bprice" NullDisplayText="уточнить"
 																ItemStyle-HorizontalAlign="Right">
 																<ControlStyle Width="50px" />
 																<ItemStyle HorizontalAlign="Right" />
@@ -356,7 +357,7 @@
 																<ControlStyle Width="50px" />
 																<ItemStyle HorizontalAlign="Right" />
 															</asp:BoundField>
-															<asp:BoundField HeaderText="Итого" DataFormatString="{0:C}" DataField="ResultPrice"
+															<asp:BoundField HeaderText="Итого" DataFormatString="{0}р." DataField="ResultPrice"
 																NullDisplayText="0" ItemStyle-HorizontalAlign="Right">
 																<ControlStyle Width="50px" />
 																<ItemStyle HorizontalAlign="Right" />
@@ -377,7 +378,8 @@
 											</tr>
 											<tr>
 												<td>
-													<asp:DropDownList ID="drpShopConfirmBuyer" runat="server" OnSelectedIndexChanged="drpShopConfirmBuyer_SelectedIndexChanged" Width="120px" AutoPostBack="True">
+													<asp:DropDownList ID="drpShopConfirmBuyer" runat="server" OnSelectedIndexChanged="drpShopConfirmBuyer_SelectedIndexChanged"
+														Width="120px" AutoPostBack="True">
 													</asp:DropDownList>
 												</td>
 												<td>
@@ -451,7 +453,7 @@
 															<asp:BoundField HeaderText="Товар" DataField="name">
 																<ItemStyle HorizontalAlign="Left" />
 															</asp:BoundField>
-															<asp:BoundField HeaderText="Цена" DataFormatString="{0:C}" DataField="bprice" NullDisplayText="уточнить"
+															<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="bprice" NullDisplayText="уточнить"
 																ItemStyle-HorizontalAlign="Right">
 																<ControlStyle Width="50px" />
 																<ItemStyle HorizontalAlign="Right" />
@@ -478,7 +480,8 @@
 											</tr>
 											<tr>
 												<td>
-													<asp:DropDownList ID="drpSingleBuyBuyerList" runat="server" OnSelectedIndexChanged="drpSingleBuyBuyerList_SelectedIndexChanged" Width="120px" AutoPostBack="True">
+													<asp:DropDownList ID="drpSingleBuyBuyerList" runat="server" OnSelectedIndexChanged="drpSingleBuyBuyerList_SelectedIndexChanged"
+														Width="120px" AutoPostBack="True">
 													</asp:DropDownList>
 												</td>
 												<td>
@@ -728,7 +731,11 @@
 																			<ControlStyle Width="100%" />
 																			<ItemStyle HorizontalAlign="Left" />
 																		</asp:BoundField>
-																		<asp:BoundField HeaderText="Цена" DataFormatString="{0:C}" DataField="bprice" NullDisplayText="уточнить"
+																		<asp:BoundField HeaderText="Покупатель" DataField="buyerId">
+																			<ControlStyle Width="50px" />
+																			<ItemStyle HorizontalAlign="Right" />
+																		</asp:BoundField>
+																		<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="bprice" NullDisplayText="уточнить"
 																			ItemStyle-HorizontalAlign="Right">
 																			<ControlStyle Width="50px" />
 																			<ItemStyle HorizontalAlign="Right" />
@@ -737,7 +744,7 @@
 																			<ControlStyle Width="50px" />
 																			<ItemStyle HorizontalAlign="Right" />
 																		</asp:BoundField>
-																		<asp:BoundField HeaderText="Итого" DataFormatString="{0:C}" DataField="ResultPrice"
+																		<asp:BoundField HeaderText="Итого" DataFormatString="{0}р." DataField="ResultPrice"
 																			NullDisplayText="0" ItemStyle-HorizontalAlign="Right">
 																			<ControlStyle Width="50px" />
 																			<ItemStyle HorizontalAlign="Right" />
@@ -817,8 +824,21 @@
 									<center>
 										<table width="100%">
 											<tr>
+												<td colspan="2">
+													Вернуть &nbsp;<asp:Label ID="lblReturnModalCount" runat="server"></asp:Label>
+															&nbsp;<asp:Label ID="lblReturnModalProductMeasure" runat="server" Text="Label"></asp:Label>
+															&nbsp;<asp:Label ID="lblReturnModalProductName" runat="server"></asp:Label>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													Выплата по возврату составит: &nbsp;<asp:Label ID="lbleturnModalSum" runat="server"></asp:Label>
+													<br />
+												</td>
+											</tr>
+											<tr>
 												<td>
-													<asp:HiddenField ID="HiddenField1" runat="server" />
+													<asp:HiddenField ID="hdnReturnID" runat="server" />
 													<button id="btnReturnConfirmOk" runat="server" style="width: 75px;" onserverclick="btnReturnConfirmOk_Click">
 														<span><em>Да</em></span></button>
 												</td>

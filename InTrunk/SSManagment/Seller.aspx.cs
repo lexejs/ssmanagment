@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Net.Mime;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -48,7 +44,7 @@ namespace SSManagment
 		}
 	}
 
-	public partial class Seller : System.Web.UI.Page
+	public partial class Seller : Page
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -65,38 +61,6 @@ namespace SSManagment
 				}
 			}
 		}
-
-		#region Properties
-
-		private IList<ShopingCart> ShopingCartSession
-		{
-			get
-			{
-				if (Session["ShopingCartItems"] == null)
-				{
-					Session["ShopingCartItems"] = new List<ShopingCart>();
-				}
-				return ((IList<ShopingCart>)Session["ShopingCartItems"]);
-
-			}
-			set { Session["ShopingCartItems"] = value; }
-		}
-
-		private IList<item> ProductsSession
-		{
-			get
-			{
-				if (Session["Products"] == null)
-				{
-					Session["Products"] = new List<item>();
-				}
-				return ((IList<item>)Session["Products"]);
-
-			}
-			set { Session["Products"] = value; }
-		}
-
-		#endregion
 
 		#region Methods
 
@@ -152,48 +116,22 @@ namespace SSManagment
 
 		private void LoadingShopingCart()
 		{
-			if (ShopingCartSession.Count > 0)
-			{
-				btnBuy.Visible = true;
-			}
-			else
-			{
-				btnBuy.Visible = false;
-			}
+			btnBuy.Visible = AppHelper.ShopingCartSession.Count > 0;
 
-			CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
+			AppHelper.CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
 
-			gvwShoppingCart.DataSource = ShopingCartSession;
+			gvwShoppingCart.DataSource = AppHelper.ShopingCartSession;
 			gvwShoppingCart.DataBind();
 		}
 
 		private void LoadProductsGridView()
 		{
-			ProductsSession = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
-			gvwProducts.DataSource = ProductsSession;
+			AppHelper.ProductsSession = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.Sort("name", SortDirection.Ascending);
 			gvwProducts.DataBind();
 		}
 
-		private void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp)
-		{
-			if (ShopingCartSession != null || ShopingCartSession.Count > 0)
-			{
-				spanTmp.Visible = true;
-				ssmDataContext db = new ssmDataContext();
-				buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
-				if (br != null)
-				{
-					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
-					lblTmp.Text = (sum - (sum/100) * br.pct).ToString();
-					return;
-				}
-			}
-
-			spanTmp.Visible = false;
-			lblTmp.Text = "0";
-
-		}
 		#endregion
 
 
@@ -206,8 +144,8 @@ namespace SSManagment
 
 		protected void btnFind_Click(object sender, EventArgs e)
 		{
-			ProductsSession = item.FindByName(txtFind.Text);
-			gvwProducts.DataSource = ProductsSession;
+			AppHelper.ProductsSession = item.FindByName(txtFind.Text);
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.Sort("name", SortDirection.Ascending);
 			gvwProducts.DataBind();
 		}
@@ -229,7 +167,7 @@ namespace SSManagment
 
 		protected void drpBuyer_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
+			AppHelper.CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
 		}
 
 		protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
@@ -239,7 +177,7 @@ namespace SSManagment
 			{
 				((TreeView)(sender)).SelectedNode.Expand();
 				IList<item> itm = item.GetAllByGroupId(id);
-				ProductsSession = itm;
+				AppHelper.ProductsSession = itm;
 				gvwProducts.DataSource = itm;
 				gvwProducts.Sort("name", SortDirection.Ascending);
 				gvwProducts.DataBind();
@@ -269,17 +207,15 @@ namespace SSManagment
 						}
 					default:
 						{
-							int counItemsToBuy = 1;
-
-							if (counItemsToBuy > 0 && itm.count > 0)
+							if (itm.count > 0)
 							{
-								if (counItemsToBuy <= (itm.count - (itm.reserveCount ?? 0)))
+								if (1 <= (itm.count - (itm.reserveCount ?? 0)))
 								{
 									switch (e.CommandName.ToLower())
 									{
 										case "add":
 											{
-												ShopingCartSession.Add(new ShopingCart(itm, counItemsToBuy));
+												AppHelper.ShopingCartSession.Add(new ShopingCart(itm, 1));
 												LoadingShopingCart();
 												((Control)(e.CommandSource)).FindControl("ibtnAdd").Visible = false;
 												((Control)(e.CommandSource)).FindControl("ibtnSale").Visible = false;
@@ -289,9 +225,9 @@ namespace SSManagment
 											}
 										case "sale":
 											{
-												ShopingCartSession.Add(new ShopingCart(itm, counItemsToBuy));
+												AppHelper.ShopingCartSession.Add(new ShopingCart(itm, 1));
 												LoadingShopingCart();
-												if (ShopingCartSession.Count == 1)
+												if (AppHelper.ShopingCartSession.Count == 1)
 												{
 													ShowModalSingleBuyConfirm();
 												}
@@ -303,7 +239,7 @@ namespace SSManagment
 											}
 										case "reserved":
 											{
-												ShowModalReservation(itm, counItemsToBuy);
+												ShowModalReservation(itm, 1);
 												break;
 											}
 									}
@@ -323,16 +259,16 @@ namespace SSManagment
 			{
 				if (e.CommandName.ToLower() == "delete")
 				{
-					ShopingCart shop = ShopingCartSession.FirstOrDefault(b => b.id == id);
+					ShopingCart shop = AppHelper.ShopingCartSession.FirstOrDefault(b => b.id == id);
 					if (shop != null)
 					{
-						ShopingCartSession.Remove(shop);
-						if (ShopingCartSession.Count <= 0)
+						AppHelper.ShopingCartSession.Remove(shop);
+						if (AppHelper.ShopingCartSession.Count <= 0)
 						{
 
 							btnBuy.Visible = false;
 						}
-						gvwProducts.DataSource = ProductsSession;
+						gvwProducts.DataSource = AppHelper.ProductsSession;
 						gvwProducts.DataBind();
 
 					}
@@ -350,7 +286,7 @@ namespace SSManagment
 		{
 			if (e.Row.RowType == DataControlRowType.DataRow)
 			{
-				if (ShopingCartSession.Any(b => b.id == ((item)(e.Row.DataItem)).id))
+				if (AppHelper.ShopingCartSession.Any(b => b.id == ((item)(e.Row.DataItem)).id))
 				{
 					e.Row.FindControl("ibtnAdd").Visible = false;
 					e.Row.FindControl("ibtnSale").Visible = false;
@@ -384,7 +320,7 @@ namespace SSManagment
 		protected void txtBuyCount_TextChanged(object sender, EventArgs e)
 		{
 			ShopingCart shop =
-					ShopingCartSession.FirstOrDefault(
+					AppHelper.ShopingCartSession.FirstOrDefault(
 						b => b.id == Convert.ToInt32(((Label)((Control)(sender)).FindControl("lblID")).Text));
 			int count;
 			if (int.TryParse(((TextBox)sender).Text, out count))
@@ -459,8 +395,8 @@ namespace SSManagment
 		{
 			item.Order(Convert.ToInt32(hdnOrder.Value));
 			modalOrderConfirm.Visible = false;
-			ProductsSession.First(b => b.id == Convert.ToInt32(hdnOrder.Value)).order = true;
-			gvwProducts.DataSource = ProductsSession;
+			AppHelper.ProductsSession.First(b => b.id == Convert.ToInt32(hdnOrder.Value)).order = true;
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 		}
 
@@ -480,8 +416,8 @@ namespace SSManagment
 		private void ShowModalBuyConfirm()
 		{
 			drpShopConfirmBuyer.SelectedIndex = drpBuyer.SelectedIndex;
-			CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
-			gvwShpingCartConfirm.DataSource = ShopingCartSession;
+			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
+			gvwShpingCartConfirm.DataSource = AppHelper.ShopingCartSession;
 			gvwShpingCartConfirm.DataBind();
 			modalBuyConfirm.Visible = true;
 		}
@@ -492,11 +428,11 @@ namespace SSManagment
 
 		protected void btnYes_Click(object sender, EventArgs e)
 		{
-			item.BuyShopingCart(ShopingCartSession, ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
+			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
 
-			ShopingCartSession = new List<ShopingCart>();
+			AppHelper.ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
-			gvwProducts.DataSource = ProductsSession;
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 
 			modalBuyConfirm.Visible = false;
@@ -509,7 +445,7 @@ namespace SSManagment
 
 		protected void drpShopConfirmBuyer_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
+			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
 		}
 
 		#endregion
@@ -523,8 +459,8 @@ namespace SSManagment
 		private void ShowModalSingleBuyConfirm()
 		{
 			drpSingleBuyBuyerList.SelectedIndex = drpBuyer.SelectedIndex;
-			CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
-			gvwSingleBuy.DataSource = ShopingCartSession;
+			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+			gvwSingleBuy.DataSource = AppHelper.ShopingCartSession;
 			gvwSingleBuy.DataBind();
 			modalSingleBuy.Visible = true;
 		}
@@ -535,10 +471,10 @@ namespace SSManagment
 
 		protected void btnSingleBuyYes_Click(object sender, EventArgs e)
 		{
-			item.BuyShopingCart(ShopingCartSession, ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
-			ShopingCartSession = new List<ShopingCart>();
+			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
+			AppHelper.ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
-			gvwProducts.DataSource = ProductsSession;
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 
 			modalSingleBuy.Visible = false;
@@ -552,13 +488,13 @@ namespace SSManagment
 
 		protected void drpSingleBuyBuyerList_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
 		}
 
 		protected void txtSingleBuyCount_TextChanged(object sender, EventArgs e)
 		{
 			ShopingCart shop =
-					ShopingCartSession.FirstOrDefault(
+					AppHelper.ShopingCartSession.FirstOrDefault(
 						b => b.id == Convert.ToInt32(((Label)((Control)(sender)).FindControl("lblID")).Text));
 			int count;
 			if (int.TryParse(((TextBox)sender).Text, out count))
@@ -568,7 +504,7 @@ namespace SSManagment
 					if (count <= (shop.count - (shop.reserveCount ?? 0)))
 					{
 						shop.BuyCount = count;
-						CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+						AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
 					}
 					else
 					{
@@ -633,14 +569,8 @@ namespace SSManagment
 		protected void txtResrvBuyCount_TextChanged(object sender, EventArgs e)
 		{
 			int val;
-			if (int.TryParse(txtResrvBuyCount.Text, out val))
-			{
-				lblResrvSum.Text = (Convert.ToUInt32(lblResrvBprice.Text) * val).ToString();
-			}
-			else
-			{
-				lblResrvSum.Text = "";
-			}
+			lblResrvSum.Text = int.TryParse(txtResrvBuyCount.Text, out val) ?
+				(Convert.ToUInt32(lblResrvBprice.Text) * val).ToString() : "";
 		}
 
 		protected void calResrvReservDateTo_SelectionChanged(object sender, EventArgs e)
@@ -737,8 +667,11 @@ namespace SSManagment
 			{
 				if (e.CommandName.ToLower() == "return")
 				{
-					ShowReturnConfirm();
-
+					int count;
+					if (int.TryParse(((TextBox)((Control)(e.CommandSource)).FindControl("txtReturnCount")).Text, out count))
+					{
+						ShowReturnConfirm(id, count);
+					}
 				}
 			}
 		}
@@ -756,9 +689,15 @@ namespace SSManagment
 
 		#region Methods
 
-		private void ShowReturnConfirm()
+		private void ShowReturnConfirm(int id, int count)
 		{
+			logSale log = logSale.GetLogSalesById(id);
+			lblReturnModalProductMeasure.Text = log.item.measure;
+			lblReturnModalProductName.Text = log.item.name;
+			lblReturnModalCount.Text = count.ToString();
+			hdnReturnID.Value = id.ToString();
 			modalWarningConfirm.Visible = true;
+			lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash / log.itemsCount) * count).ToString("0р.");
 		}
 
 		#endregion
@@ -767,9 +706,19 @@ namespace SSManagment
 
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
-#warning Функционал возврата
-			//			logSale.GiveBack();
-			modalWarningConfirm.Visible = false;
+#warning Лёша проверь правильно ли я сделал
+			int count = Convert.ToInt32(lblReturnModalCount.Text);
+				logSale log = logSale.GetLogSalesById(int.Parse(hdnReturnID.Value));
+				if (log.itemsCount >= count)
+				{
+					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, Convert.ToInt32(lbleturnModalSum.Text), AppHelper.GetSID());
+					modalWarningConfirm.Visible = false;
+				}
+				else
+				{
+					lblReturnModalCount.Text = log.itemsCount.ToString();
+					lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash / log.itemsCount) * count).ToString("0р.");
+				}
 		}
 
 		protected void ReturnConfirmNo_Click(object sender, EventArgs e)
@@ -804,27 +753,27 @@ namespace SSManagment
 				{
 					case "name":
 						{
-							ProductsSession = ProductsSession.OrderBy(b => b.name).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderBy(b => b.name).ToList();
 							break;
 						}
 					case "count":
 						{
-							ProductsSession = ProductsSession.OrderBy(b => b.count).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderBy(b => b.count).ToList();
 							break;
 						}
 					case "measure":
 						{
-							ProductsSession = ProductsSession.OrderBy(b => b.measure).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderBy(b => b.measure).ToList();
 							break;
 						}
 					case "bprice":
 						{
-							ProductsSession = ProductsSession.OrderBy(b => b.bprice).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderBy(b => b.bprice).ToList();
 							break;
 						}
 					case "reserveCount":
 						{
-							ProductsSession = ProductsSession.OrderBy(b => b.reserveCount).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderBy(b => b.reserveCount).ToList();
 							break;
 						}
 				}
@@ -835,33 +784,33 @@ namespace SSManagment
 				{
 					case "name":
 						{
-							ProductsSession = ProductsSession.OrderByDescending(b => b.name).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderByDescending(b => b.name).ToList();
 							break;
 						}
 					case "count":
 						{
-							ProductsSession = ProductsSession.OrderByDescending(b => b.count).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderByDescending(b => b.count).ToList();
 							break;
 						}
 					case "measure":
 						{
-							ProductsSession = ProductsSession.OrderByDescending(b => b.measure).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderByDescending(b => b.measure).ToList();
 							break;
 						}
 					case "bprice":
 						{
-							ProductsSession = ProductsSession.OrderByDescending(b => b.bprice).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderByDescending(b => b.bprice).ToList();
 							break;
 						}
 					case "reserveCount":
 						{
-							ProductsSession = ProductsSession.OrderByDescending(b => b.reserveCount).ToList();
+							AppHelper.ProductsSession = AppHelper.ProductsSession.OrderByDescending(b => b.reserveCount).ToList();
 							break;
 						}
 				}
 			}
 
-			gvwProducts.DataSource = ProductsSession;
+			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 		}
 

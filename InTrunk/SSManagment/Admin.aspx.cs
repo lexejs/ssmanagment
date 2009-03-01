@@ -27,11 +27,11 @@ namespace SSManagment
             }
         }
         #endregion
+#warning Сделать функционал апрувала возврата товара
 
+		#region Methods
 
-        #region Methods
-
-        private void lstGroupFill()
+		private void lstGroupFill()
         {
             var db = new ssmDataContext();
             int groupId = 0;
