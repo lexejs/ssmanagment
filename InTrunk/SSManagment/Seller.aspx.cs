@@ -715,7 +715,7 @@ namespace SSManagment
 				logSale log = logSale.GetLogSalesById(int.Parse(hdnReturnID.Value));
 				if (log.itemsCount >= count)
 				{
-					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, Convert.ToInt32(lbleturnModalSum.Text), AppHelper.GetSID());
+					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, Convert.ToInt32(lbleturnModalSum.Text), log.sid.Value);
 					modalReturnConfirm.Visible = false;
 				}
 				else
