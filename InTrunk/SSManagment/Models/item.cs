@@ -154,11 +154,34 @@ namespace SSManagment.Models
         public static void BuyShopingCart(IList<ShopingCart> shop, IList<item> products, int sellerId, int buyerId)
         {
         	int sid = AppHelper.GetSID();
+			ssmDataContext db = new ssmDataContext();
+			buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == buyerId);
+
             foreach (ShopingCart shpProduct in shop)
-            {
-				logSale.Sale(buyerId, sellerId, shpProduct.id, shpProduct.BuyCount, shpProduct.bprice.Value, sid);
-				products.Remove(products.First(b => b.id == shpProduct.id));
-				CheckForOrder(shpProduct.id);
+			{
+				int sum = AppHelper.RoundTo10(shpProduct.ResultPrice.Value - ((shpProduct.ResultPrice.Value/100)*br.pct));
+				
+				logSale.Sale(
+					buyerId, 
+					sellerId,
+					shpProduct.id, 
+					shpProduct.BuyCount,
+					sum, 
+					sid);
+
+				item itm = products.FirstOrDefault(b => b.id == shpProduct.id);
+				if (itm != null)
+				{
+					if (itm.count.Value - shpProduct.BuyCount <= 0)
+					{
+						products.Remove(itm);
+					}
+					else
+					{
+						itm.count = itm.count.Value - shpProduct.BuyCount;
+					}
+				}
+            	CheckForOrder(shpProduct.id);
             	
             }
 

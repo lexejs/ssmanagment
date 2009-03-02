@@ -66,7 +66,13 @@ namespace SSManagment.Models
 			if (val != null)
 			{
 				value = (int)Math.Round(val.Value, 0);
-				int last = Convert.ToInt32(value.ToString()[value.ToString().Length-1].ToString());
+
+				if (value <= 10)
+				{
+					return 10;
+				}
+
+				int last = Convert.ToInt32(value.ToString()[value.ToString().Length - 1].ToString());
 				if (last >= 5)
 				{
 					value = value + (10 - last);
@@ -79,7 +85,6 @@ namespace SSManagment.Models
 
 			return value;
 		}
-
 
 		public static void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp)
 		{

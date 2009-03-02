@@ -584,11 +584,12 @@
 																Введите дату покупки:&nbsp;
 															</td>
 															<td align="left">
-																<asp:TextBox ID="txtReturnProductSoldDate" runat="server"></asp:TextBox>
+																<asp:TextBox ID="txtReturnProductSoldDate" runat="server" Width="150px"></asp:TextBox>
 															</td>
 														</tr>
 														<tr>
 															<td colspan="2" align="center">
+															<br />
 																<button id="btnReturnShowProducts" runat="server" style="width: 185px;" onserverclick="btnReturnShowProducts_Click">
 																	<span><em>Показать список товаров</em></span></button>
 															</td>
@@ -649,7 +650,7 @@
 											<tr>
 												<td colspan="2">
 													<br />
-													<br />
+												
 													<button id="btnReturnOk" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
 														<span><em>Закрыть</em></span></button>
 												</td>

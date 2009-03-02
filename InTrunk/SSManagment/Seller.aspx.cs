@@ -642,7 +642,15 @@ namespace SSManagment
 
 		private void ShowReturn()
 		{
+			gvwReturn.DataSource = null;
+			gvwReturn.DataBind();
 			modalReturn.Visible = true;
+		}
+
+		private void LoadReturnGredView()
+		{
+			gvwReturn.DataSource = logSale.GetGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
+			gvwReturn.DataBind();
 		}
 
 		#endregion
@@ -656,8 +664,7 @@ namespace SSManagment
 
 		protected void btnReturnShowProducts_Click(object sender, EventArgs e)
 		{
-			gvwReturn.DataSource = logSale.GetGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
-			gvwReturn.DataBind();
+			LoadReturnGredView();
 		}
 
 		protected void gvwReturn_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -700,7 +707,7 @@ namespace SSManagment
 				lblReturnModalCount.Text = count.ToString();
 				hdnReturnID.Value = id.ToString();
 				modalReturnConfirm.Visible = true;
-				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash/log.itemsCount)*count).ToString("0р.");
+				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count).ToString("0р.");
 			}
 		}
 
@@ -710,18 +717,20 @@ namespace SSManagment
 
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
-#warning Лёша проверь правильно ли я сделал
 			int count = Convert.ToInt32(lblReturnModalCount.Text);
+			int sum = Convert.ToInt32(lbleturnModalSum.Text.Replace("р",""));
 				logSale log = logSale.GetLogSalesById(int.Parse(hdnReturnID.Value));
+
 				if (log.itemsCount >= count)
 				{
-					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, Convert.ToInt32(lbleturnModalSum.Text), log.sid.Value);
+					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, sum, log.sid.Value);
 					modalReturnConfirm.Visible = false;
+					LoadReturnGredView();
 				}
 				else
 				{
 					lblReturnModalCount.Text = log.itemsCount.ToString();
-					lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash / log.itemsCount) * count).ToString("0р.");
+					lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value / log.itemsCount.Value) * count).ToString("0р.");
 				}
 		}
 
