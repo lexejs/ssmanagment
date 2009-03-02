@@ -43,15 +43,20 @@ namespace SSManagment.Models
 
         public static void GiveBack(int buyerId, int sellerId, int itemId, int itemsCount, float cash, int sid)
         {
+
             var db = new ssmDataContext();
-        	logSale sale = db.logSales.FirstOrDefault(
+
+#warning В этом куске кода происходит уменьшение количества и сумма при возврате, Начало куска
+			logSale sale = db.logSales.FirstOrDefault(
         		b => b.buyerId == buyerId && b.sellerId == sellerId && b.sid == sid && b.isGiveBack == false);
 			if (sale!=null)
 			{
 				sale.cash = sale.cash - cash;
 				sale.itemsCount = sale.itemsCount - itemsCount;
 			}
-            var logSale = new logSale
+#warning Конец куска
+
+			var logSale = new logSale
                               {
                                   buyerId = buyerId,
                                   sellerId = sellerId,
