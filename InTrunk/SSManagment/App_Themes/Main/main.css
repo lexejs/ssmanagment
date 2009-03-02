@@ -25,6 +25,9 @@ span
 /* /////////////////////////// Opacity ///////////////////////// */
 /* //////////////////////////////////////////////////////////// */
 
+#divRootProgressDisplay{
+    position:relative;
+}
 #modalBuyConfirm{
     position:relative;
 }
@@ -72,6 +75,10 @@ span
     left: 35%;
     width:  400px;
     top: 40%;
+}
+
+* html #divRootProgressDisplay .overlay {
+    height: expression(document.getElementById("modalBuyConfirm").offsetHeight);
 }
 
 * html #modalBuyConfirm .overlay {

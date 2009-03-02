@@ -59,9 +59,8 @@
 	</table>
 	<asp:UpdateProgress ID="upsRootProgressDisplay" runat="server">
 		<ProgressTemplate>
-			<div id="container">
-				<div class="overlay">
-				</div>
+			<div id="divRootProgressDisplay">
+				<div class="overlay"></div>
 				<div style="position: absolute; top: 48%; left: 49%; width: 400px">
 					<table style="width: 400px">
 						<tr>
