@@ -692,12 +692,16 @@ namespace SSManagment
 		private void ShowReturnConfirm(int id, int count)
 		{
 			logSale log = logSale.GetLogSalesById(id);
-			lblReturnModalProductMeasure.Text = log.item.measure;
-			lblReturnModalProductName.Text = log.item.name;
-			lblReturnModalCount.Text = count.ToString();
-			hdnReturnID.Value = id.ToString();
-			modalWarningConfirm.Visible = true;
-			lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash / log.itemsCount) * count).ToString("0р.");
+
+			if(count <= log.itemsCount)
+			{
+				lblReturnModalProductMeasure.Text = log.item.measure;
+				lblReturnModalProductName.Text = log.item.name;
+				lblReturnModalCount.Text = count.ToString();
+				hdnReturnID.Value = id.ToString();
+				modalReturnConfirm.Visible = true;
+				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash/log.itemsCount)*count).ToString("0р.");
+			}
 		}
 
 		#endregion
@@ -712,7 +716,7 @@ namespace SSManagment
 				if (log.itemsCount >= count)
 				{
 					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, Convert.ToInt32(lbleturnModalSum.Text), AppHelper.GetSID());
-					modalWarningConfirm.Visible = false;
+					modalReturnConfirm.Visible = false;
 				}
 				else
 				{
@@ -723,7 +727,7 @@ namespace SSManagment
 
 		protected void ReturnConfirmNo_Click(object sender, EventArgs e)
 		{
-			modalWarningConfirm.Visible = false;
+			modalReturnConfirm.Visible = false;
 		}
 
 		#endregion

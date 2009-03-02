@@ -11,7 +11,7 @@ namespace SSManagment.Models
 	{
 		public static int GetSID()
 		{
-#warning Генерация SID
+			//DateTime.Now
 			return 0;
 		}
 

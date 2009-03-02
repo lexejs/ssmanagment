@@ -6,6 +6,22 @@ namespace SSManagment.Models
 {
     public partial class logSale
     {
+    	public string logName
+    	{
+    		get
+    		{
+    			return this.item.name;
+    		}
+    	}
+
+		public int? logBprice
+		{
+			get
+			{
+				return this.item.bprice;
+			}
+		}
+
         public static void Sale(int buyerId, int sellerId, int itemId, int itemsCount, float cash, int sid)
         {
             var db = new ssmDataContext();
