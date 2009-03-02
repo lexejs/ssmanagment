@@ -35,7 +35,7 @@
 														<span>Учётная запись:</span>
 													</td>
 													<td align="left" width="130px">
-														<asp:TextBox ID="txtLogin" runat="server" TabIndex="1"></asp:TextBox>
+														<asp:TextBox ID="txtLogin" runat="server" TabIndex="1" Width="130px"></asp:TextBox>
 													</td>
 													<td rowspan="2" align="left">
 														<button id="btnLogin" runat="server" tabindex="3" onserverclick="btnLogin_Click1">
@@ -47,8 +47,8 @@
 														<span>Пароль:
 														</span>
 													</td>
-													<td align="left">
-														<asp:TextBox ID="txtPassword" runat="server" TabIndex="2" TextMode="Password"></asp:TextBox>
+													<td align="left" width="130px">
+														<asp:TextBox ID="txtPassword" runat="server" TabIndex="2" TextMode="Password" Width="130px"></asp:TextBox>
 													</td>
 												</tr>
 												<tr id="tdPassMsg" runat="server" visible="false">
