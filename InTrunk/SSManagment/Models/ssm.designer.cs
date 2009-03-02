@@ -33,9 +33,6 @@ namespace SSManagment.Models
     partial void Insertbuyer(buyer instance);
     partial void Updatebuyer(buyer instance);
     partial void Deletebuyer(buyer instance);
-    partial void Insertseller(seller instance);
-    partial void Updateseller(seller instance);
-    partial void Deleteseller(seller instance);
     partial void Insertgroup(group instance);
     partial void Updategroup(group instance);
     partial void Deletegroup(group instance);
@@ -48,6 +45,9 @@ namespace SSManagment.Models
     partial void InsertlogSale(logSale instance);
     partial void UpdatelogSale(logSale instance);
     partial void DeletelogSale(logSale instance);
+    partial void Insertseller(seller instance);
+    partial void Updateseller(seller instance);
+    partial void Deleteseller(seller instance);
     #endregion
 		
 		public ssmDataContext() : 
@@ -88,14 +88,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<seller> sellers
-		{
-			get
-			{
-				return this.GetTable<seller>();
-			}
-		}
-		
 		public System.Data.Linq.Table<group> groups
 		{
 			get
@@ -125,6 +117,14 @@ namespace SSManagment.Models
 			get
 			{
 				return this.GetTable<logSale>();
+			}
+		}
+		
+		public System.Data.Linq.Table<seller> sellers
+		{
+			get
+			{
+				return this.GetTable<seller>();
 			}
 		}
 	}
@@ -340,216 +340,6 @@ namespace SSManagment.Models
 		{
 			this.SendPropertyChanging();
 			entity.buyer = null;
-		}
-	}
-	
-	[Table(Name="dbo.seller")]
-	public partial class seller : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _fullName;
-		
-		private System.Nullable<bool> _isAdmin;
-		
-		private string _login;
-		
-		private string _password;
-		
-		private System.Nullable<bool> _isActive;
-		
-		private EntitySet<logSale> _logSales;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnfullNameChanging(string value);
-    partial void OnfullNameChanged();
-    partial void OnisAdminChanging(System.Nullable<bool> value);
-    partial void OnisAdminChanged();
-    partial void OnloginChanging(string value);
-    partial void OnloginChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnisActiveChanging(System.Nullable<bool> value);
-    partial void OnisActiveChanged();
-    #endregion
-		
-		public seller()
-		{
-			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
-			OnCreated();
-		}
-		
-		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_fullName", DbType="VarChar(50)")]
-		public string fullName
-		{
-			get
-			{
-				return this._fullName;
-			}
-			set
-			{
-				if ((this._fullName != value))
-				{
-					this.OnfullNameChanging(value);
-					this.SendPropertyChanging();
-					this._fullName = value;
-					this.SendPropertyChanged("fullName");
-					this.OnfullNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_isAdmin", DbType="Bit")]
-		public System.Nullable<bool> isAdmin
-		{
-			get
-			{
-				return this._isAdmin;
-			}
-			set
-			{
-				if ((this._isAdmin != value))
-				{
-					this.OnisAdminChanging(value);
-					this.SendPropertyChanging();
-					this._isAdmin = value;
-					this.SendPropertyChanged("isAdmin");
-					this.OnisAdminChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_login", DbType="VarChar(50)")]
-		public string login
-		{
-			get
-			{
-				return this._login;
-			}
-			set
-			{
-				if ((this._login != value))
-				{
-					this.OnloginChanging(value);
-					this.SendPropertyChanging();
-					this._login = value;
-					this.SendPropertyChanged("login");
-					this.OnloginChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_password", DbType="VarChar(50)")]
-		public string password
-		{
-			get
-			{
-				return this._password;
-			}
-			set
-			{
-				if ((this._password != value))
-				{
-					this.OnpasswordChanging(value);
-					this.SendPropertyChanging();
-					this._password = value;
-					this.SendPropertyChanged("password");
-					this.OnpasswordChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_isActive", DbType="Bit")]
-		public System.Nullable<bool> isActive
-		{
-			get
-			{
-				return this._isActive;
-			}
-			set
-			{
-				if ((this._isActive != value))
-				{
-					this.OnisActiveChanging(value);
-					this.SendPropertyChanging();
-					this._isActive = value;
-					this.SendPropertyChanged("isActive");
-					this.OnisActiveChanged();
-				}
-			}
-		}
-		
-		[Association(Name="seller_logSale", Storage="_logSales", ThisKey="id", OtherKey="sellerId")]
-		public EntitySet<logSale> logSales
-		{
-			get
-			{
-				return this._logSales;
-			}
-			set
-			{
-				this._logSales.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.seller = this;
-		}
-		
-		private void detach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.seller = null;
 		}
 	}
 	
@@ -1422,15 +1212,15 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _isGiveBack;
 		
-		private System.Nullable<float> _cash;
+		private System.Nullable<double> _cash;
 		
 		private System.Nullable<int> _sid;
+		
+		private EntityRef<buyer> _buyer;
 		
 		private EntityRef<item> _item;
 		
 		private EntityRef<seller> _seller;
-		
-		private EntityRef<buyer> _buyer;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1450,7 +1240,7 @@ namespace SSManagment.Models
     partial void OndateChanged();
     partial void OnisGiveBackChanging(System.Nullable<bool> value);
     partial void OnisGiveBackChanged();
-    partial void OncashChanging(System.Nullable<float> value);
+    partial void OncashChanging(System.Nullable<double> value);
     partial void OncashChanged();
     partial void OnsidChanging(System.Nullable<int> value);
     partial void OnsidChanged();
@@ -1458,13 +1248,13 @@ namespace SSManagment.Models
 		
 		public logSale()
 		{
+			this._buyer = default(EntityRef<buyer>);
 			this._item = default(EntityRef<item>);
 			this._seller = default(EntityRef<seller>);
-			this._buyer = default(EntityRef<buyer>);
 			OnCreated();
 		}
 		
-		[Column(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
@@ -1616,8 +1406,8 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Column(Storage="_cash")]
-		public System.Nullable<float> cash
+		[Column(Storage="_cash", DbType="Float")]
+		public System.Nullable<double> cash
 		{
 			get
 			{
@@ -1636,7 +1426,7 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Column(Storage="_sid")]
+		[Column(Storage="_sid", DbType="Int")]
 		public System.Nullable<int> sid
 		{
 			get
@@ -1652,6 +1442,40 @@ namespace SSManagment.Models
 					this._sid = value;
 					this.SendPropertyChanged("sid");
 					this.OnsidChanged();
+				}
+			}
+		}
+		
+		[Association(Name="buyer_logSale", Storage="_buyer", ThisKey="buyerId", OtherKey="id", IsForeignKey=true)]
+		public buyer buyer
+		{
+			get
+			{
+				return this._buyer.Entity;
+			}
+			set
+			{
+				buyer previousValue = this._buyer.Entity;
+				if (((previousValue != value) 
+							|| (this._buyer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._buyer.Entity = null;
+						previousValue.logSales.Remove(this);
+					}
+					this._buyer.Entity = value;
+					if ((value != null))
+					{
+						value.logSales.Add(this);
+						this._buyerId = value.id;
+					}
+					else
+					{
+						this._buyerId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("buyer");
 				}
 			}
 		}
@@ -1724,37 +1548,201 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="buyer_logSale", Storage="_buyer", ThisKey="buyerId", OtherKey="id", IsForeignKey=true)]
-		public buyer buyer
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.seller")]
+	public partial class seller : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _fullName;
+		
+		private System.Nullable<bool> _isAdmin;
+		
+		private string _login;
+		
+		private string _password;
+		
+		private System.Nullable<bool> _isActive;
+		
+		private EntitySet<logSale> _logSales;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnfullNameChanging(string value);
+    partial void OnfullNameChanged();
+    partial void OnisAdminChanging(System.Nullable<bool> value);
+    partial void OnisAdminChanged();
+    partial void OnloginChanging(string value);
+    partial void OnloginChanged();
+    partial void OnpasswordChanging(string value);
+    partial void OnpasswordChanged();
+    partial void OnisActiveChanging(System.Nullable<bool> value);
+    partial void OnisActiveChanged();
+    #endregion
+		
+		public seller()
+		{
+			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
+			OnCreated();
+		}
+		
+		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
 		{
 			get
 			{
-				return this._buyer.Entity;
+				return this._id;
 			}
 			set
 			{
-				buyer previousValue = this._buyer.Entity;
-				if (((previousValue != value) 
-							|| (this._buyer.HasLoadedOrAssignedValue == false)))
+				if ((this._id != value))
 				{
+					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._buyer.Entity = null;
-						previousValue.logSales.Remove(this);
-					}
-					this._buyer.Entity = value;
-					if ((value != null))
-					{
-						value.logSales.Add(this);
-						this._buyerId = value.id;
-					}
-					else
-					{
-						this._buyerId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("buyer");
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
 				}
+			}
+		}
+		
+		[Column(Storage="_fullName", DbType="VarChar(50)")]
+		public string fullName
+		{
+			get
+			{
+				return this._fullName;
+			}
+			set
+			{
+				if ((this._fullName != value))
+				{
+					this.OnfullNameChanging(value);
+					this.SendPropertyChanging();
+					this._fullName = value;
+					this.SendPropertyChanged("fullName");
+					this.OnfullNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_isAdmin", DbType="Bit")]
+		public System.Nullable<bool> isAdmin
+		{
+			get
+			{
+				return this._isAdmin;
+			}
+			set
+			{
+				if ((this._isAdmin != value))
+				{
+					this.OnisAdminChanging(value);
+					this.SendPropertyChanging();
+					this._isAdmin = value;
+					this.SendPropertyChanged("isAdmin");
+					this.OnisAdminChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this.OnloginChanging(value);
+					this.SendPropertyChanging();
+					this._login = value;
+					this.SendPropertyChanged("login");
+					this.OnloginChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_password", DbType="VarChar(50)")]
+		public string password
+		{
+			get
+			{
+				return this._password;
+			}
+			set
+			{
+				if ((this._password != value))
+				{
+					this.OnpasswordChanging(value);
+					this.SendPropertyChanging();
+					this._password = value;
+					this.SendPropertyChanged("password");
+					this.OnpasswordChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_isActive", DbType="Bit")]
+		public System.Nullable<bool> isActive
+		{
+			get
+			{
+				return this._isActive;
+			}
+			set
+			{
+				if ((this._isActive != value))
+				{
+					this.OnisActiveChanging(value);
+					this.SendPropertyChanging();
+					this._isActive = value;
+					this.SendPropertyChanged("isActive");
+					this.OnisActiveChanged();
+				}
+			}
+		}
+		
+		[Association(Name="seller_logSale", Storage="_logSales", ThisKey="id", OtherKey="sellerId")]
+		public EntitySet<logSale> logSales
+		{
+			get
+			{
+				return this._logSales;
+			}
+			set
+			{
+				this._logSales.Assign(value);
 			}
 		}
 		
@@ -1776,6 +1764,18 @@ namespace SSManagment.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_logSales(logSale entity)
+		{
+			this.SendPropertyChanging();
+			entity.seller = this;
+		}
+		
+		private void detach_logSales(logSale entity)
+		{
+			this.SendPropertyChanging();
+			entity.seller = null;
 		}
 	}
 }
