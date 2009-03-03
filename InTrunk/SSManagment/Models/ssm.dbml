@@ -8,6 +8,7 @@
       <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="canBuyOnTick" Type="System.Boolean" CanBeNull="true" />
+      <Column Member="debt" Type="System.Single" CanBeNull="true" />
       <Association Name="buyer_logActivity" Member="logActivities" ThisKey="id" OtherKey="buyerId" Type="logActivity" />
       <Association Name="buyer_logSale" Member="logSales" ThisKey="id" OtherKey="buyerId" Type="logSale" />
     </Type>

@@ -145,6 +145,8 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _canBuyOnTick;
 		
+		private System.Nullable<float> _debt;
+		
 		private EntitySet<logActivity> _logActivities;
 		
 		private EntitySet<logSale> _logSales;
@@ -163,6 +165,8 @@ namespace SSManagment.Models
     partial void OnisActiveChanged();
     partial void OncanBuyOnTickChanging(System.Nullable<bool> value);
     partial void OncanBuyOnTickChanged();
+    partial void OndebtChanging(System.Nullable<float> value);
+    partial void OndebtChanged();
     #endregion
 		
 		public buyer()
@@ -268,6 +272,26 @@ namespace SSManagment.Models
 					this._canBuyOnTick = value;
 					this.SendPropertyChanged("canBuyOnTick");
 					this.OncanBuyOnTickChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_debt")]
+		public System.Nullable<float> debt
+		{
+			get
+			{
+				return this._debt;
+			}
+			set
+			{
+				if ((this._debt != value))
+				{
+					this.OndebtChanging(value);
+					this.SendPropertyChanging();
+					this._debt = value;
+					this.SendPropertyChanged("debt");
+					this.OndebtChanged();
 				}
 			}
 		}

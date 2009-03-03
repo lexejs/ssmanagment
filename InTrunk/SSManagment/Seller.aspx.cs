@@ -713,7 +713,7 @@ namespace SSManagment
 
 		#endregion
 
-		#region Hendlers
+		#region Handlers
 
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
