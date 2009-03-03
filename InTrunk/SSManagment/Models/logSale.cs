@@ -46,7 +46,6 @@ namespace SSManagment.Models
 
             var db = new ssmDataContext();
 
-#warning В этом куске кода происходит уменьшение количества и сумма при возврате, Начало куска
 			logSale sale = db.logSales.FirstOrDefault(
         		b => b.buyerId == buyerId && b.sellerId == sellerId && b.sid == sid && b.isGiveBack == false);
 			if (sale!=null)
@@ -54,7 +53,6 @@ namespace SSManagment.Models
 				sale.cash = sale.cash - cash;
 				sale.itemsCount = sale.itemsCount - itemsCount;
 			}
-#warning Конец куска
 
 			var logSale = new logSale
                               {

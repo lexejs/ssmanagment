@@ -73,7 +73,7 @@ namespace SSManagment.Models
 				}
 
 				int last = Convert.ToInt32(value.ToString()[value.ToString().Length - 1].ToString());
-				if (last >= 5)
+				if (last >= 1)
 				{
 					value = value + (10 - last);
 				}

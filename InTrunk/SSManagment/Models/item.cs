@@ -151,7 +151,7 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-        public static void BuyShopingCart(IList<ShopingCart> shop, IList<item> products, int sellerId, int buyerId)
+        public static void BuyShopingCart(IList<ShopingCart> shop, IList<item> products, int sellerId, int buyerId, bool isDebt)
         {
         	int sid = AppHelper.GetSID();
 			ssmDataContext db = new ssmDataContext();
@@ -160,15 +160,28 @@ namespace SSManagment.Models
             foreach (ShopingCart shpProduct in shop)
 			{
 				int sum = AppHelper.RoundTo10(shpProduct.ResultPrice.Value - ((shpProduct.ResultPrice.Value/100)*br.pct));
-				
-				logSale.Sale(
-					buyerId, 
-					sellerId,
-					shpProduct.id, 
-					shpProduct.BuyCount,
-					sum, 
-					sid);
 
+				if (isDebt)
+				{
+					buyer.RunIntoDebt(buyerId, sum);
+					logSale.Sale(
+						buyerId,
+						sellerId,
+						shpProduct.id,
+						shpProduct.BuyCount,
+						0,
+						sid);
+				}
+				else
+				{
+					logSale.Sale(
+						buyerId,
+						sellerId,
+						shpProduct.id,
+						shpProduct.BuyCount,
+						sum,
+						sid);
+				}
 				item itm = products.FirstOrDefault(b => b.id == shpProduct.id);
 				if (itm != null)
 				{

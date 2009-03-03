@@ -12,7 +12,7 @@ namespace SSManagment.Models
 		/// </summary>
 		/// <param name="buyerId">Buyer's ID</param>
 		/// <param name="cash">Sum of Sale</param>
-		public void RunIntoDebt(int buyerId, float cash)
+		public static void RunIntoDebt(int buyerId, float cash)
 		{
 			var db = new ssmDataContext();
 			buyer buyer = db.buyers.First(b => b.id == buyerId);
@@ -32,7 +32,7 @@ namespace SSManagment.Models
 		/// </summary>
 		/// <param name="buyerId">Buyer's ID</param>
 		/// <param name="cash">Sum of refund</param>
-		public void Refund(int buyerId, float cash)
+		public static void Refund(int buyerId, float cash)
 		{
 			var db = new ssmDataContext();
 			buyer buyer = db.buyers.First(b => b.id == buyerId);

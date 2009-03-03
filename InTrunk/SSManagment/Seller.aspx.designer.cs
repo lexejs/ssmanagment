@@ -194,6 +194,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.Label lblShopConfirmSum;
         
         /// <summary>
+        /// cbxCreditShopConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbxCreditShopConfirm;
+        
+        /// <summary>
         /// btnYes control.
         /// </summary>
         /// <remarks>
@@ -255,6 +264,15 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSingleBuySum;
+        
+        /// <summary>
+        /// cbxCreditSingleBuy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbxCreditSingleBuy;
         
         /// <summary>
         /// btnSingleBuyYes control.

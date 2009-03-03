@@ -67,7 +67,7 @@ namespace SSManagment
 		private void LoadingBuyers()
 		{
 			ssmDataContext db = new ssmDataContext();
-			IList<buyer> tmpList = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+			var tmpList = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
 
 			drpBuyer.DataSource = tmpList;
 			drpBuyer.DataTextField = "name";
@@ -428,7 +428,7 @@ namespace SSManagment
 
 		protected void btnYes_Click(object sender, EventArgs e)
 		{
-			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
+			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpShopConfirmBuyer.SelectedValue), cbxCreditShopConfirm.Checked);
 
 			AppHelper.ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
@@ -471,7 +471,7 @@ namespace SSManagment
 
 		protected void btnSingleBuyYes_Click(object sender, EventArgs e)
 		{
-			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpBuyer.SelectedValue));
+			item.BuyShopingCart(AppHelper.ShopingCartSession, AppHelper.ProductsSession, AppHelper.CurrentUser.id, Convert.ToInt32(drpSingleBuyBuyerList.SelectedValue), cbxCreditSingleBuy.Checked);
 			AppHelper.ShopingCartSession = new List<ShopingCart>();
 			LoadingShopingCart();
 			gvwProducts.DataSource = AppHelper.ProductsSession;
@@ -700,7 +700,7 @@ namespace SSManagment
 		{
 			logSale log = logSale.GetLogSalesById(id);
 
-			if(count <= log.itemsCount)
+			if (count <= log.itemsCount || log.cash.Value > 0)
 			{
 				lblReturnModalProductMeasure.Text = log.item.measure;
 				lblReturnModalProductName.Text = log.item.name;

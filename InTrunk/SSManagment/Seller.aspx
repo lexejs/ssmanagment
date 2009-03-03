@@ -269,7 +269,7 @@
 									<center>
 										<table cellpadding="0" cellspacing="0">
 											<tr>
-												<td align="center" colspan="2">
+												<td align="center" colspan="3">
 													<asp:GridView ID="gvwShpingCartConfirm" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt">
 														<RowStyle BackColor="#F7F7DE" />
 														<Columns>
@@ -311,13 +311,17 @@
 												<td>
 													<span id="spanShopConfirm" runat="server">Итого :&nbsp;</span><asp:Label ID="lblShopConfirmSum" runat="server" Font-Size="12pt"></asp:Label>
 												</td>
+												<td>
+													<asp:CheckBox ID="cbxCreditShopConfirm" runat="server" Checked="false" Text="В кредит" />
+												</td>
 											</tr>
 											<tr>
-												<td colspan="2">
+												<td colspan="3">
 													<br />
 												</td>
 											</tr>
 											<tr>
+												<td></td>
 												<td>
 													<button id="btnYes" runat="server" style="width: 75px;" onserverclick="btnYes_Click">
 														<span><em>Да</em></span></button>
@@ -355,7 +359,7 @@
 									<center>
 										<table cellpadding="0" cellspacing="0" width="100%">
 											<tr>
-												<td align="center" colspan="2">
+												<td align="center" colspan="3">
 													<asp:GridView ID="gvwSingleBuy" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt">
 														<RowStyle BackColor="#F7F7DE" />
 														<Columns>
@@ -398,13 +402,17 @@
 												<td>
 													<span id="spanSingleBuySum" runat="server">Итого :&nbsp;</span><asp:Label ID="lblSingleBuySum" runat="server" Font-Size="12pt"></asp:Label>
 												</td>
+												<td>
+													<asp:CheckBox ID="cbxCreditSingleBuy" runat="server" Checked="false" Text="В кредит" />
+												</td>
 											</tr>
 											<tr>
-												<td colspan="2">
+												<td colspan="3">
 													<br />
 												</td>
 											</tr>
 											<tr>
+											<td></td>
 												<td>
 													<button id="btnSingleBuyYes" runat="server" style="width: 75px;" onserverclick="btnSingleBuyYes_Click">
 														<span><em>Да</em></span></button>
