@@ -23,6 +23,19 @@ namespace SSManagment.Models
 		}
 
 
-
+		public void Compound(int buyerId, float cash)
+		{
+			var db = new ssmDataContext();
+			buyer buyer = db.buyers.First(b => b.id == buyerId);
+			if (buyer.debt != null)
+			{
+				buyer.debt -= cash;
+			}
+			else
+			{
+				buyer.debt = -cash;
+			}
+			db.SubmitChanges();
+		}
 	}
 }
