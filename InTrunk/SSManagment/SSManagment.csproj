@@ -96,6 +96,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\AppHelper.cs" />
+    <Compile Include="Models\buyer.cs" />
     <Compile Include="Models\group.cs" />
     <Compile Include="Models\item.cs" />
     <Compile Include="Models\logActivity.cs" />
