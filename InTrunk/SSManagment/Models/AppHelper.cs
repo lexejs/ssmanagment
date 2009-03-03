@@ -86,9 +86,28 @@ namespace SSManagment.Models
 			return value;
 		}
 
+		public static void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp, CheckBox chk)
+		{
+			if (ShopingCartSession != null && ShopingCartSession.Count > 0)
+			{
+				spanTmp.Visible = true;
+				ssmDataContext db = new ssmDataContext();
+				buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
+				if (br != null)
+				{
+					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
+					lblTmp.Text = RoundTo10(sum - ((sum / 100) * br.pct)).ToString("0р.");
+					chk.Visible = br.canBuyOnTick.GetValueOrDefault(false);
+					return;
+				}
+			}
+			spanTmp.Visible = false;
+			lblTmp.Text = "";
+		}
+
 		public static void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp)
 		{
-			if (ShopingCartSession != null || ShopingCartSession.Count > 0)
+			if (ShopingCartSession != null && ShopingCartSession.Count > 0)
 			{
 				spanTmp.Visible = true;
 				ssmDataContext db = new ssmDataContext();
@@ -100,10 +119,8 @@ namespace SSManagment.Models
 					return;
 				}
 			}
-
 			spanTmp.Visible = false;
-			lblTmp.Text = "0";
-
+			lblTmp.Text = "";
 		}
 	}
 }

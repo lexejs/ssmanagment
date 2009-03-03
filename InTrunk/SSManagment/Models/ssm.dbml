@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="SM" Class="ssmDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\SM.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="App_Data(SQLEXPRESS)" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.buyer" Member="buyers">
-    <Type Name="buyer">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="canBuyOnTick" Type="System.Boolean" CanBeNull="true" />
-      <Column Member="debt" Type="System.Single" CanBeNull="true" />
-      <Association Name="buyer_logActivity" Member="logActivities" ThisKey="id" OtherKey="buyerId" Type="logActivity" />
-      <Association Name="buyer_logSale" Member="logSales" ThisKey="id" OtherKey="buyerId" Type="logSale" />
-    </Type>
-  </Table>
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\SM.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SMConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.[group]" Member="groups">
     <Type Name="group">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -64,9 +52,9 @@
       <Column Name="isGiveBack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="cash" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="sid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="buyer_logSale" Member="buyer" ThisKey="buyerId" OtherKey="id" Type="buyer" IsForeignKey="true" />
       <Association Name="item_logSale" Member="item" ThisKey="itemId" OtherKey="id" Type="item" IsForeignKey="true" />
       <Association Name="seller_logSale" Member="seller" ThisKey="sellerId" OtherKey="id" Type="seller" IsForeignKey="true" />
+      <Association Name="buyer_logSale" Member="buyer" ThisKey="buyerId" OtherKey="id" Type="buyer" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.seller" Member="sellers">
@@ -78,6 +66,18 @@
       <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="seller_logSale" Member="logSales" ThisKey="id" OtherKey="sellerId" Type="logSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.buyer" Member="buyers">
+    <Type Name="buyer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="canBuyOnTick" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="debt" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="buyer_logActivity" Member="logActivities" ThisKey="id" OtherKey="buyerId" Type="logActivity" />
+      <Association Name="buyer_logSale" Member="logSales" ThisKey="id" OtherKey="buyerId" Type="logSale" />
     </Type>
   </Table>
 </Database>

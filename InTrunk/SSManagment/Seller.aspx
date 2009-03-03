@@ -321,10 +321,12 @@
 												</td>
 											</tr>
 											<tr>
-												<td></td>
+												
 												<td>
 													<button id="btnYes" runat="server" style="width: 75px;" onserverclick="btnYes_Click">
 														<span><em>Да</em></span></button>
+												</td>
+												<td>
 												</td>
 												<td>
 													<button id="btnCancel" runat="server" style="width: 75px;" onserverclick="btnCancel_Click">
@@ -412,7 +414,8 @@
 												</td>
 											</tr>
 											<tr>
-											<td></td>
+												<td>
+												</td>
 												<td>
 													<button id="btnSingleBuyYes" runat="server" style="width: 75px;" onserverclick="btnSingleBuyYes_Click">
 														<span><em>Да</em></span></button>
@@ -597,7 +600,7 @@
 														</tr>
 														<tr>
 															<td colspan="2" align="center">
-															<br />
+																<br />
 																<button id="btnReturnShowProducts" runat="server" style="width: 185px;" onserverclick="btnReturnShowProducts_Click">
 																	<span><em>Показать список товаров</em></span></button>
 															</td>
@@ -607,58 +610,61 @@
 											</tr>
 											<tr>
 												<td align="center">
-														<asp:GridView ID="gvwReturn" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt" OnRowCommand="gvwReturn_RowCommand" OnRowDeleting="gvwReturn_RowDeleting">
-															<RowStyle BackColor="#F7F7DE" />
-															<Columns>
-																<asp:BoundField HeaderText="Товар" DataField="logName">
-																	<ControlStyle Width="100%" />
-																	<ItemStyle HorizontalAlign="Left" />
-																</asp:BoundField>
-																<asp:BoundField HeaderText="Покупатель" DataField="buyerId">
-																	<ControlStyle Width="50px" />
-																	<ItemStyle HorizontalAlign="Right" />
-																</asp:BoundField>
-																<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="logBprice" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
-																	<ControlStyle Width="50px" />
-																	<ItemStyle HorizontalAlign="Right" />
-																</asp:BoundField>
-																<asp:BoundField HeaderText="Кол-во" DataField="itemsCount" NullDisplayText="0" ItemStyle-HorizontalAlign="Right">
-																	<ControlStyle Width="50px" />
-																	<ItemStyle HorizontalAlign="Right" />
-																</asp:BoundField>
-																<asp:BoundField HeaderText="Итого" DataFormatString="{0}р." DataField="cash" NullDisplayText="0" ItemStyle-HorizontalAlign="Right">
-																	<ControlStyle Width="50px" />
-																	<ItemStyle HorizontalAlign="Right" />
-																</asp:BoundField>
-																<asp:TemplateField ShowHeader="False">
-																	<ItemTemplate>
-																		<asp:TextBox ID="txtReturnCount" runat="server" Width="20px" AutoPostBack="True"></asp:TextBox>
-																	</ItemTemplate>
-																	<ControlStyle Width="27px" />
-																</asp:TemplateField>
-																<asp:TemplateField ShowHeader="False">
-																	<ItemTemplate>
-																		<asp:ImageButton ID="btnDelete" runat="server" CausesValidation="false" CommandName="return" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/Source/48px-Ambox_emblem_arrow.svg.png" ToolTip="Вернуть" />
-																	</ItemTemplate>
-																	<ControlStyle Height="24px" Width="24px" />
-																</asp:TemplateField>
-															</Columns>
-															<EmptyDataTemplate>
-																<center>
-																	<span>Список покупок пуст</span></center>
-															</EmptyDataTemplate>
-															<FooterStyle BackColor="#CCCC99" />
-															<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-															<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-															<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-															<AlternatingRowStyle BackColor="White" />
-														</asp:GridView>
-														</td>
+													<asp:GridView ID="gvwReturn" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" Font-Size="9pt" OnRowDataBound="gvwReturn_RowDataBound" OnRowCommand="gvwReturn_RowCommand" OnRowDeleting="gvwReturn_RowDeleting">
+														<RowStyle BackColor="#F7F7DE" />
+														<Columns>
+															<asp:BoundField HeaderText="Товар" DataField="logName">
+																<ControlStyle Width="100%" />
+																<ItemStyle HorizontalAlign="Left" />
+															</asp:BoundField>
+															<asp:BoundField HeaderText="Покупатель" DataField="buyerId">
+																<ControlStyle Width="50px" />
+																<ItemStyle HorizontalAlign="Right" />
+															</asp:BoundField>
+															<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="logBprice" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
+																<ControlStyle Width="50px" />
+																<ItemStyle HorizontalAlign="Right" />
+															</asp:BoundField>
+															<asp:BoundField HeaderText="Кол-во" DataField="itemsCount" NullDisplayText="0" ItemStyle-HorizontalAlign="Right">
+																<ControlStyle Width="50px" />
+																<ItemStyle HorizontalAlign="Right" />
+															</asp:BoundField>
+															<asp:BoundField>
+																<ControlStyle Width="50px" />
+																<ItemStyle HorizontalAlign="Right" />
+															</asp:BoundField>
+															<asp:TemplateField HeaderText="Итого" ItemStyle-HorizontalAlign="Right">
+																<ItemTemplate>
+																	<asp:Label ID="lblReturnItogo" runat="server" Text='<%# Bind("cash") %>'></asp:Label><span>р.</span> </ItemTemplate>
+															</asp:TemplateField>
+															<asp:TemplateField ShowHeader="False">
+																<ItemTemplate>
+																	<asp:TextBox ID="txtReturnCount" runat="server" Width="20px" AutoPostBack="True"></asp:TextBox>
+																</ItemTemplate>
+																<ControlStyle Width="27px" />
+															</asp:TemplateField>
+															<asp:TemplateField ShowHeader="False">
+																<ItemTemplate>
+																	<asp:ImageButton ID="btnReturn" runat="server" CausesValidation="false" CommandName="return" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/Source/48px-Ambox_emblem_arrow.svg.png" ToolTip="Вернуть" />
+																</ItemTemplate>
+																<ControlStyle Height="24px" Width="24px" />
+															</asp:TemplateField>
+														</Columns>
+														<EmptyDataTemplate>
+															<center>
+																<span>Список покупок пуст</span></center>
+														</EmptyDataTemplate>
+														<FooterStyle BackColor="#CCCC99" />
+														<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+														<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+														<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+														<AlternatingRowStyle BackColor="White" />
+													</asp:GridView>
+												</td>
 											</tr>
 											<tr>
 												<td colspan="2">
 													<br />
-												
 													<button id="btnReturnOk" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
 														<span><em>Закрыть</em></span></button>
 												</td>

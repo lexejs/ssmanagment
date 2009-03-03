@@ -416,7 +416,7 @@ namespace SSManagment
 		private void ShowModalBuyConfirm()
 		{
 			drpShopConfirmBuyer.SelectedIndex = drpBuyer.SelectedIndex;
-			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
+			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer, cbxCreditShopConfirm);
 			gvwShpingCartConfirm.DataSource = AppHelper.ShopingCartSession;
 			gvwShpingCartConfirm.DataBind();
 			modalBuyConfirm.Visible = true;
@@ -445,7 +445,7 @@ namespace SSManagment
 
 		protected void drpShopConfirmBuyer_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer);
+			AppHelper.CalcShopingCartSum(lblShopConfirmSum, spanShopConfirm, drpShopConfirmBuyer, cbxCreditShopConfirm);
 		}
 
 		#endregion
@@ -459,7 +459,7 @@ namespace SSManagment
 		private void ShowModalSingleBuyConfirm()
 		{
 			drpSingleBuyBuyerList.SelectedIndex = drpBuyer.SelectedIndex;
-			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList, cbxCreditSingleBuy);
 			gvwSingleBuy.DataSource = AppHelper.ShopingCartSession;
 			gvwSingleBuy.DataBind();
 			modalSingleBuy.Visible = true;
@@ -488,7 +488,7 @@ namespace SSManagment
 
 		protected void drpSingleBuyBuyerList_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+			AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList, cbxCreditSingleBuy);
 		}
 
 		protected void txtSingleBuyCount_TextChanged(object sender, EventArgs e)
@@ -504,7 +504,7 @@ namespace SSManagment
 					if (count <= (shop.count - (shop.reserveCount ?? 0)))
 					{
 						shop.BuyCount = count;
-						AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList);
+						AppHelper.CalcShopingCartSum(lblSingleBuySum, spanSingleBuySum, drpSingleBuyBuyerList, cbxCreditSingleBuy);
 					}
 					else
 					{
@@ -667,6 +667,18 @@ namespace SSManagment
 			LoadReturnGredView();
 		}
 
+		protected void gvwReturn_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				if (Convert.ToInt32(((Label)e.Row.FindControl("lblReturnItogo")).Text) <= 0 )
+				{
+					e.Row.FindControl("txtReturnCount").Visible = false;
+					e.Row.FindControl("btnReturn").Visible = false;
+				}
+			}
+		}
+
 		protected void gvwReturn_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			int id;
@@ -700,7 +712,7 @@ namespace SSManagment
 		{
 			logSale log = logSale.GetLogSalesById(id);
 
-			if (count <= log.itemsCount || log.cash.Value > 0)
+			if (count <= log.itemsCount && log.cash.Value > 0)
 			{
 				lblReturnModalProductMeasure.Text = log.item.measure;
 				lblReturnModalProductName.Text = log.item.name;
