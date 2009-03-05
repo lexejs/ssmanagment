@@ -2,20 +2,25 @@
     CodeBehind="SellerMaster.master.cs" Inherits="SSManagment.App_Master.SellerMaster" %>
 
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
-    <table cellpadding="1" cellspacing="1">
+	<table width="100%">
         <tr>
-            <td height="100%" width="20%" valign="top">
+            <td valign="top">
                 <asp:ContentPlaceHolder ID="cphStandartCategories" runat="server">
                 </asp:ContentPlaceHolder>
             </td>
-            <td height="100%" width="55%" valign="top">
+            <td valign="top" style="width:100%">
                 <asp:ContentPlaceHolder ID="cphStandartProducts" runat="server">
                 </asp:ContentPlaceHolder>
             </td>
-            <td height="100%" width="25%" valign="top">
+            <td valign="top">
                 <asp:ContentPlaceHolder ID="cphStandartBuy" runat="server">
                 </asp:ContentPlaceHolder>
             </td>
         </tr>
     </table>
+</asp:Content>
+
+<asp:Content ID="cphFooter" ContentPlaceHolderID="cphStandartFooter" runat="server">
+	<asp:ContentPlaceHolder ID="StandartFooter" runat="server">
+</asp:ContentPlaceHolder>
 </asp:Content>

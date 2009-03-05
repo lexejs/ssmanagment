@@ -5,7 +5,7 @@
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
 	<table width="100%">
 		<tr>
-			<td height="100%" width="20%" valign="top">
+			<td valign="top">
 				<asp:UpdatePanel ID="uplAdminMenu" runat="server" UpdateMode="Always">
 					<ContentTemplate>
 						<asp:ContentPlaceHolder ID="cphAdminMenu" runat="server">
@@ -13,7 +13,7 @@
 					</ContentTemplate>
 				</asp:UpdatePanel>
 			</td>
-			<td height="100%" width="80%" valign="top">
+			<td  style="width:100%" valign="top">
 				<asp:UpdatePanel ID="uplAdminObject" runat="server" UpdateMode="Always">
 					<ContentTemplate>
 						<asp:ContentPlaceHolder ID="cphAdminObject" runat="server">

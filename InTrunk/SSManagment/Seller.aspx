@@ -44,7 +44,7 @@
 				<div class="Widget_Body_top"><span></span></div>
 				<div class="Widget_Body_content">
 					<div class="clear"></div>
-					<table cellpadding="0" cellspacing="0" width="500px">
+					<table cellpadding="0" cellspacing="0" width="100%">
 						<tr>
 							<td align="center">
 								<table>
@@ -62,7 +62,7 @@
 						</tr>
 						<tr>
 							<td>
-								<asp:GridView ID="gvwProducts" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="0" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Width="99%" Font-Size="8pt" AllowSorting="True" OnRowCreated="gvwProducts_RowCreated" OnSorting="gvwProducts_Sorting" PagerStyle-Wrap="False" DataKeyNames="id" OnRowDataBound="gvwProducts_RowDataBound">
+								<asp:GridView ID="gvwProducts" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="0" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwProducts_RowCommand" Font-Size="8pt" AllowSorting="True" OnRowCreated="gvwProducts_RowCreated" OnSorting="gvwProducts_Sorting" PagerStyle-Wrap="False" DataKeyNames="id" OnRowDataBound="gvwProducts_RowDataBound">
 									<RowStyle BackColor="#F7F7DE" />
 									<Columns>
 										<asp:TemplateField HeaderText="id" Visible="False">
@@ -96,7 +96,7 @@
 													<asp:Button ID="btnUnReserv" runat="server" Text='<%# Bind("reserveCount") %>' CommandName="unreserv" CausesValidation="false" CommandArgument='<%# Eval("id") %>' Height="18px" Font-Size="8pt" />
 													= <span id="spanSum" runat="server" style="color: #33CC33; font-size: 9pt; font-weight: bold; font-style: normal; font-variant: normal"></span></span></ItemTemplate>
 											<HeaderStyle Wrap="False" />
-											<ItemStyle Wrap="False" Width="65px" />
+											<ItemStyle Wrap="False" Width="90px" />
 										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
@@ -251,7 +251,14 @@
 					</td>
 				</tr>
 			</table>
-			<div id="modalBuyConfirm" runat="server" visible="false">
+			
+		</ContentTemplate>
+	</asp:UpdatePanel>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="StandartFooter" runat="server">
+	<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+		<ContentTemplate>
+		<div id="modalBuyConfirm" runat="server" visible="false">
 				<div class="overlay"></div>
 				<div class="content">
 					<center>

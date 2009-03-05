@@ -10,7 +10,7 @@
 <body>
 	<form id="MainForm" runat="server">
 	<asp:ScriptManager ID="mainScriptManager" runat="server" />
-	<table width="1000px" cellpadding="0" cellspacing="0">
+	<table width="100%" cellpadding="0" cellspacing="0">
 		<tr>
 			<td colspan="3">
 				<div class="Widget_heading_container">
@@ -45,7 +45,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td height="100%" width="100%">
+			<td colspan="3">
 				<asp:ContentPlaceHolder ID="cphMain" runat="server">
 				</asp:ContentPlaceHolder>
 			</td>
