@@ -57,6 +57,20 @@ namespace SSManagment.Models
 			set { HttpContext.Current.Session["Products"] = value; }
 		}
 
+		public static string TreeSelectedNodePathSession
+		{
+			get
+			{
+				if (HttpContext.Current.Session["TreeSelectedNode"] == null)
+				{
+					HttpContext.Current.Session["TreeSelectedNode"] = "";
+				}
+				return (HttpContext.Current.Session["TreeSelectedNode"].ToString());
+
+			}
+			set { HttpContext.Current.Session["TreeSelectedNode"] = value; }
+		}
+
 		#endregion
 
 		public static int RoundTo10(double? val)

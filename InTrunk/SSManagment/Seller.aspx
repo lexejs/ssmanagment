@@ -96,7 +96,7 @@
 													<asp:Button ID="btnUnReserv" runat="server" Text='<%# Bind("reserveCount") %>' CommandName="unreserv" CausesValidation="false" CommandArgument='<%# Eval("id") %>' Height="18px" Font-Size="8pt" />
 													= <span id="spanSum" runat="server" style="color: #33CC33; font-size: 9pt; font-weight: bold; font-style: normal; font-variant: normal"></span></span></ItemTemplate>
 											<HeaderStyle Wrap="False" />
-											<ItemStyle Wrap="False" Width="90px" />
+											<ItemStyle Wrap="False"/>
 										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 											<ItemTemplate>
@@ -255,8 +255,8 @@
 		</ContentTemplate>
 	</asp:UpdatePanel>
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="StandartFooter" runat="server">
-	<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+<asp:Content ID="cntFooter" ContentPlaceHolderID="StandartFooter" runat="server">
+	<asp:UpdatePanel ID="uplFooter" runat="server" UpdateMode="Always">
 		<ContentTemplate>
 		<div id="modalBuyConfirm" runat="server" visible="false">
 				<div class="overlay"></div>
@@ -501,11 +501,12 @@
 												<td>
 													<asp:Label ID="lblWarning" runat="server"></asp:Label>
 													<br />
+													<br />
 												</td>
 											</tr>
 											<tr>
 												<td>
-													Попробуйте позже и известите администратора об этом сообщении, атакже укажите ситуацию при которой это сообщение появляется.
+													Попробуйте позже и известите администратора об этом сообщении, а также укажите ситуацию при которой это сообщение появляется.
 												</td>
 											</tr>
 											<tr>

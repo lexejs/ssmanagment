@@ -30,7 +30,7 @@ namespace SSManagment.Models
             var db = new ssmDataContext();
             var groupIDs = db.groups.Where(g => g.id == groupId || g.parent == groupId).Select(g => g.id).ToList();
             var result = db.items.Where(itm => groupIDs.Contains(itm.groupId.Value) && (itm.isActive.HasValue && itm.isActive.Value || (AppHelper.CurrentUser.isAdmin.HasValue && AppHelper.CurrentUser.isAdmin.Value))).ToList();
-            return result;
+			return result;
         }
 
         public static item GetById(int id)

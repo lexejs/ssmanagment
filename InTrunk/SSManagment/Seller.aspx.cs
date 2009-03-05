@@ -56,8 +56,15 @@ namespace SSManagment
 					LoadingBuyers();
 					LoadingShopingCart();
 					btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
-					gvwProducts.DataSource = null;
+					gvwProducts.DataSource = AppHelper.ProductsSession ?? null;
 					gvwProducts.DataBind();
+					if (!string.IsNullOrEmpty(AppHelper.TreeSelectedNodePathSession))
+					{
+						if (treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession) != null)
+						{
+							treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession).Selected = true;
+						}
+					}
 				}
 			}
 		}
@@ -126,10 +133,15 @@ namespace SSManagment
 
 		private void LoadProductsGridView()
 		{
-			AppHelper.ProductsSession = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
-			gvwProducts.DataSource = AppHelper.ProductsSession;
-			gvwProducts.Sort("name", SortDirection.Ascending);
-			gvwProducts.DataBind();
+			if (treeCategories.SelectedNode != null)
+			{
+				AppHelper.ProductsSession = item.GetAllByGroupId(Convert.ToInt32(treeCategories.SelectedNode.Value));
+				SortGridView(Session["SortExpression"].ToString(), GridViewSortDirection);
+			}
+			else
+			{
+				ShowWarningConfirm("Выберите раздел товаров (меню у левого края экрана).");
+			}
 		}
 
 		#endregion
@@ -181,6 +193,7 @@ namespace SSManagment
 				gvwProducts.DataSource = itm;
 				gvwProducts.Sort("name", SortDirection.Ascending);
 				gvwProducts.DataBind();
+				AppHelper.TreeSelectedNodePathSession = ((TreeView)(sender)).SelectedNode.ValuePath;
 			}
 		}
 
