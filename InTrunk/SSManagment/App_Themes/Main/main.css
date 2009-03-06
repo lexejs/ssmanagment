@@ -25,36 +25,6 @@ span
 /* /////////////////////////// Opacity ///////////////////////// */
 /* //////////////////////////////////////////////////////////// */
 
-#divRootProgressDisplay{
-    position:relative;
-}
-#modalBuyConfirm{
-    position:relative;
-}
-#modalReserv{
-    position:relative;
-}
-#modalUnReservConfirm{
-    position:relative;
-}
-#modalOrderConfirm{
-    position:relative;
-}
-#modalWarningConfirm{
-    position:relative;
-}
-#modalDemand{
-    position:relative;
-}
-#modalReturn{
-    position:relative;
-}
-#modalReturnConfirm{
-    position:relative;
-}
-#modalSingleBuy{
-    position:relative;
-}
 
 .overlay
 {
@@ -78,7 +48,7 @@ span
 }
 
 * html #divRootProgressDisplay .overlay {
-    height: expression(document.getElementById("modalBuyConfirm").offsetHeight);
+    height: expression(document.getElementById("divRootProgressDisplay").offsetHeight);
 }
 
 * html #modalBuyConfirm .overlay {
@@ -90,31 +60,31 @@ span
 }
 
 * html #modalOrderConfirm .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalOrderConfirm").offsetHeight);
 }
 
 * html #modalUnReservConfirm .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalUnReservConfirm").offsetHeight);
 }
 
 * html #modalWarningConfirm .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalWarningConfirm").offsetHeight);
 }
 
 * html #modalDemand .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalDemand").offsetHeight);
 }
 
 * html #modalReturn .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalReturn").offsetHeight);
 }
 
 * html #modalReturnConfirm .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalReturnConfirm").offsetHeight);
 }
 
 * html #modalSingleBuy .overlay {
-    height: expression(document.getElementById("modalReserv").offsetHeight);
+    height: expression(document.getElementById("modalSingleBuy").offsetHeight);
 }
 
 /* //////////////////////////////////////////////////////////// */
