@@ -6,8 +6,6 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="group_group" Member="groups" ThisKey="id" OtherKey="parent" Type="group" />
-      <Association Name="group_group" Member="group1" ThisKey="parent" OtherKey="id" Type="group" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.item" Member="items">

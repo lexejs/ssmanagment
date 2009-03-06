@@ -20,13 +20,6 @@
         <elementListCompartment Id="95e54119-bb3c-40a1-ba71-c42a34bcd3dd" absoluteBounds="6.265, 6.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.44728500788762 : 3.01050048828125); (1.44728500788762 : 3.26050048828125); (2.06712999173678 : 3.26050048828125); (2.06712999173678 : 3.01050048828125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/ssmDataContext/group/group_group" />
-      <nodes>
-        <classShapeMoniker Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" />
-        <classShapeMoniker Id="ffb3c2cd-c3eb-4cca-a919-dc41f3e1dcdc" />
-      </nodes>
-    </associationConnector>
     <classShape Id="b55a2035-7263-4905-9ca2-9c2142eed9ff" absoluteBounds="6.375, 3.625, 2, 2.2465844726562496">
       <DataClassMoniker Name="/ssmDataContext/logSale" />
       <nestedChildShapes>

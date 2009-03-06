@@ -141,10 +141,6 @@ namespace SSManagment.Models
 		
 		private System.Nullable<int> _parent;
 		
-		private EntitySet<group> _groups;
-		
-		private EntityRef<group> _group1;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -159,8 +155,6 @@ namespace SSManagment.Models
 		
 		public group()
 		{
-			this._groups = new EntitySet<group>(new Action<group>(this.attach_groups), new Action<group>(this.detach_groups));
-			this._group1 = default(EntityRef<group>);
 			OnCreated();
 		}
 		
@@ -215,62 +209,11 @@ namespace SSManagment.Models
 			{
 				if ((this._parent != value))
 				{
-					if (this._group1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnparentChanging(value);
 					this.SendPropertyChanging();
 					this._parent = value;
 					this.SendPropertyChanged("parent");
 					this.OnparentChanged();
-				}
-			}
-		}
-		
-		[Association(Name="group_group", Storage="_groups", ThisKey="id", OtherKey="parent")]
-		public EntitySet<group> groups
-		{
-			get
-			{
-				return this._groups;
-			}
-			set
-			{
-				this._groups.Assign(value);
-			}
-		}
-		
-		[Association(Name="group_group", Storage="_group1", ThisKey="parent", OtherKey="id", IsForeignKey=true)]
-		public group group1
-		{
-			get
-			{
-				return this._group1.Entity;
-			}
-			set
-			{
-				group previousValue = this._group1.Entity;
-				if (((previousValue != value) 
-							|| (this._group1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._group1.Entity = null;
-						previousValue.groups.Remove(this);
-					}
-					this._group1.Entity = value;
-					if ((value != null))
-					{
-						value.groups.Add(this);
-						this._parent = value.id;
-					}
-					else
-					{
-						this._parent = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("group1");
 				}
 			}
 		}
@@ -293,18 +236,6 @@ namespace SSManagment.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_groups(group entity)
-		{
-			this.SendPropertyChanging();
-			entity.group1 = this;
-		}
-		
-		private void detach_groups(group entity)
-		{
-			this.SendPropertyChanging();
-			entity.group1 = null;
 		}
 	}
 	

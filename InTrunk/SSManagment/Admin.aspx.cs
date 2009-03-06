@@ -149,8 +149,9 @@ namespace SSManagment
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstGroup.SelectedItem.Value);
                 List<group> groupToDelete =
-					db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && group.GetItemsCountByGroupId(g.id) == 0).ToList();
-                if (groupToDelete.Count == 1)
+					db.groups.Where(g => g.id == groupId && group.GetItemsCountByGroupId(g.id) == 0).ToList();
+#warning убрал  && g.groups.Count == 0
+				if (groupToDelete.Count == 1)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());
                     db.SubmitChanges();
@@ -214,7 +215,8 @@ namespace SSManagment
             {
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                List<group> groupToUpdate = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
+                List<group> groupToUpdate = db.groups.Where(g => g.id == groupId).ToList();
+#warning убрал  && g.groups.Count == 0
                 if (groupToUpdate.Count == 1)
                 {
                     groupToUpdate.First().name = txtSubGroupName.Text;
@@ -230,8 +232,9 @@ namespace SSManagment
             {
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                List<group> groupToMove = db.groups.Where(g => g.id == groupId && g.groups.Count == 0).ToList();
-                if (groupToMove.Count == 1)
+                List<group> groupToMove = db.groups.Where(g => g.id == groupId).ToList();
+#warning убрал  && g.groups.Count == 0
+				if (groupToMove.Count == 1)
                 {
                     groupToMove.First().parent = null;
                     db.SubmitChanges();
