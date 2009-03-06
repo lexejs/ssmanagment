@@ -10,7 +10,7 @@ namespace SSManagment.Models
     	{
     		get
     		{
-    			return this.item.name;
+    			return item.GetById(this.itemId.Value).name;
     		}
     	}
 
@@ -18,7 +18,7 @@ namespace SSManagment.Models
 		{
 			get
 			{
-				return this.item.bprice;
+				return item.GetById(this.itemId.Value).bprice;
 			}
 		}
 

@@ -27,7 +27,7 @@ namespace SSManagment
             }
         }
         #endregion
-#warning Сделать функционал апрувала возврата товара, уменьшать колличество товаров к возврату и стоимость за все
+#warning Сделать функционал апрувала возврата товара
 
 		#region Methods
 
@@ -118,7 +118,7 @@ namespace SSManagment
             lstSubGroup.DataBind();
             txtGroupName.Text = lstGroup.SelectedItem.Text;
             var group = new ssmDataContext().groups.First(g => g.id == parentId);
-            lblPGroup.Text = "Наименований товаров: " + group.items.Count.ToString();
+            lblPGroup.Text = "Наименований товаров: " + group.GetItemsCountByGroupId(group.id);
         }
 
         protected void lstSubGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,7 +127,7 @@ namespace SSManagment
             var db = new ssmDataContext();
             var group = db.groups.First(g => g.id == groupId);
             txtSubGroupName.Text = group.name;
-            lblSubGroup.Text = "Наименований товаров: " + group.items.Count.ToString();
+			lblSubGroup.Text = "Наименований товаров: " + +group.GetItemsCountByGroupId(group.id);
         }
 
         protected void btnAddGroup_Click(object sender, EventArgs e)
@@ -149,7 +149,7 @@ namespace SSManagment
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstGroup.SelectedItem.Value);
                 List<group> groupToDelete =
-                    db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && g.items.Count == 0).ToList();
+					db.groups.Where(g => g.id == groupId && g.groups.Count == 0 && group.GetItemsCountByGroupId(g.id) == 0).ToList();
                 if (groupToDelete.Count == 1)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());
@@ -179,7 +179,7 @@ namespace SSManagment
             {
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-                List<group> groupToDelete = db.groups.Where(g => g.id == groupId && g.items.Count == 0).ToList();
+				List<group> groupToDelete = db.groups.Where(g => g.id == groupId && + group.GetItemsCountByGroupId(g.id) == 0).ToList();
                 if (groupToDelete.Count == 1)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());

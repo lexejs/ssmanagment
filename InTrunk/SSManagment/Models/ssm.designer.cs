@@ -143,8 +143,6 @@ namespace SSManagment.Models
 		
 		private EntitySet<group> _groups;
 		
-		private EntitySet<item> _items;
-		
 		private EntityRef<group> _group1;
 		
     #region Extensibility Method Definitions
@@ -162,7 +160,6 @@ namespace SSManagment.Models
 		public group()
 		{
 			this._groups = new EntitySet<group>(new Action<group>(this.attach_groups), new Action<group>(this.detach_groups));
-			this._items = new EntitySet<item>(new Action<item>(this.attach_items), new Action<item>(this.detach_items));
 			this._group1 = default(EntityRef<group>);
 			OnCreated();
 		}
@@ -244,19 +241,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="group_item", Storage="_items", ThisKey="id", OtherKey="groupId")]
-		public EntitySet<item> items
-		{
-			get
-			{
-				return this._items;
-			}
-			set
-			{
-				this._items.Assign(value);
-			}
-		}
-		
 		[Association(Name="group_group", Storage="_group1", ThisKey="parent", OtherKey="id", IsForeignKey=true)]
 		public group group1
 		{
@@ -322,18 +306,6 @@ namespace SSManagment.Models
 			this.SendPropertyChanging();
 			entity.group1 = null;
 		}
-		
-		private void attach_items(item entity)
-		{
-			this.SendPropertyChanging();
-			entity.group = this;
-		}
-		
-		private void detach_items(item entity)
-		{
-			this.SendPropertyChanging();
-			entity.group = null;
-		}
 	}
 	
 	[Table(Name="dbo.item")]
@@ -369,10 +341,6 @@ namespace SSManagment.Models
 		private System.Nullable<bool> _canGiveBack;
 		
 		private System.Nullable<bool> _isActive;
-		
-		private EntitySet<logSale> _logSales;
-		
-		private EntityRef<group> _group;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -410,8 +378,6 @@ namespace SSManagment.Models
 		
 		public item()
 		{
-			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
-			this._group = default(EntityRef<group>);
 			OnCreated();
 		}
 		
@@ -466,10 +432,6 @@ namespace SSManagment.Models
 			{
 				if ((this._groupId != value))
 				{
-					if (this._group.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OngroupIdChanging(value);
 					this.SendPropertyChanging();
 					this._groupId = value;
@@ -699,53 +661,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="item_logSale", Storage="_logSales", ThisKey="id", OtherKey="itemId")]
-		public EntitySet<logSale> logSales
-		{
-			get
-			{
-				return this._logSales;
-			}
-			set
-			{
-				this._logSales.Assign(value);
-			}
-		}
-		
-		[Association(Name="group_item", Storage="_group", ThisKey="groupId", OtherKey="id", IsForeignKey=true)]
-		public group group
-		{
-			get
-			{
-				return this._group.Entity;
-			}
-			set
-			{
-				group previousValue = this._group.Entity;
-				if (((previousValue != value) 
-							|| (this._group.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._group.Entity = null;
-						previousValue.items.Remove(this);
-					}
-					this._group.Entity = value;
-					if ((value != null))
-					{
-						value.items.Add(this);
-						this._groupId = value.id;
-					}
-					else
-					{
-						this._groupId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("group");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -765,18 +680,6 @@ namespace SSManagment.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.item = this;
-		}
-		
-		private void detach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.item = null;
-		}
 	}
 	
 	[Table(Name="dbo.logActivity")]
@@ -794,8 +697,6 @@ namespace SSManagment.Models
 		private System.Nullable<int> _buyerId;
 		
 		private System.Nullable<bool> _informAdmin;
-		
-		private EntityRef<buyer> _buyer;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -815,7 +716,6 @@ namespace SSManagment.Models
 		
 		public logActivity()
 		{
-			this._buyer = default(EntityRef<buyer>);
 			OnCreated();
 		}
 		
@@ -890,10 +790,6 @@ namespace SSManagment.Models
 			{
 				if ((this._buyerId != value))
 				{
-					if (this._buyer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnbuyerIdChanging(value);
 					this.SendPropertyChanging();
 					this._buyerId = value;
@@ -919,40 +815,6 @@ namespace SSManagment.Models
 					this._informAdmin = value;
 					this.SendPropertyChanged("informAdmin");
 					this.OninformAdminChanged();
-				}
-			}
-		}
-		
-		[Association(Name="buyer_logActivity", Storage="_buyer", ThisKey="buyerId", OtherKey="id", IsForeignKey=true)]
-		public buyer buyer
-		{
-			get
-			{
-				return this._buyer.Entity;
-			}
-			set
-			{
-				buyer previousValue = this._buyer.Entity;
-				if (((previousValue != value) 
-							|| (this._buyer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._buyer.Entity = null;
-						previousValue.logActivities.Remove(this);
-					}
-					this._buyer.Entity = value;
-					if ((value != null))
-					{
-						value.logActivities.Add(this);
-						this._buyerId = value.id;
-					}
-					else
-					{
-						this._buyerId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("buyer");
 				}
 			}
 		}
@@ -1002,12 +864,6 @@ namespace SSManagment.Models
 		
 		private System.Nullable<int> _sid;
 		
-		private EntityRef<item> _item;
-		
-		private EntityRef<seller> _seller;
-		
-		private EntityRef<buyer> _buyer;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1034,9 +890,6 @@ namespace SSManagment.Models
 		
 		public logSale()
 		{
-			this._item = default(EntityRef<item>);
-			this._seller = default(EntityRef<seller>);
-			this._buyer = default(EntityRef<buyer>);
 			OnCreated();
 		}
 		
@@ -1071,10 +924,6 @@ namespace SSManagment.Models
 			{
 				if ((this._itemId != value))
 				{
-					if (this._item.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnitemIdChanging(value);
 					this.SendPropertyChanging();
 					this._itemId = value;
@@ -1115,10 +964,6 @@ namespace SSManagment.Models
 			{
 				if ((this._buyerId != value))
 				{
-					if (this._buyer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnbuyerIdChanging(value);
 					this.SendPropertyChanging();
 					this._buyerId = value;
@@ -1139,10 +984,6 @@ namespace SSManagment.Models
 			{
 				if ((this._sellerId != value))
 				{
-					if (this._seller.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnsellerIdChanging(value);
 					this.SendPropertyChanging();
 					this._sellerId = value;
@@ -1232,108 +1073,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="item_logSale", Storage="_item", ThisKey="itemId", OtherKey="id", IsForeignKey=true)]
-		public item item
-		{
-			get
-			{
-				return this._item.Entity;
-			}
-			set
-			{
-				item previousValue = this._item.Entity;
-				if (((previousValue != value) 
-							|| (this._item.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._item.Entity = null;
-						previousValue.logSales.Remove(this);
-					}
-					this._item.Entity = value;
-					if ((value != null))
-					{
-						value.logSales.Add(this);
-						this._itemId = value.id;
-					}
-					else
-					{
-						this._itemId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("item");
-				}
-			}
-		}
-		
-		[Association(Name="seller_logSale", Storage="_seller", ThisKey="sellerId", OtherKey="id", IsForeignKey=true)]
-		public seller seller
-		{
-			get
-			{
-				return this._seller.Entity;
-			}
-			set
-			{
-				seller previousValue = this._seller.Entity;
-				if (((previousValue != value) 
-							|| (this._seller.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._seller.Entity = null;
-						previousValue.logSales.Remove(this);
-					}
-					this._seller.Entity = value;
-					if ((value != null))
-					{
-						value.logSales.Add(this);
-						this._sellerId = value.id;
-					}
-					else
-					{
-						this._sellerId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("seller");
-				}
-			}
-		}
-		
-		[Association(Name="buyer_logSale", Storage="_buyer", ThisKey="buyerId", OtherKey="id", IsForeignKey=true)]
-		public buyer buyer
-		{
-			get
-			{
-				return this._buyer.Entity;
-			}
-			set
-			{
-				buyer previousValue = this._buyer.Entity;
-				if (((previousValue != value) 
-							|| (this._buyer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._buyer.Entity = null;
-						previousValue.logSales.Remove(this);
-					}
-					this._buyer.Entity = value;
-					if ((value != null))
-					{
-						value.logSales.Add(this);
-						this._buyerId = value.id;
-					}
-					else
-					{
-						this._buyerId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("buyer");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1373,8 +1112,6 @@ namespace SSManagment.Models
 		
 		private System.Nullable<bool> _isActive;
 		
-		private EntitySet<logSale> _logSales;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1395,7 +1132,6 @@ namespace SSManagment.Models
 		
 		public seller()
 		{
-			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
 			OnCreated();
 		}
 		
@@ -1519,19 +1255,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="seller_logSale", Storage="_logSales", ThisKey="id", OtherKey="sellerId")]
-		public EntitySet<logSale> logSales
-		{
-			get
-			{
-				return this._logSales;
-			}
-			set
-			{
-				this._logSales.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1550,18 +1273,6 @@ namespace SSManagment.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.seller = this;
-		}
-		
-		private void detach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.seller = null;
 		}
 	}
 	
@@ -1583,10 +1294,6 @@ namespace SSManagment.Models
 		
 		private System.Nullable<double> _debt;
 		
-		private EntitySet<logActivity> _logActivities;
-		
-		private EntitySet<logSale> _logSales;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1607,8 +1314,6 @@ namespace SSManagment.Models
 		
 		public buyer()
 		{
-			this._logActivities = new EntitySet<logActivity>(new Action<logActivity>(this.attach_logActivities), new Action<logActivity>(this.detach_logActivities));
-			this._logSales = new EntitySet<logSale>(new Action<logSale>(this.attach_logSales), new Action<logSale>(this.detach_logSales));
 			OnCreated();
 		}
 		
@@ -1732,32 +1437,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Association(Name="buyer_logActivity", Storage="_logActivities", ThisKey="id", OtherKey="buyerId")]
-		public EntitySet<logActivity> logActivities
-		{
-			get
-			{
-				return this._logActivities;
-			}
-			set
-			{
-				this._logActivities.Assign(value);
-			}
-		}
-		
-		[Association(Name="buyer_logSale", Storage="_logSales", ThisKey="id", OtherKey="buyerId")]
-		public EntitySet<logSale> logSales
-		{
-			get
-			{
-				return this._logSales;
-			}
-			set
-			{
-				this._logSales.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1776,30 +1455,6 @@ namespace SSManagment.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_logActivities(logActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = this;
-		}
-		
-		private void detach_logActivities(logActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = null;
-		}
-		
-		private void attach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = this;
-		}
-		
-		private void detach_logSales(logSale entity)
-		{
-			this.SendPropertyChanging();
-			entity.buyer = null;
 		}
 	}
 }

@@ -18,11 +18,9 @@ namespace SSManagment
 			canGiveBack = product.canGiveBack;
 			count = product.count;
 			countToOrder = product.countToOrder;
-			group = product.group;
 			groupId = product.groupId;
 			id = product.id;
 			isActive = product.isActive;
-			logSales = product.logSales;
 			measure = product.measure;
 			name = product.name;
 			order = product.order;
@@ -724,11 +722,13 @@ namespace SSManagment
 		private void ShowReturnConfirm(int id, int count)
 		{
 			logSale log = logSale.GetLogSalesById(id);
+			item itm = item.GetById(log.itemId.Value);
 
-			if (count <= log.itemsCount && log.cash.Value > 0)
+			if (count <= log.itemsCount && log.cash.Value > 0 && (itm != null))
 			{
-				lblReturnModalProductMeasure.Text = log.item.measure;
-				lblReturnModalProductName.Text = log.item.name;
+				lblReturnModalProductMeasure.Text = itm.measure;
+				lblReturnModalProductName.Text = itm.name;
+				
 				lblReturnModalCount.Text = count.ToString();
 				hdnReturnID.Value = id.ToString();
 				modalReturnConfirm.Visible = true;
