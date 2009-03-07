@@ -44,6 +44,7 @@ namespace SSManagment
             lstGroup.DataValueField = "id";
             lstGroup.DataBind();
             txtGroupName.Text = "";
+            txtSubGroupName.Text = "";
 
             ddlAttachTo.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
             ddlAttachTo.DataTextField = "name";
@@ -236,7 +237,10 @@ namespace SSManagment
 #warning убрал  && g.groups.Count == 0
 				if (groupToMove.Count == 1)
                 {
-                    groupToMove.First().parent = null;
+                    group group = groupToMove.First();
+                    item item = new item(){name = group.name, groupId = group.parent};
+                    db.items.InsertOnSubmit(item);
+                    db.groups.DeleteOnSubmit(group);
                     db.SubmitChanges();
                     lstGroupFill();
                 }
