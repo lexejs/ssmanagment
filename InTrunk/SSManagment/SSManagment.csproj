@@ -169,6 +169,7 @@
     <Content Include="App_Themes\Main\Widget\bg_bucke.png" />
     <Content Include="App_Themes\Main\Widget\bg_buckf.png" />
     <Content Include="App_Themes\Main\Widget\bg_headi.png" />
+    <Content Include="Error.htm" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Admin.aspx" />
