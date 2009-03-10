@@ -65,7 +65,9 @@ namespace SSManagment.Models
                                   cash = cash,
                                   sid = sid
                               };
-            db.logSales.InsertOnSubmit(logSale);
+#warning При подтверждении возврата товара админом в sellerId ставbтся id админа. Колличество вернутого товара добавляется к имеющемуся на складе
+#warning  Грида с из logActivity и logSale в админке
+			db.logSales.InsertOnSubmit(logSale);
             db.SubmitChanges();
         }
 
