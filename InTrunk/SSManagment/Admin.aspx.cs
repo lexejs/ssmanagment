@@ -31,7 +31,7 @@ namespace SSManagment
 
 		#region Methods
 
-		private void lstGroupFill()
+    	private void lstGroupFill()
         {
             var db = new ssmDataContext();
             int groupId = 0;
@@ -104,9 +104,85 @@ namespace SSManagment
             }
         }
 
-        #endregion
+		private void SaleFill()
+		{
+#warning загрузка данных
+		}
+
+    	#endregion
 
         #region Handlers
+
+		protected void btnShowItems_Click(object sender, EventArgs e)
+		{
+			var button = ((HtmlButton)sender);
+			if (button != null)
+			{
+				if (button.ID.ToLower().Contains("items"))
+				{
+					tblGroup.Visible = false;
+					tblItems.Visible = !tblGroup.Visible;
+					tblBuyers.Visible = false;
+					tblSellers.Visible = false;
+					tblSales.Visible = false;
+					LoadingTree();
+					lstGroupFill();
+				}
+				else if (button.ID.ToLower().Contains("groups"))
+				{
+					tblGroup.Visible = true;
+					tblItems.Visible = !tblGroup.Visible;
+					tblBuyers.Visible = false;
+					tblSellers.Visible = false;
+					tblSales.Visible = false;
+					lstGroupFill();
+				}
+				else if (button.ID.ToLower().Contains("buyer"))
+				{
+					tblGroup.Visible = false;
+					tblItems.Visible = false;
+					tblSellers.Visible = false;
+					tblSales.Visible = false;
+					tblBuyers.Visible = true;
+
+					lstBuyersFill();
+					lstGroupFill();
+				}
+				else if (button.ID.ToLower().Contains("seller"))
+				{
+					tblGroup.Visible = false;
+					tblItems.Visible = false;
+					tblBuyers.Visible = false;
+					tblSales.Visible = false;
+					tblSellers.Visible = true;
+					lstsellersFill();
+
+				}
+			}
+			else
+			{
+				tblGroup.Visible = false;
+				tblItems.Visible = !tblGroup.Visible;
+				tblBuyers.Visible = false;
+				tblSales.Visible = false;
+			}
+		}
+
+		protected void btnShowSales_Click(object sender, EventArgs e)
+		{
+			tblGroup.Visible = false;
+			tblItems.Visible = false;
+			tblBuyers.Visible = false;
+			tblSellers.Visible = false;
+			tblSales.Visible = true;
+
+			SaleFill();
+		}
+
+		protected void btnGoBack_Click(object sender, EventArgs e)
+		{
+			Response.Redirect("Seller.aspx");
+		}
 
         #region Groups
 
@@ -263,62 +339,6 @@ namespace SSManagment
         }
 
         #endregion
-
-
-        protected void btnShowItems_Click(object sender, EventArgs e)
-        {
-            var button = ((HtmlButton)sender);
-            if (button != null)
-            {
-                if (button.ID.ToLower().Contains("items"))
-                {
-                    tblGroup.Visible = false;
-                    tblItems.Visible = !tblGroup.Visible;
-                    tblBuyers.Visible = false;
-                    tblSellers.Visible = false;
-                    LoadingTree();
-                    lstGroupFill();
-                }
-                else if (button.ID.ToLower().Contains("groups"))
-                {
-                    tblGroup.Visible = true;
-                    tblItems.Visible = !tblGroup.Visible;
-                    tblBuyers.Visible = false;
-                    tblSellers.Visible = false;
-                    lstGroupFill();
-                }
-                else if (button.ID.ToLower().Contains("buyer"))
-                {
-                    tblGroup.Visible = false;
-                    tblItems.Visible = false;
-                    tblSellers.Visible = false;
-                    tblBuyers.Visible = true;
-
-                    lstBuyersFill();
-                    lstGroupFill();
-                }
-                else if (button.ID.ToLower().Contains("seller"))
-                {
-                    tblGroup.Visible = false;
-                    tblItems.Visible = false;
-                    tblBuyers.Visible = false;
-                    tblSellers.Visible = true;
-                    lstsellersFill();
-
-                }
-            }
-            else
-            {
-                tblGroup.Visible = false;
-                tblItems.Visible = !tblGroup.Visible;
-                tblBuyers.Visible = false;
-            }
-        }
-
-        protected void btnGoBack_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Seller.aspx");
-        }
 
         #region Items
 
@@ -504,7 +524,11 @@ namespace SSManagment
 
         #endregion
 
-        #endregion
+		#region Sale
 
-    }
+		#endregion
+
+		#endregion
+
+	}
 }

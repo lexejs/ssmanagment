@@ -42,6 +42,17 @@
 									<span><em>Отобразить продавцов</em></span></button>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="btnShowSales" runat="server" style="width: 180px" onserverclick="btnShowSales_Click">
+									<span><em>Отобразить Продажи</em></span></button>
+							</td>
+						</tr>
 					</table>
 				</center>
 				<div class="clear"></div>
@@ -295,7 +306,7 @@
 								<center>
 									<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
 										<h2>
-											ПОКУПАТЕЛИ</h2>
+											Покупатели</h2>
 									</div>
 									<div class="Widget_Body_container">
 										<div class="Widget_Body_top"><span></span></div>
@@ -379,6 +390,39 @@
 																<span><em>Изменить</em></span></button>
 															<button id="btnSellerAdd" runat="server" tabindex="65" style="width: 130px" validationgroup="itemChanged" onserverclick="btnSellerAdd_Click">
 																<span><em>Добавить</em></span></button>
+														</td>
+													</tr>
+												</table>
+											</center>
+											<div class="clear"></div>
+										</div>
+									</div>
+									<div class="Widget_Body_bottom"><span></span></div>
+								</center>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table runat="server" id="tblSales" visible="false" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td>
+								<center>
+									<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+										<h2>
+											Продажи</h2>
+									</div>
+									<div class="Widget_Body_container">
+										<div class="Widget_Body_top"><span></span></div>
+										<div class="Widget_Body_content">
+											<div class="clear"></div>
+											<center>
+												<table>
+													<tr>
+														<td>
+															
 														</td>
 													</tr>
 												</table>

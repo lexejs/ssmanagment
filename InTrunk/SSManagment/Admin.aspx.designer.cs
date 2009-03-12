@@ -59,6 +59,15 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnShowSellers;
         
         /// <summary>
+        /// btnShowSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnShowSales;
+        
+        /// <summary>
         /// tblGroup control.
         /// </summary>
         /// <remarks>
@@ -543,5 +552,14 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnSellerAdd;
+        
+        /// <summary>
+        /// tblSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblSales;
     }
 }
