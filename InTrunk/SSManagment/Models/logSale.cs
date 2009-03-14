@@ -10,7 +10,7 @@ namespace SSManagment.Models
     	{
     		get
     		{
-    			return item.GetById(this.itemId.Value).name;
+    			return item.GetById(itemId.Value).name;
     		}
     	}
 
@@ -18,7 +18,7 @@ namespace SSManagment.Models
 		{
 			get
 			{
-				return item.GetById(this.itemId.Value).bprice;
+				return item.GetById(itemId.Value).bprice;
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-		public static IList<logSale> GetGiveBackList(string GUID, string buyTime)
+		public static IList<logSale> GetSalesForGiveBackList(string GUID, string buyTime)
 		{
 			IList<logSale> list = null;
 			ssmDataContext db = new ssmDataContext();
@@ -108,6 +108,83 @@ namespace SSManagment.Models
 		{
 			ssmDataContext db = new ssmDataContext();
 			return db.logSales.FirstOrDefault(b => b.id == id);
+		}
+		
+		private static object GetLogSalesList(IQueryable<logSale> rootQuery, ssmDataContext db)
+		{
+			var logSalesJoinSeller = rootQuery.Join(db.sellers, d => d.sellerId, c => c.id, (d, c) => new
+			{
+				sellerName = c.fullName,
+				d.buyerId,
+				d.cash,
+				d.date,
+				d.id,
+				d.isGiveBack,
+				d.itemId,
+				d.itemsCount,
+				d.sellerId
+			});
+			var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+			{
+				buerName = c.name,
+				d.buyerId,
+				d.cash,
+				d.date,
+				d.id,
+				d.isGiveBack,
+				d.itemId,
+				d.itemsCount,
+				d.sellerId,
+				d.sellerName
+			});
+			var res = logSalesJoinSellerBuyer.Join(db.items, d => d.itemId, c => c.id, (d, c) => new 
+			                                                                     	{
+																						SellerName = d.sellerName,
+																						BuyerName = d.buerName,
+																						ItemName = c.name,
+			                                                                     		LogCash = d.cash,
+																						Logdate = d.date,
+																						ItemsCount = d.itemsCount,
+																						d.isGiveBack,
+																						d.id
+																						
+			                                                                     	});
+
+			return res.OrderBy(f => f.Logdate).ToList();
+		}
+
+		public static object GetSalesList()
+		{
+			ssmDataContext db = new ssmDataContext();
+			return GetLogSalesList(db.logSales.Where(g => g.isGiveBack == false), db);
+		}
+
+
+		public static object GetGiveBackListForApprove()
+		{
+			if (AppHelper.CurrentUser.isAdmin.Value)
+			{
+				ssmDataContext db = new ssmDataContext();
+				return
+					GetLogSalesList(db.logSales.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id), db);
+			}
+			return null;
+		}
+
+		public static void ApproveGiveBack(int id)
+		{
+			ssmDataContext db = new ssmDataContext();
+			logSale log = db.logSales.FirstOrDefault(b => b.id == id);
+			if (log != null && log.isGiveBack.Value && AppHelper.CurrentUser.isAdmin.Value)
+			{
+				item itm = db.items.FirstOrDefault(c => c.id == log.itemId);
+				if (itm!=null)
+				{
+					log.sellerId = AppHelper.CurrentUser.id;
+					itm.count += log.itemsCount;
+				}
+			}
+
 		}
     }
 }

@@ -106,7 +106,23 @@ namespace SSManagment
 
 		private void SaleFill()
 		{
-#warning загрузка данных
+			gvwSales.DataSource = logSale.GetSalesList();
+			gvwSales.DataBind();
+		}
+
+		private void BackListFill()
+		{
+			gvwBackList.DataSource = logSale.GetGiveBackListForApprove();
+			gvwBackList.DataBind();
+		}
+
+		private void MessagesFill()
+		{
+			gvwMessagesList.DataSource = logActivity.GetMsgLogActivityList();
+			gvwMessagesList.DataBind();
+
+			gvwHotMessagesList.DataSource = logActivity.GetHotLogActivityList();
+			gvwHotMessagesList.DataBind();
 		}
 
     	#endregion
@@ -124,7 +140,9 @@ namespace SSManagment
 					tblItems.Visible = !tblGroup.Visible;
 					tblBuyers.Visible = false;
 					tblSellers.Visible = false;
+					tblGiveBacks.Visible = false;
 					tblSales.Visible = false;
+					tblMessages.Visible = false;
 					LoadingTree();
 					lstGroupFill();
 				}
@@ -134,6 +152,8 @@ namespace SSManagment
 					tblItems.Visible = !tblGroup.Visible;
 					tblBuyers.Visible = false;
 					tblSellers.Visible = false;
+					tblGiveBacks.Visible = false;
+					tblMessages.Visible = false;
 					tblSales.Visible = false;
 					lstGroupFill();
 				}
@@ -143,6 +163,8 @@ namespace SSManagment
 					tblItems.Visible = false;
 					tblSellers.Visible = false;
 					tblSales.Visible = false;
+					tblGiveBacks.Visible = false;
+					tblMessages.Visible = false;
 					tblBuyers.Visible = true;
 
 					lstBuyersFill();
@@ -154,6 +176,8 @@ namespace SSManagment
 					tblItems.Visible = false;
 					tblBuyers.Visible = false;
 					tblSales.Visible = false;
+					tblGiveBacks.Visible = false;
+					tblMessages.Visible = false;
 					tblSellers.Visible = true;
 					lstsellersFill();
 
@@ -165,6 +189,8 @@ namespace SSManagment
 				tblItems.Visible = !tblGroup.Visible;
 				tblBuyers.Visible = false;
 				tblSales.Visible = false;
+				tblGiveBacks.Visible = false;
+				tblMessages.Visible = false;
 			}
 		}
 
@@ -174,9 +200,37 @@ namespace SSManagment
 			tblItems.Visible = false;
 			tblBuyers.Visible = false;
 			tblSellers.Visible = false;
+			tblGiveBacks.Visible = false;
+			tblMessages.Visible = false;
 			tblSales.Visible = true;
 
 			SaleFill();
+		}
+
+		protected void btnShowBackList_Click(object sender, EventArgs e)
+		{
+			tblGroup.Visible = false;
+			tblItems.Visible = false;
+			tblBuyers.Visible = false;
+			tblSellers.Visible = false;
+			tblSales.Visible = false;
+			tblMessages.Visible = false;
+			tblGiveBacks.Visible = true;
+
+			BackListFill();
+		}
+
+		protected void btnShowMessage_Click(object sender, EventArgs e)
+		{
+			tblGroup.Visible = false;
+			tblItems.Visible = false;
+			tblBuyers.Visible = false;
+			tblSellers.Visible = false;
+			tblSales.Visible = false;
+			tblGiveBacks.Visible = false;
+			tblMessages.Visible = true;
+
+			MessagesFill();
 		}
 
 		protected void btnGoBack_Click(object sender, EventArgs e)
@@ -524,7 +578,21 @@ namespace SSManagment
 
         #endregion
 
-		#region Sale
+		#region Back
+
+		protected void gvwBackList_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int id;
+			if (int.TryParse(e.CommandArgument.ToString(), out id))
+			{
+				if (e.CommandName.ToLower() == "approve")
+				{
+					logSale.ApproveGiveBack(id);
+					BackListFill();
+				}
+			}
+		}
+
 
 		#endregion
 

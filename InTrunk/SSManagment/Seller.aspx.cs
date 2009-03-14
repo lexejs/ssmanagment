@@ -660,7 +660,7 @@ namespace SSManagment
 
 		private void LoadReturnGredView()
 		{
-			gvwReturn.DataSource = logSale.GetGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
+			gvwReturn.DataSource = logSale.GetSalesForGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
 			gvwReturn.DataBind();
 		}
 
