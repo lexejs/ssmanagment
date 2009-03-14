@@ -573,10 +573,10 @@
 															<asp:GridView ID="gvwBackList" runat="server" Width="100%" AutoGenerateColumns="False"
 																BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top"
 																CellPadding="3" ForeColor="Black" GridLines="Vertical" Font-Size="8pt" AllowSorting="True"
-																PagerStyle-Wrap="False" OnRowCommand="gvwBackList_RowCommand">
+																PagerStyle-Wrap="False" OnRowCommand="gvwBackList_RowCommand" OnRowDataBound="gvwBackList_RowDataBound">
 																<RowStyle BackColor="#F7F7DE" />
 																<Columns>
-																	<asp:BoundField DataField="ItemName" HeaderText="Товар">
+																	<asp:BoundField DataField="ProductName" HeaderText="Товар">
 																		<ControlStyle Width="100%" />
 																	</asp:BoundField>
 																	<asp:BoundField DataField="SellerName" HeaderText="Продавец" />
@@ -586,8 +586,8 @@
 																	<asp:BoundField DataField="LogCash" HeaderText="Стоимость" />
 																	<asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
 																		<ItemTemplate>
-																			<asp:LinkButton ID="lbtnaApprove" runat="server" CommandName="approve" CausesValidation="false"
-																				CommandArgument='<%# Eval("id") %>' Visible='<%# Eval("isGiveBack") %>'>
+																			<asp:LinkButton ID="lbtnApprove" runat="server" CommandName="approve" CausesValidation="false"
+																				CommandArgument='<%# Eval("LogId") %>'>
 																				<asp:Image ID="img" runat="server" ImageUrl="~/App_Themes/Main/Icons/16px-Dialog-information_on.svg.png"
 																					Width="16px" Height="16px" /></asp:LinkButton>
 																		</ItemTemplate>

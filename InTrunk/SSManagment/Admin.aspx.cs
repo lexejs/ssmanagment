@@ -27,7 +27,6 @@ namespace SSManagment
             }
         }
         #endregion
-#warning Сделать функционал апрувала возврата товара
 
 		#region Methods
 
@@ -589,6 +588,17 @@ namespace SSManagment
 				{
 					logSale.ApproveGiveBack(id);
 					BackListFill();
+				}
+			}
+		}
+
+		protected void gvwBackList_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				if (!((logType)e.Row.DataItem).LogIsGiveBack.Value)
+				{
+					e.Row.FindControl("lbtnApprove").Visible = false;
 				}
 			}
 		}

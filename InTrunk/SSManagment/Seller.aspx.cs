@@ -748,7 +748,7 @@ namespace SSManagment
 
 				if (log.itemsCount >= count)
 				{
-					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.id, count, sum, log.sid.Value);
+					logSale.GiveBack(log.buyerId.Value, AppHelper.CurrentUser.id, log.itemId.Value, count, sum, log.sid.Value);
 					modalReturnConfirm.Visible = false;
 					LoadReturnGredView();
 				}
