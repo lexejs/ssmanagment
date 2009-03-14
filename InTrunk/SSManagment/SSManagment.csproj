@@ -145,13 +145,6 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewReport.aspx.cs">
-      <DependentUpon>ViewReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewReport.aspx.designer.cs">
-      <DependentUpon>ViewReport.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Main\main.css" />
@@ -193,7 +186,6 @@
     <Content Include="Login.aspx" />
     <Content Include="Admin.aspx" />
     <Content Include="Reports.aspx" />
-    <Content Include="ViewReport.aspx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\ssm.dbml">

@@ -70,6 +70,11 @@
 									<span><em>Отобразить Сообщения</em></span></button>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<asp:LinkButton ID="lnkShowReports" runat="server" PostBackUrl="~/Reports.aspx">Отчёты</asp:LinkButton>
+							</td>
+						</tr>
 					</table>
 				</center>
 				<div class="clear">
