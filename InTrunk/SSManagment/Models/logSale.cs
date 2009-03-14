@@ -33,7 +33,8 @@ namespace SSManagment.Models
 		{
 			get
 			{
-				return item.GetById(itemId.Value).bprice;
+                var itm = item.GetById(itemId.Value);
+                return itm != null ? itm.bprice : null;
 			}
 		}
 

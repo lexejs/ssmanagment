@@ -83,6 +83,7 @@ namespace SSManagment
 
         private void LoadingTree()
         {
+            treeCategories.Nodes.Clear();
             IList<group> rootCategories = groups.Where(b => b.parent == null).OrderBy(b => b.name).ToList();
             IList<group> rootchild = groups.Where(b => b.parent != null).OrderBy(b => b.name).ToList();
 
@@ -450,6 +451,16 @@ namespace SSManagment
                 item.isActive = chbItemIsActive.Checked;
 
                 db.SubmitChanges();
+
+                int id;
+                if (int.TryParse(treeCategories.SelectedNode.Value, out id))
+                {
+                    lstItems.DataSource = item.GetAllByGroupId(id);
+                    lstItems.DataTextField = "name";
+                    lstItems.DataValueField = "id";
+                    lstItems.DataBind();
+                    lblGroupName.Text = new ssmDataContext().groups.First(g => g.id == id).name;
+                }
             }
         }
 
