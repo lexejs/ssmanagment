@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SSManagment.Models
@@ -32,7 +33,7 @@ namespace SSManagment.Models
         public static void Warning(string message, int buyerId)
         {
             var db = new ssmDataContext();
-            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = true};
+            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = true, date = DateTime.Now};
             db.logActivities.InsertOnSubmit(logActivity);
             db.SubmitChanges();
         }
