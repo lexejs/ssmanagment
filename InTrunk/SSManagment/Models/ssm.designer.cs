@@ -36,9 +36,6 @@ namespace SSManagment.Models
     partial void Insertitem(item instance);
     partial void Updateitem(item instance);
     partial void Deleteitem(item instance);
-    partial void InsertlogActivity(logActivity instance);
-    partial void UpdatelogActivity(logActivity instance);
-    partial void DeletelogActivity(logActivity instance);
     partial void InsertlogSale(logSale instance);
     partial void UpdatelogSale(logSale instance);
     partial void DeletelogSale(logSale instance);
@@ -48,6 +45,9 @@ namespace SSManagment.Models
     partial void Insertbuyer(buyer instance);
     partial void Updatebuyer(buyer instance);
     partial void Deletebuyer(buyer instance);
+    partial void InsertlogActivity(logActivity instance);
+    partial void UpdatelogActivity(logActivity instance);
+    partial void DeletelogActivity(logActivity instance);
     #endregion
 		
 		public ssmDataContext() : 
@@ -96,14 +96,6 @@ namespace SSManagment.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<logActivity> logActivities
-		{
-			get
-			{
-				return this.GetTable<logActivity>();
-			}
-		}
-		
 		public System.Data.Linq.Table<logSale> logSales
 		{
 			get
@@ -125,6 +117,14 @@ namespace SSManagment.Models
 			get
 			{
 				return this.GetTable<buyer>();
+			}
+		}
+		
+		public System.Data.Linq.Table<logActivity> logActivities
+		{
+			get
+			{
+				return this.GetTable<logActivity>();
 			}
 		}
 	}
@@ -588,164 +588,6 @@ namespace SSManagment.Models
 					this._isActive = value;
 					this.SendPropertyChanged("isActive");
 					this.OnisActiveChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.logActivity")]
-	public partial class logActivity : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _action;
-		
-		private System.Nullable<System.DateTime> _date;
-		
-		private System.Nullable<int> _buyerId;
-		
-		private System.Nullable<bool> _informAdmin;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnactionChanging(string value);
-    partial void OnactionChanged();
-    partial void OndateChanging(System.Nullable<System.DateTime> value);
-    partial void OndateChanged();
-    partial void OnbuyerIdChanging(System.Nullable<int> value);
-    partial void OnbuyerIdChanged();
-    partial void OninformAdminChanging(System.Nullable<bool> value);
-    partial void OninformAdminChanged();
-    #endregion
-		
-		public logActivity()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_action", DbType="VarChar(150)")]
-		public string action
-		{
-			get
-			{
-				return this._action;
-			}
-			set
-			{
-				if ((this._action != value))
-				{
-					this.OnactionChanging(value);
-					this.SendPropertyChanging();
-					this._action = value;
-					this.SendPropertyChanged("action");
-					this.OnactionChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> date
-		{
-			get
-			{
-				return this._date;
-			}
-			set
-			{
-				if ((this._date != value))
-				{
-					this.OndateChanging(value);
-					this.SendPropertyChanging();
-					this._date = value;
-					this.SendPropertyChanged("date");
-					this.OndateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_buyerId", DbType="Int")]
-		public System.Nullable<int> buyerId
-		{
-			get
-			{
-				return this._buyerId;
-			}
-			set
-			{
-				if ((this._buyerId != value))
-				{
-					this.OnbuyerIdChanging(value);
-					this.SendPropertyChanging();
-					this._buyerId = value;
-					this.SendPropertyChanged("buyerId");
-					this.OnbuyerIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_informAdmin", DbType="Bit")]
-		public System.Nullable<bool> informAdmin
-		{
-			get
-			{
-				return this._informAdmin;
-			}
-			set
-			{
-				if ((this._informAdmin != value))
-				{
-					this.OninformAdminChanging(value);
-					this.SendPropertyChanging();
-					this._informAdmin = value;
-					this.SendPropertyChanged("informAdmin");
-					this.OninformAdminChanged();
 				}
 			}
 		}
@@ -1364,6 +1206,164 @@ namespace SSManagment.Models
 					this._debt = value;
 					this.SendPropertyChanged("debt");
 					this.OndebtChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.logActivity")]
+	public partial class logActivity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _action;
+		
+		private System.Nullable<System.DateTime> _date;
+		
+		private System.Nullable<int> _buyerId;
+		
+		private System.Nullable<bool> _informAdmin;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnactionChanging(string value);
+    partial void OnactionChanged();
+    partial void OndateChanging(System.Nullable<System.DateTime> value);
+    partial void OndateChanged();
+    partial void OnbuyerIdChanging(System.Nullable<int> value);
+    partial void OnbuyerIdChanged();
+    partial void OninformAdminChanging(System.Nullable<bool> value);
+    partial void OninformAdminChanged();
+    #endregion
+		
+		public logActivity()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_action", DbType="VarChar(150)")]
+		public string action
+		{
+			get
+			{
+				return this._action;
+			}
+			set
+			{
+				if ((this._action != value))
+				{
+					this.OnactionChanging(value);
+					this.SendPropertyChanging();
+					this._action = value;
+					this.SendPropertyChanged("action");
+					this.OnactionChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this.OndateChanging(value);
+					this.SendPropertyChanging();
+					this._date = value;
+					this.SendPropertyChanged("date");
+					this.OndateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_buyerId", DbType="Int")]
+		public System.Nullable<int> buyerId
+		{
+			get
+			{
+				return this._buyerId;
+			}
+			set
+			{
+				if ((this._buyerId != value))
+				{
+					this.OnbuyerIdChanging(value);
+					this.SendPropertyChanging();
+					this._buyerId = value;
+					this.SendPropertyChanged("buyerId");
+					this.OnbuyerIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_informAdmin", DbType="Bit")]
+		public System.Nullable<bool> informAdmin
+		{
+			get
+			{
+				return this._informAdmin;
+			}
+			set
+			{
+				if ((this._informAdmin != value))
+				{
+					this.OninformAdminChanging(value);
+					this.SendPropertyChanging();
+					this._informAdmin = value;
+					this.SendPropertyChanged("informAdmin");
+					this.OninformAdminChanged();
 				}
 			}
 		}
