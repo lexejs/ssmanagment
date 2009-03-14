@@ -724,7 +724,7 @@ namespace SSManagment
 			logSale log = logSale.GetLogSalesById(id);
 			item itm = item.GetById(log.itemId.Value);
 
-			if (count <= log.itemsCount && log.cash.Value > 0 && (itm != null))
+			if (log.itemsCount > 0 && count <= log.itemsCount && log.cash.Value > 0 && (itm != null))
 			{
 				lblReturnModalProductMeasure.Text = itm.measure;
 				lblReturnModalProductName.Text = itm.name;
@@ -754,8 +754,15 @@ namespace SSManagment
 				}
 				else
 				{
-					lblReturnModalCount.Text = log.itemsCount.ToString();
-					lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value / log.itemsCount.Value) * count).ToString("0р.");
+					if (log.itemsCount.Value > 0)
+					{
+						lblReturnModalCount.Text = log.itemsCount.ToString();
+						lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count).ToString("0р.");
+					}
+					else
+					{
+						modalReturnConfirm.Visible = false;
+					}
 				}
 		}
 
