@@ -625,7 +625,7 @@
 																<ControlStyle Width="100%" />
 																<ItemStyle HorizontalAlign="Left" />
 															</asp:BoundField>
-															<asp:BoundField HeaderText="Покупатель" DataField="buyerId">
+															<asp:BoundField HeaderText="Покупатель" DataField="buerName">
 																<ControlStyle Width="50px" />
 																<ItemStyle HorizontalAlign="Right" />
 															</asp:BoundField>

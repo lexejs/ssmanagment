@@ -83,7 +83,7 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-		public static IList<logSale> GetSalesForGiveBackList(string GUID, string buyTime)
+		public static object GetSalesForGiveBackList(string GUID, string buyTime)
 		{
 			IList<logSale> list = null;
 			ssmDataContext db = new ssmDataContext();
@@ -102,7 +102,23 @@ namespace SSManagment.Models
 					{
 						list = db.logSales.Where(b => b.isGiveBack == false && b.date == buyDate).ToList();
 					}
-					return list;
+
+					var resJoinBuers1 = list.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+					{
+						buerName = c.name,
+						d.buyerId,
+						d.cash,
+						d.date,
+						d.id,
+						d.isGiveBack,
+						d.itemId,
+						d.itemsCount,
+						d.sellerId,
+						d.logName,
+						d.logBprice
+					});
+
+					return resJoinBuers1.ToList();
 				}
 			}
 			if ((!string.IsNullOrEmpty(GUID)) && (int.TryParse(GUID, out sid)))
@@ -113,7 +129,23 @@ namespace SSManagment.Models
 			{
 				list = db.logSales.Where(b => b.isGiveBack == false).ToList();
 			}
-			return list;
+
+			var resJoinBuers2 = list.Join(db.buyers , d => d.buyerId, c => c.id, (d, c) => new
+			{
+				buerName = c.name,
+				d.buyerId,
+				d.cash,
+				d.date,
+				d.id,
+				d.isGiveBack,
+				d.itemId,
+				d.itemsCount,
+				d.sellerId,
+				d.logName,
+				d.logBprice
+			});
+
+			return resJoinBuers2.ToList();
 		}
 
 		public static logSale GetLogSalesById(int id)
