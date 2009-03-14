@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="SSManagment.Reports" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="SSManagment.Reports" MasterPageFile="~/App_Master/AdminMaster.master" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-	Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+    Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +12,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
-			<asp:Button ID="Show" runat="server" Text="Показать" OnClick="ShowButtonClick"/>
-    </div>
-    <div>
-			<rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" OnDrillthrough="ReportViewer_Drillthrough"
-				ShowBackButton="True" AsyncRendering="false">
-			</rsweb:ReportViewer>
+        <rsweb:ReportViewer ID="reportViewer1" runat="server" OnDrillthrough="drillThrough">
+        </rsweb:ReportViewer>
     </div>
     </form>
 </body>
