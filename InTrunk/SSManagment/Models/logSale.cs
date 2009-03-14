@@ -24,7 +24,8 @@ namespace SSManagment.Models
     	{
     		get
     		{
-    			return item.GetById(itemId.Value).name;
+    			var itm = item.GetById(itemId.Value);
+    			return itm != null ? itm.name : null;
     		}
     	}
 
