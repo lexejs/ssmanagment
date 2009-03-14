@@ -11,7 +11,7 @@ namespace SSManagment.Models
 	{
 		public static int GetSID()
 		{
-			string sid = string.Format("{0}{1}{2}{3}{4}{5}", DateTime.Now.Year.ToString().Last(), DateTime.Now.Month.ToString().PadLeft(2, '0'), DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second.ToString().Last());
+			string sid = string.Format("{0}{1}{2}{3}{4}", DateTime.Now.Month.ToString().PadLeft(2, '0'), DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second.ToString().Last());
 			return Convert.ToInt32(sid);
 		}
 
