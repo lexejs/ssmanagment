@@ -18,29 +18,7 @@ namespace SSManagment
 			{
 				lstsellersFill();
 			}
-
-			//var db = new ssmDataContext();
-			//IEnumerable<SalesDataSource> list = db.logSales
-			//  .Join(db.buyers, l => l.buyerId, b => b.id, (l, b) => new {logSales = l, Buyer = b})
-			//  .Join(db.sellers, l => l.logSales.sellerId, s => s.id, (l, s) => new {logSalesB = l, Seller = s})
-			//  .Select(s => new SalesDataSource
-			//                {
-			//                  Buyer = s.logSalesB.Buyer.name,
-			//                  Cash = s.logSalesB.logSales.cash.GetValueOrDefault(),
-			//                  Date = s.logSalesB.logSales.date.GetValueOrDefault(),
-			//                  IsGiveBack = s.logSalesB.logSales.isGiveBack.GetValueOrDefault(),
-			//                  Item = s.logSalesB.logSales.logName,
-			//                  ItemsCount = s.logSalesB.logSales.itemsCount.GetValueOrDefault(0),
-			//                  Seller = s.Seller.fullName,
-			//                  SID = s.logSalesB.logSales.sid.GetValueOrDefault()
-			//                }).ToList();
-			//source = new ReportDataSource("SalesDataSource", list);
-			////if (!Page.IsPostBack)
-			//{
-			//  reportViewer1.LocalReport.DataSources.Add(source);
-			//  reportViewer1.LocalReport.ReportEmbeddedResource = string.Format("{0}.Reports.SaleReport.rdlc",
-			//                                                                   assembly.GetName().Name);
-			//}
+		
 		}
 
 		protected void drillThrough(object sender, DrillthroughEventArgs e)

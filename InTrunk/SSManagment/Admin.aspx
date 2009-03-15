@@ -72,7 +72,7 @@
 						</tr>
 						<tr>
 							<td>
-								<asp:LinkButton ID="lnkShowReports" runat="server" PostBackUrl="~/Reports.aspx">Отчёты</asp:LinkButton>
+								<asp:LinkButton ID="lnkShowReports" runat="server" PostBackUrl="~/ViewReport.aspx">Отчёты</asp:LinkButton>
 							</td>
 						</tr>
 					</table>
