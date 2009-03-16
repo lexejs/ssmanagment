@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SSManagment.Models;
 
 namespace SSManagment
 {
@@ -16,6 +17,10 @@ namespace SSManagment
 
         protected void btnLogin_Click1(object sender, EventArgs e)
         {
+			AppHelper.TreeSelectedNodePathSession = null;
+        	AppHelper.ShopingCartSession = null;
+        	AppHelper.ProductsSession = null;
+
         	var db = new Models.ssmDataContext();
         	var sellers = db.sellers.Where(
         		s =>

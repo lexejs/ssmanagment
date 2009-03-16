@@ -15,27 +15,35 @@
 				<table>
 					<tr>
 						<td>
-							<div class="Widget_heading_container">
-								<span class="Widget_heading_container_Span"></span>
+							<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
 								<h2>
 									Вход в систему</h2>
 							</div>
 							<div class="Widget_Body_container">
-								<div class="Widget_Body_top">
-									<span></span>
-								</div>
+								<div class="Widget_Body_top"><span></span></div>
 								<div class="Widget_Body_content">
-									<div class="clear">
-									</div>
+									<div class="clear"></div>
 									<asp:UpdatePanel ID="uplLogin" runat="server" UpdateMode="Always">
 										<ContentTemplate>
+
+											<script language="jscript">
+											  function clickLogin() 
+											  {     
+											   if (event.keyCode == 13) 
+											   {
+       											loginForm.btnLogin.click();
+												 return false;
+											   }
+											 }
+											</script>
+
 											<table>
 												<tr>
 													<td align="right">
 														<span>Учётная запись:</span>
 													</td>
 													<td align="left" width="130px">
-														<asp:TextBox ID="txtLogin" runat="server" TabIndex="1" Width="130px"></asp:TextBox>
+														<asp:TextBox ID="txtLogin" runat="server" ыonkeypress="return(clickLogin());" TabIndex="1" Width="130px"></asp:TextBox>
 													</td>
 													<td rowspan="2" align="left">
 														<button id="btnLogin" runat="server" tabindex="3" onserverclick="btnLogin_Click1">
@@ -44,11 +52,10 @@
 												</tr>
 												<tr>
 													<td align="right">
-														<span>Пароль:
-														</span>
+														<span>Пароль: </span>
 													</td>
 													<td align="left" width="130px">
-														<asp:TextBox ID="txtPassword" runat="server" TabIndex="2" TextMode="Password" Width="130px"></asp:TextBox>
+														<asp:TextBox ID="txtPassword" onkeypress="return(clickLogin());" runat="server" TabIndex="2" TextMode="Password" Width="130px"></asp:TextBox>
 													</td>
 												</tr>
 												<tr id="tdPassMsg" runat="server" visible="false">
@@ -59,13 +66,10 @@
 											</table>
 										</ContentTemplate>
 									</asp:UpdatePanel>
-									<div class="clear">
-									</div>
+									<div class="clear"></div>
 								</div>
 							</div>
-							<div class="Widget_Body_bottom">
-								<span></span>
-							</div>
+							<div class="Widget_Body_bottom"><span></span></div>
 						</td>
 					</tr>
 				</table>

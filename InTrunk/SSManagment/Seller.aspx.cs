@@ -44,6 +44,8 @@ namespace SSManagment
 
 	public partial class Seller : Page
 	{
+		private const string FindCategori = "По поисковаму запросу!";
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (AppHelper.CurrentUser != null)
@@ -56,18 +58,24 @@ namespace SSManagment
 					btnAdmin.Visible = AppHelper.CurrentUser.isAdmin.Value;
 					gvwProducts.DataSource = AppHelper.ProductsSession ?? null;
 					gvwProducts.DataBind();
-					if (!string.IsNullOrEmpty(AppHelper.TreeSelectedNodePathSession))
-					{
-						if (treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession) != null)
-						{
-							treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession).Selected = true;
-						}
-					}
+					SelectCategoriTreeNode();
 				}
 			}
 		}
 
 		#region Methods
+
+		private void SelectCategoriTreeNode()
+		{
+			if (!string.IsNullOrEmpty(AppHelper.TreeSelectedNodePathSession))
+			{
+				if (treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession) != null)
+				{
+					treeCategories.FindNode(AppHelper.TreeSelectedNodePathSession).Selected = true;
+					lblCurrentCategori.Text = treeCategories.SelectedNode != null ? treeCategories.SelectedNode.Text : "";
+				}
+			}
+		}
 
 		private void LoadingBuyers()
 		{
@@ -138,7 +146,14 @@ namespace SSManagment
 			}
 			else
 			{
-				ShowWarningConfirm("Выберите раздел товаров (меню у левого края экрана).");
+				if (lblCurrentCategori.Text.Equals(FindCategori))
+				{
+					btnFind_Click(this,new EventArgs());
+				}
+				else
+				{
+					ShowWarningConfirm("Выберите раздел товаров (меню у левого края экрана).");
+				}
 			}
 		}
 
@@ -158,6 +173,9 @@ namespace SSManagment
 			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.Sort("name", SortDirection.Ascending);
 			gvwProducts.DataBind();
+
+			lblCurrentCategori.Text = FindCategori;
+			treeCategories.CollapseAll();
 		}
 
 		protected void btnBuy_Click(object sender, EventArgs e)
@@ -192,6 +210,7 @@ namespace SSManagment
 				gvwProducts.Sort("name", SortDirection.Ascending);
 				gvwProducts.DataBind();
 				AppHelper.TreeSelectedNodePathSession = ((TreeView)(sender)).SelectedNode.ValuePath;
+				lblCurrentCategori.Text = treeCategories.SelectedNode != null ? treeCategories.SelectedNode.Text : "";
 			}
 		}
 
