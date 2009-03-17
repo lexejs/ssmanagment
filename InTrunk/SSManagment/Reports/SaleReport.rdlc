@@ -76,6 +76,240 @@
   <Body>
     <ColumnSpacing>1cm</ColumnSpacing>
     <ReportItems>
+      <Table Name="table3">
+        <ZIndex>2</ZIndex>
+        <DataSetName>SalesDataSource</DataSetName>
+        <Top>1cm</Top>
+        <Width>7.75cm</Width>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox48">
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Seller.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox42">
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Buyer.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox43">
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Sum(Fields!Cash.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.53333cm</Height>
+            </TableRow>
+          </TableRows>
+          <Grouping Name="table3_Details_Group">
+            <GroupExpressions>
+              <GroupExpression>=Fields!Buyer.Value</GroupExpression>
+              <GroupExpression>=Fields!Seller.Value</GroupExpression>
+            </GroupExpressions>
+          </Grouping>
+        </Details>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox56">
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Продавец</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox50">
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Покупатель</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox51">
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Оборот</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.55873cm</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>2.75cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.75cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.25cm</Width>
+          </TableColumn>
+        </TableColumns>
+        <Height>1.72698cm</Height>
+        <Footer>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox64">
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox58">
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Итого</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox59">
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Sum(Fields!Cash.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+          </TableRows>
+        </Footer>
+        <Left>0.25cm</Left>
+      </Table>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>
         <Style>
@@ -83,6 +317,7 @@
           <FontFamily>Tahoma</FontFamily>
           <FontSize>20pt</FontSize>
           <FontWeight>700</FontWeight>
+          <TextAlign>Center</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -91,15 +326,38 @@
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
         <Height>0.91429cm</Height>
-        <Value>SaleReport</Value>
+        <Value>Sale                                                                            Report</Value>
       </Textbox>
       <Table Name="table1">
         <DataSetName>SalesDataSource</DataSetName>
-        <Top>0.91429cm</Top>
+        <Top>3.25cm</Top>
+        <Width>20.25cm</Width>
         <Details>
           <TableRows>
             <TableRow>
               <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Seller">
+                      <rd:DefaultName>Seller</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Seller.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Buyer">
@@ -234,28 +492,6 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Seller">
-                      <rd:DefaultName>Seller</rd:DefaultName>
-                      <Style>
-                        <BorderColor>
-                          <Default>LightGrey</Default>
-                        </BorderColor>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontFamily>Tahoma</FontFamily>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <CanGrow>true</CanGrow>
-                      <Value>=Fields!Seller.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
                     <Textbox Name="SID">
                       <rd:DefaultName>SID</rd:DefaultName>
                       <Style>
@@ -287,6 +523,33 @@
               <TableCells>
                 <TableCell>
                   <ReportItems>
+                    <Textbox Name="textbox8">
+                      <rd:DefaultName>textbox8</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Продавец</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
                     <Textbox Name="textbox2">
                       <rd:DefaultName>textbox2</rd:DefaultName>
                       <Style>
@@ -301,6 +564,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -327,7 +591,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
-                        <TextAlign>Right</TextAlign>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -354,6 +618,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -380,6 +645,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -406,6 +672,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -432,7 +699,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
-                        <TextAlign>Right</TextAlign>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -440,32 +707,6 @@
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>Кол-во</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox8">
-                      <rd:DefaultName>textbox8</rd:DefaultName>
-                      <Style>
-                        <Color>White</Color>
-                        <BackgroundColor>SteelBlue</BackgroundColor>
-                        <BorderColor>
-                          <Default>LightGrey</Default>
-                        </BorderColor>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>11pt</FontSize>
-                        <FontWeight>700</FontWeight>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <CanGrow>true</CanGrow>
-                      <Value>Продавец</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -485,7 +726,7 @@
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>11pt</FontSize>
                         <FontWeight>700</FontWeight>
-                        <TextAlign>Right</TextAlign>
+                        <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -504,34 +745,50 @@
         </Header>
         <TableColumns>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.78438cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.78438cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.27813cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>3.54375cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.025cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.78438cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>1.77188cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.53968cm</Width>
+            <Width>2.27812cm</Width>
           </TableColumn>
         </TableColumns>
+        <Height>1.72698cm</Height>
         <Footer>
           <TableRows>
             <TableRow>
               <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox16">
+                      <rd:DefaultName>textbox16</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="textbox10">
@@ -543,7 +800,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value />
+                      <Value>Итого</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -624,21 +881,6 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox16">
-                      <rd:DefaultName>textbox16</rd:DefaultName>
-                      <Style>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <CanGrow>true</CanGrow>
-                      <Value />
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
                     <Textbox Name="textbox17">
                       <rd:DefaultName>textbox17</rd:DefaultName>
                       <Style>
@@ -659,7 +901,7 @@
         </Footer>
       </Table>
     </ReportItems>
-    <Height>2.64127cm</Height>
+    <Height>5.5cm</Height>
   </Body>
   <Language>en-US</Language>
   <TopMargin>2.5cm</TopMargin>

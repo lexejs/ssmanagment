@@ -18,7 +18,7 @@ namespace SSManagment
             }
             if (!Page.IsPostBack)
             {
-                lstsellersFill();
+                ComboBoxesFill();
             }
         }
 
@@ -33,33 +33,71 @@ namespace SSManagment
             Assembly assembly = Assembly.GetExecutingAssembly();
             reportViewer1.LocalReport.DataSources.Clear();
             reportViewer1.LocalReport.DataSources.Add(CreateSource());
-            reportViewer1.LocalReport.ReportEmbeddedResource = string.Format("{0}.Reports.SaleReport.rdlc",
-                                                                             assembly.GetName().Name);
-            reportViewer1.LocalReport.Refresh();
+            reportViewer1.LocalReport.ReportEmbeddedResource = string.Format("{0}.Reports.SaleReport.rdlc", assembly.GetName().Name);
+            //reportViewer1.LocalReport.Refresh();
         }
 
-        private void lstsellersFill()
+        private void ComboBoxesFill()
         {
             var db = new ssmDataContext();
             List<seller> list = db.sellers.OrderBy(g => g.fullName).ToList();
-            list.Insert(0, new seller {fullName = "Все"});
+            list.Insert(0, new seller { fullName = "Все" });
             lstSellers.DataSource = list;
             lstSellers.DataTextField = "fullName";
             lstSellers.DataValueField = "id";
             lstSellers.DataBind();
+
+            List<buyer> blist = db.buyers.OrderBy(b => b.name).ToList();
+            blist.Insert(0, new buyer { name = "Все" });
+            drpBuyers.DataSource = blist;
+            drpBuyers.DataValueField = "id";
+            drpBuyers.DataTextField = "name";
+            drpBuyers.DataBind();
+
         }
 
         private ReportDataSource CreateSource()
         {
+            int sellerId = int.Parse(lstSellers.SelectedValue);
+            int buyerId = int.Parse(drpBuyers.SelectedValue);
+            bool isGiveBack = chkIsGiveBack.Checked;
+            bool dateOk = false;
             var db = new ssmDataContext();
+            var fromDate = DateTime.Now.AddDays(-1);
+            var toDate = DateTime.Now;
+
+            if (!string.IsNullOrEmpty(txtDateFrom.Text.Trim()))
+            {
+                if (!DateTime.TryParse(txtDateFrom.Text, out fromDate))
+                {
+                    fromDate = DateTime.Now.AddDays(-1);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(txtDateTo.Text.Trim()))
+            {
+                if (!DateTime.TryParse(txtDateTo.Text, out toDate))
+                {
+                    toDate = DateTime.Now;
+                }
+
+            }
+
+
             IEnumerable<SalesDataSource> list = db.logSales
-                .Join(db.buyers, l => l.buyerId, b => b.id, (l, b) => new {logSales = l, Buyer = b})
-                .Join(db.sellers, l => l.logSales.sellerId, s => s.id, (l, s) => new {logSalesB = l, Seller = s})
+                .Join(db.buyers, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
+                .Join(db.sellers, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
                 .Where(
                 s =>
-                lstSellers.SelectedValue == null || int.Parse(lstSellers.SelectedValue) == 0 ||
-                s.Seller.id == int.Parse(lstSellers.SelectedValue))
-                .Select(s => new SalesDataSource
+                (sellerId == 0 || s.logSalesB.logSales.sellerId == sellerId)
+                &&
+                (buyerId == 0 || s.logSalesB.logSales.buyerId == buyerId)
+                &&
+                (s.logSalesB.logSales.isGiveBack == isGiveBack)
+                &&
+                (s.logSalesB.logSales.date.GetValueOrDefault() <= toDate && s.logSalesB.logSales.date.GetValueOrDefault() >= fromDate)
+
+                ).Select(s => new SalesDataSource
                                  {
                                      Buyer = s.logSalesB.Buyer.name,
                                      Cash = s.logSalesB.logSales.cash.GetValueOrDefault(),

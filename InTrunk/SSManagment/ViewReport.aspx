@@ -14,6 +14,18 @@
 			<asp:DropDownList ID="lstSellers" runat="server">
 			</asp:DropDownList>
 		</span>
+		<span>Покупатель 
+			<asp:DropDownList ID="drpBuyers" runat="server">
+			</asp:DropDownList>
+		</span>
+		<span>
+            <asp:CheckBox ID="chkIsGiveBack" runat="server" Text="возвраты?" />
+		</span>
+		<span>
+            за даты с 
+            <asp:TextBox ID="txtDateFrom" runat="server"></asp:TextBox>
+            по <asp:TextBox ID="txtDateTo" runat="server"></asp:TextBox>
+            </span>
 		<span><asp:Button ID="btnShow" runat="server" Text="Button" OnClick="ShowReport"/></span>
 		
 	</div>
