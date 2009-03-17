@@ -40,9 +40,9 @@ namespace SSManagment.Models
 
 		private static object GetLogActivityList(IQueryable<logActivity> rootQuery, ssmDataContext db)
 		{
-			var logActivityJoinBuyer = rootQuery.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+			var logActivityJoinBuyer = rootQuery.Join(db.sellers, d => d.buyerId, c => c.id, (d, c) => new
 			{
-				buerName = c.name,
+				sellerName = c.fullName,
 				d.buyerId,
 				d.action,
 				d.date,

@@ -200,6 +200,12 @@ namespace SSManagment.Models
 
         }
 
+		public static IList<item> GetOrderList()
+		{
+			ssmDataContext db = new ssmDataContext();
+			return db.items.Where(b => b.order.Value == true).ToList();
+		}
+
 
     }
 

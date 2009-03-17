@@ -72,6 +72,12 @@
 						</tr>
 						<tr>
 							<td>
+								<button id="btnForOrder" runat="server" style="width: 180px" onserverclick="btnForOrder_Click">
+									<span><em>Отобразить дозаказы</em></span></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<asp:LinkButton ID="lnkShowReports" runat="server" PostBackUrl="~/ViewReport.aspx">Отчёты</asp:LinkButton>
 							</td>
 						</tr>
@@ -652,7 +658,7 @@
 																	<asp:BoundField DataField="action" HeaderText="Действие">
 																		<ControlStyle Width="100%" />
 																	</asp:BoundField>
-																	<asp:BoundField DataField="buerName" HeaderText="Покупатель" />
+																	<asp:BoundField DataField="sellerName" HeaderText="Продавец" />
 																	<asp:BoundField DataField="date" HeaderText="Дата" />
 																</Columns>
 																<EmptyDataTemplate>
@@ -683,12 +689,76 @@
 																	<asp:BoundField DataField="action" HeaderText="Действие">
 																		<ControlStyle Width="100%" />
 																	</asp:BoundField>
-																	<asp:BoundField DataField="buerName" HeaderText="Покупатель" />
+																	<asp:BoundField DataField="sellerName" HeaderText="Продавец" />
 																	<asp:BoundField DataField="date" HeaderText="Дата" />
 																</Columns>
 																<EmptyDataTemplate>
 																	<center>
 																		<span>Список Сообщений пуст!</span></center>
+																</EmptyDataTemplate>
+																<FooterStyle BackColor="#CCCC99" />
+																<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+																<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+																<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Wrap="False" />
+																<AlternatingRowStyle BackColor="White" />
+															</asp:GridView>
+														</td>
+													</tr>
+												</table>
+											</center>
+											<div class="clear">
+											</div>
+										</div>
+									</div>
+									<div class="Widget_Body_bottom">
+										<span></span>
+									</div>
+								</center>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table runat="server" id="tblForOrder" visible="false" cellpadding="0" cellspacing="0"
+						width="100%">
+						<tr>
+							<td>
+								<center>
+									<div class="Widget_heading_container">
+										<span class="Widget_heading_container_Span"></span>
+										<h2>
+											Дозаказ</h2>
+									</div>
+									<div class="Widget_Body_container">
+										<div class="Widget_Body_top">
+											<span></span>
+										</div>
+										<div class="Widget_Body_content">
+											<div class="clear">
+											</div>
+											<center>
+												<table>
+													<tr>
+														<td>
+															<asp:GridView ID="gvwForOrder" runat="server" Width="100%" AutoGenerateColumns="False"
+																BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top"
+																CellPadding="3" ForeColor="Black" GridLines="Vertical" Font-Size="8pt" AllowSorting="True"
+																PagerStyle-Wrap="False" OnRowCommand="gvwBackList_RowCommand">
+																<RowStyle BackColor="#F7F7DE" />
+																<Columns>
+																	<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True"
+																		HeaderStyle-Wrap="False">
+																		<HeaderStyle Wrap="False" />
+																	</asp:BoundField>
+																	<asp:BoundField DataField="count" HeaderText="В наличии" />
+																	<asp:BoundField DataField="measure" HeaderText="Изм." />
+																	<asp:BoundField DataField="bprice" HeaderText="Дата" />
+																</Columns>
+																<EmptyDataTemplate>
+																	<center>
+																		<span>Список дозаказа пуст!</span></center>
 																</EmptyDataTemplate>
 																<FooterStyle BackColor="#CCCC99" />
 																<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />

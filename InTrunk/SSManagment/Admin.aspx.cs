@@ -125,6 +125,12 @@ namespace SSManagment
 			gvwHotMessagesList.DataBind();
 		}
 
+		private void ForOrderFill()
+		{
+			gvwForOrder.DataSource = item.GetOrderList();
+			gvwForOrder.DataBind();
+		}
+
     	#endregion
 
         #region Handlers
@@ -143,6 +149,7 @@ namespace SSManagment
 					tblGiveBacks.Visible = false;
 					tblSales.Visible = false;
 					tblMessages.Visible = false;
+					tblForOrder.Visible = false;
 					LoadingTree();
 					lstGroupFill();
 				}
@@ -155,6 +162,7 @@ namespace SSManagment
 					tblGiveBacks.Visible = false;
 					tblMessages.Visible = false;
 					tblSales.Visible = false;
+					tblForOrder.Visible = false;
 					lstGroupFill();
 				}
 				else if (button.ID.ToLower().Contains("buyer"))
@@ -165,6 +173,7 @@ namespace SSManagment
 					tblSales.Visible = false;
 					tblGiveBacks.Visible = false;
 					tblMessages.Visible = false;
+					tblForOrder.Visible = false;
 					tblBuyers.Visible = true;
 
 					lstBuyersFill();
@@ -178,6 +187,7 @@ namespace SSManagment
 					tblSales.Visible = false;
 					tblGiveBacks.Visible = false;
 					tblMessages.Visible = false;
+					tblForOrder.Visible = false;
 					tblSellers.Visible = true;
 					lstsellersFill();
 
@@ -191,6 +201,7 @@ namespace SSManagment
 				tblSales.Visible = false;
 				tblGiveBacks.Visible = false;
 				tblMessages.Visible = false;
+				tblForOrder.Visible = false;
 			}
 		}
 
@@ -202,6 +213,7 @@ namespace SSManagment
 			tblSellers.Visible = false;
 			tblGiveBacks.Visible = false;
 			tblMessages.Visible = false;
+			tblForOrder.Visible = false;
 			tblSales.Visible = true;
 
 			SaleFill();
@@ -215,9 +227,24 @@ namespace SSManagment
 			tblSellers.Visible = false;
 			tblSales.Visible = false;
 			tblMessages.Visible = false;
+			tblForOrder.Visible = false;
 			tblGiveBacks.Visible = true;
 
 			BackListFill();
+		}
+
+		protected void btnForOrder_Click(object sender, EventArgs e)
+		{
+			tblGroup.Visible = false;
+			tblItems.Visible = false;
+			tblBuyers.Visible = false;
+			tblSellers.Visible = false;
+			tblSales.Visible = false;
+			tblGiveBacks.Visible = false;
+			tblForOrder.Visible = false;
+			tblMessages.Visible = true;
+
+			MessagesFill();
 		}
 
 		protected void btnShowMessage_Click(object sender, EventArgs e)
@@ -228,9 +255,10 @@ namespace SSManagment
 			tblSellers.Visible = false;
 			tblSales.Visible = false;
 			tblGiveBacks.Visible = false;
-			tblMessages.Visible = true;
+			tblMessages.Visible = false;
+			tblForOrder.Visible = true;
 
-			MessagesFill();
+			ForOrderFill();
 		}
 
 		protected void btnGoBack_Click(object sender, EventArgs e)

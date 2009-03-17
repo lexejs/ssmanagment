@@ -86,6 +86,15 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnShowMessage;
         
         /// <summary>
+        /// btnForOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnForOrder;
+        
+        /// <summary>
         /// lnkShowReports control.
         /// </summary>
         /// <remarks>
@@ -642,5 +651,23 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwMessagesList;
+        
+        /// <summary>
+        /// tblForOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblForOrder;
+        
+        /// <summary>
+        /// gvwForOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwForOrder;
     }
 }
