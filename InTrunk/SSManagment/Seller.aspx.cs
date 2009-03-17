@@ -675,6 +675,7 @@ namespace SSManagment
 			gvwReturn.DataSource = null;
 			gvwReturn.DataBind();
 			modalReturn.Visible = true;
+			calReturnProductSoldDate.SelectedDate = DateTime.Now;
 		}
 
 		private void LoadReturnGredView()
@@ -686,6 +687,25 @@ namespace SSManagment
 		#endregion
 
 		#region Hendlers
+
+		protected void calReturnProductSoldDate_SelectionChanged(object sender, EventArgs e)
+		{
+			if (calReturnProductSoldDate.SelectedDate <= DateTime.Now)
+			{
+				calReturnProductSoldDate.SelectedDate = DateTime.Now;
+			}
+
+			txtReturnProductSoldDate.Text = calReturnProductSoldDate.SelectedDate.ToString();
+		}
+
+		protected void ibtnShowCalendar_Click(object sender, ImageClickEventArgs e)
+		{
+			calReturnProductSoldDate.Visible = !calReturnProductSoldDate.Visible;
+			if (!calReturnProductSoldDate.Visible)
+			{
+				txtReturnProductSoldDate.Text = "";
+			}
+		}
 
 		protected void btnReturnOk_Click(object sender, EventArgs e)
 		{

@@ -437,6 +437,24 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.TextBox txtReturnProductSoldDate;
         
         /// <summary>
+        /// ibtnShowCalendar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnShowCalendar;
+        
+        /// <summary>
+        /// calReturnProductSoldDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar calReturnProductSoldDate;
+        
+        /// <summary>
         /// btnReturnShowProducts control.
         /// </summary>
         /// <remarks>
