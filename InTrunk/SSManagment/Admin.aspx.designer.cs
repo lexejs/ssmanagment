@@ -284,6 +284,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.ListBox lstItems;
         
         /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button2;
+        
+        /// <summary>
         /// txtItemName control.
         /// </summary>
         /// <remarks>
@@ -410,13 +419,13 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnItemUpdate;
         
         /// <summary>
-        /// Button2 control.
+        /// ddlItemToGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemToGroup;
         
         /// <summary>
         /// Button3 control.
@@ -426,15 +435,6 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton Button3;
-        
-        /// <summary>
-        /// ddlItemToGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlItemToGroup;
         
         /// <summary>
         /// tblBuyers control.

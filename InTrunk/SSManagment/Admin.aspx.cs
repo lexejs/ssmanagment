@@ -43,7 +43,6 @@ namespace SSManagment
             lstGroup.DataValueField = "id";
             lstGroup.DataBind();
             txtGroupName.Text = "";
-            txtSubGroupName.Text = "";
 
             ddlAttachTo.DataSource = groups.OrderBy(g => g.name).Where(g => g.parent == null).ToList();
             ddlAttachTo.DataTextField = "name";
@@ -59,7 +58,7 @@ namespace SSManagment
             if (listItem != null)
             {
                 listItem.Selected = true;
-                lstGroup_SelectedIndexChanged(new object(), new EventArgs());
+                //lstGroup_SelectedIndexChanged(new object(), new EventArgs());
             }
         }
 
@@ -131,6 +130,14 @@ namespace SSManagment
 			gvwForOrder.DataBind();
 		}
 
+		private void LoadLstSubGroup()
+		{
+			int parentId = int.Parse(lstGroup.SelectedItem.Value);
+			lstSubGroup.DataSource = groups.Where(g => g.parent != null && g.parent.Value == parentId).ToList();
+			lstSubGroup.DataTextField = "name";
+			lstSubGroup.DataValueField = "id";
+			lstSubGroup.DataBind();
+		}
     	#endregion
 
         #region Handlers
@@ -241,8 +248,8 @@ namespace SSManagment
 			tblSellers.Visible = false;
 			tblSales.Visible = false;
 			tblGiveBacks.Visible = false;
-			tblForOrder.Visible = false;
-			tblMessages.Visible = true;
+			tblMessages.Visible = false;
+			tblForOrder.Visible = true;
 
 			MessagesFill();
 		}
@@ -255,8 +262,8 @@ namespace SSManagment
 			tblSellers.Visible = false;
 			tblSales.Visible = false;
 			tblGiveBacks.Visible = false;
-			tblMessages.Visible = false;
-			tblForOrder.Visible = true;
+			tblForOrder.Visible = false;
+			tblMessages.Visible = true;
 
 			ForOrderFill();
 		}
@@ -276,6 +283,7 @@ namespace SSManagment
             lstSubGroup.DataValueField = "id";
             lstSubGroup.DataBind();
             txtGroupName.Text = lstGroup.SelectedItem.Text;
+			txtSubGroupName.Text = "";
             var group = new ssmDataContext().groups.First(g => g.id == parentId);
             lblPGroup.Text = "Наименований товаров: " + group.GetItemsCountByGroupId(group.id);
         }
@@ -286,18 +294,24 @@ namespace SSManagment
             var db = new ssmDataContext();
             var group = db.groups.First(g => g.id == groupId);
             txtSubGroupName.Text = group.name;
-			lblSubGroup.Text = "Наименований товаров: " + +group.GetItemsCountByGroupId(group.id);
+			lblSubGroup.Text = "Наименований товаров: " + group.GetItemsCountByGroupId(group.id);
         }
 
         protected void btnAddGroup_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtGroupName.Text))
             {
+            	string groupName = string.IsNullOrEmpty(txtGroupName.Text) ? "НОВАЯ ГРУППА" : txtGroupName.Text;
                 var db = new ssmDataContext();
-                var nGroup = new group { name = string.IsNullOrEmpty(txtGroupName.Text) ? "НОВАЯ ГРУППА" : txtGroupName.Text };
+				var nGroup = new group { name = groupName };
                 db.groups.InsertOnSubmit(nGroup);
                 db.SubmitChanges();
                 lstGroupFill();
+				if (lstGroup.Items.FindByText(groupName) != null)
+				{
+					lstGroup.SelectedIndex = lstGroup.Items.IndexOf(lstGroup.Items.FindByText(groupName));
+				}
+				txtGroupName.Text = lstGroup.SelectedItem.Text;
             }
         }
 
@@ -308,38 +322,8 @@ namespace SSManagment
                 var db = new ssmDataContext();
                 int groupId = int.Parse(lstGroup.SelectedItem.Value);
                 List<group> groupToDelete =
-					db.groups.Where(g => g.id == groupId && group.GetItemsCountByGroupId(g.id) == 0).ToList();
-				if (groupToDelete.Count == 1)
-                {
-                    db.groups.DeleteOnSubmit(groupToDelete.First());
-                    db.SubmitChanges();
-                    lstGroupFill();
-                }
-            }
-        }
-
-        protected void btnAddSubGroup_Click(object sender, EventArgs e)
-        {
-            if (lstGroup.SelectedIndex > -1 && !string.IsNullOrEmpty(txtSubGroupName.Text))
-            {
-                var db = new ssmDataContext();
-                int parentId = int.Parse(lstGroup.SelectedItem.Value);
-                var nGroup = new group { name = string.IsNullOrEmpty(txtSubGroupName.Text) ? "Новая Группа" : txtSubGroupName.Text, parent = parentId };
-                db.groups.InsertOnSubmit(nGroup);
-                db.SubmitChanges();
-                lstGroupFill();
-                txtSubGroupName.Text = "";
-            }
-        }
-
-        protected void btnDellSubGroup_Click(object sender, EventArgs e)
-        {
-            if (lstSubGroup.SelectedItem != null)
-            {
-                var db = new ssmDataContext();
-                int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
-				List<group> groupToDelete = db.groups.Where(g => g.id == groupId && + group.GetItemsCountByGroupId(g.id) == 0).ToList();
-                if (groupToDelete.Count == 1)
+					db.groups.Where(g => g.id == groupId).ToList();
+				if (groupToDelete.Count == 1 && group.GetItemsCountByGroupId(groupToDelete[0].id) == 0)
                 {
                     db.groups.DeleteOnSubmit(groupToDelete.First());
                     db.SubmitChanges();
@@ -362,8 +346,51 @@ namespace SSManagment
                         groupToUpdate.First().name = txtGroupName.Text;
                         db.SubmitChanges();
                         lstGroupFill();
+						txtGroupName.Text = lstGroup.SelectedItem.Text;
                     }
                 }
+            }
+        }
+
+        protected void btnAddSubGroup_Click(object sender, EventArgs e)
+        {
+            if (lstGroup.SelectedIndex > -1 && !string.IsNullOrEmpty(txtSubGroupName.Text))
+            {
+            	string subGroupName = string.IsNullOrEmpty(txtSubGroupName.Text) ? "Новая Группа" : txtSubGroupName.Text;
+                var db = new ssmDataContext();
+                int parentId = int.Parse(lstGroup.SelectedItem.Value);
+				var nGroup = new group { name = subGroupName, parent = parentId };
+                db.groups.InsertOnSubmit(nGroup);
+                db.SubmitChanges();
+                lstGroupFill();
+
+				txtGroupName.Text = lstGroup.SelectedItem.Text;
+            	LoadLstSubGroup();
+				if (lstSubGroup.Items.FindByText(subGroupName) != null)
+				{
+					lstSubGroup.SelectedIndex = lstSubGroup.Items.IndexOf(lstSubGroup.Items.FindByText(subGroupName));
+				}
+            }
+        }
+
+        protected void btnDellSubGroup_Click(object sender, EventArgs e)
+        {
+            if (lstSubGroup.SelectedItem != null)
+            {
+                var db = new ssmDataContext();
+                int groupId = int.Parse(lstSubGroup.SelectedItem.Value);
+				List<group> groupToDelete = db.groups.Where(g => g.id == groupId).ToList();
+				if (groupToDelete.Count == 1 && group.GetItemsCountByGroupId(groupToDelete[0].id) == 0)
+                {
+                    db.groups.DeleteOnSubmit(groupToDelete.First());
+                    db.SubmitChanges();
+                    lstGroupFill();
+                }
+				txtGroupName.Text = lstGroup.SelectedItem.Text;
+				txtSubGroupName.Text = "";
+            	lstSubGroup.SelectedIndex = -1;
+
+				LoadLstSubGroup();
             }
         }
 
@@ -380,6 +407,10 @@ namespace SSManagment
                     db.SubmitChanges();
                     lstGroupFill();
                 }
+
+				txtGroupName.Text = lstGroup.SelectedItem.Text;
+				LoadLstSubGroup();
+				lstSubGroup.Items.FindByText(txtSubGroupName.Text).Selected = true;
             }
         }
 
@@ -398,7 +429,10 @@ namespace SSManagment
                     db.groups.DeleteOnSubmit(group);
                     db.SubmitChanges();
                     lstGroupFill();
+					LoadLstSubGroup();
                 }
+				txtGroupName.Text = lstGroup.SelectedItem.Text;
+				txtSubGroupName.Text = "";
             }
         }
 
@@ -517,10 +551,16 @@ namespace SSManagment
             {
                 int groupId = int.Parse(treeCategories.SelectedNode.Value);
                 var db = new ssmDataContext();
-                var item = new item { name = "новый товар", groupId = groupId };
+				string newItem = "новый товар";
+				var item = new item { name = newItem, groupId = groupId };
                 db.items.InsertOnSubmit(item);
                 db.SubmitChanges();
                 treeCategories_SelectedNodeChanged(new object(), new EventArgs());
+				if (lstItems.Items.FindByText(newItem) != null)
+				{
+					lstItems.SelectedIndex = lstItems.Items.IndexOf(lstItems.Items.FindByText(newItem));
+				}
+				lstItems_SelectedIndexChanged(new object(), new EventArgs());
             }
         }
 

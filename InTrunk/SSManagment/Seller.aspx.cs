@@ -65,6 +65,12 @@ namespace SSManagment
 
 		#region Methods
 
+		private void SaleReportShow()
+	{
+#warning popup report
+		Response.Redirect("CurrentSale.aspx");
+	}
+
 		private void SelectCategoriTreeNode()
 		{
 			if (!string.IsNullOrEmpty(AppHelper.TreeSelectedNodePathSession))
@@ -466,6 +472,8 @@ namespace SSManagment
 			gvwProducts.DataBind();
 
 			modalBuyConfirm.Visible = false;
+
+			SaleReportShow();
 		}
 
 		protected void btnCancel_Click(object sender, EventArgs e)
@@ -508,6 +516,8 @@ namespace SSManagment
 			gvwProducts.DataBind();
 
 			modalSingleBuy.Visible = false;
+
+			SaleReportShow();
 		}
 
 		protected void btnSingleBuyNo_Click(object sender, EventArgs e)
