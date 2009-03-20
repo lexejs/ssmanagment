@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["App_Data(SQLEXPRESS)"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1257,8 +1257,8 @@ namespace SSManagment.Models
     partial void OnactionChanged();
     partial void OndateChanging(System.Nullable<System.DateTime> value);
     partial void OndateChanged();
-    partial void OnbuyerIdChanging(System.Nullable<int> value);
-    partial void OnbuyerIdChanged();
+    partial void OnSellerIdChanging(System.Nullable<int> value);
+    partial void OnSellerIdChanged();
     partial void OninformAdminChanging(System.Nullable<bool> value);
     partial void OninformAdminChanged();
     #endregion
@@ -1328,8 +1328,8 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Column(Storage="_buyerId", DbType="Int")]
-		public System.Nullable<int> buyerId
+		[Column(Name="buyerId", Storage="_buyerId", DbType="Int")]
+		public System.Nullable<int> SellerId
 		{
 			get
 			{
@@ -1339,11 +1339,11 @@ namespace SSManagment.Models
 			{
 				if ((this._buyerId != value))
 				{
-					this.OnbuyerIdChanging(value);
+					this.OnSellerIdChanging(value);
 					this.SendPropertyChanging();
 					this._buyerId = value;
-					this.SendPropertyChanged("buyerId");
-					this.OnbuyerIdChanged();
+					this.SendPropertyChanged("SellerId");
+					this.OnSellerIdChanged();
 				}
 			}
 		}

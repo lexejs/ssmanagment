@@ -14,10 +14,10 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-        public static void Info(string message, int buyerId)
+		public static void Info(string message, int sellerId)
         {
             var db = new ssmDataContext();
-            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = false};
+			var logActivity = new logActivity { action = message, SellerId = sellerId, informAdmin = false };
             db.logActivities.InsertOnSubmit(logActivity);
             db.SubmitChanges();
         }
@@ -30,20 +30,20 @@ namespace SSManagment.Models
             db.SubmitChanges();
         }
 
-        public static void Warning(string message, int buyerId)
+		public static void Warning(string message, int sellerId)
         {
             var db = new ssmDataContext();
-            var logActivity = new logActivity {action = message, buyerId = buyerId, informAdmin = true, date = DateTime.Now};
+			var logActivity = new logActivity { action = message, SellerId = sellerId, informAdmin = true, date = DateTime.Now };
             db.logActivities.InsertOnSubmit(logActivity);
             db.SubmitChanges();
         }
 
 		private static object GetLogActivityList(IQueryable<logActivity> rootQuery, ssmDataContext db)
 		{
-			var logActivityJoinBuyer = rootQuery.Join(db.sellers, d => d.buyerId, c => c.id, (d, c) => new
+			var logActivityJoinBuyer = rootQuery.Join(db.sellers, d => d.SellerId, c => c.id, (d, c) => new
 			{
 				sellerName = c.fullName,
-				d.buyerId,
+				d.SellerId,
 				d.action,
 				d.date,
 				d.id,
