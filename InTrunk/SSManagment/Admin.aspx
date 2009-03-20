@@ -50,25 +50,31 @@
 						<tr>
 							<td>
 								<button id="btnShowSales" runat="server" style="width: 180px" onserverclick="btnShowSales_Click">
-									<span><em>Отобразить Продажи</em></span></button>
+									<span><em>Продажи</em></span></button>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<button id="btnShowBackList" runat="server" style="width: 180px" onserverclick="btnShowBackList_Click">
-									<span><em>Отобразить Возвраты</em></span></button>
+									<span><em>Возвраты</em></span></button>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<button id="btnShowMessage" runat="server" style="width: 180px" onserverclick="btnShowMessage_Click">
-									<span><em>Отобразить Сообщения</em></span></button>
+									<span><em>Сообщения</em></span></button>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<button id="btnForOrder" runat="server" style="width: 180px" onserverclick="btnForOrder_Click">
-									<span><em>Отобразить Дозаказы</em></span></button>
+									<span><em>Дозаказы товара</em></span></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="btnShowEndItems" runat="server" style="width: 180px" onserverclick="btnShowEndItems_Click">
+									<span><em>Товар на исходе</em></span></button>
 							</td>
 						</tr>
 						<tr>
@@ -229,10 +235,8 @@
 																		<table width="100%">
 																			<tr>
 																				<td align="left" colspan="2">
-																					
-																						<button id="Button2" runat="server" tabindex="33" style="width: 130px" onserverclick="btnItemAdd_Click">
+																					<button id="Button2" runat="server" tabindex="33" style="width: 130px" onserverclick="btnItemAdd_Click">
 																						<span><em>Добавить</em></span></button>
-																					
 																				</td>
 																			</tr>
 																			<tr>
@@ -300,13 +304,11 @@
 																				</td>
 																			</tr>
 																			<tr>
-																				<td align="right"></td>
+																				<td align="right">
+																				</td>
 																				<td align="left">
 																					<button id="btnItemUpdate" runat="server" tabindex="31" style="width: 150px" validationgroup="itemChanged" onserverclick="btnItemUpdate_Click">
 																						<span><em>Сохранить</em></span></button>
-																				
-																				
-																					
 																				</td>
 																			</tr>
 																			<tr>
@@ -370,9 +372,15 @@
 														</td>
 														<td>
 															<button id="btnBuyerUpd" runat="server" tabindex="60" style="width: 130px" onserverclick="btnBuyerUpdate_Click">
-																<span><em>Изменить</em></span></button>
+																<span><em>Сохранить</em></span></button>
+														</td>
+													</tr>
+													<tr>
+														<td>
 															<button id="btnBuyerAdd" runat="server" tabindex="65" style="width: 130px" validationgroup="itemChanged" onserverclick="btnBuyerAdd_Click">
 																<span><em>Добавить</em></span></button>
+														</td>
+														<td colspan="4">
 														</td>
 													</tr>
 												</table>
@@ -425,11 +433,15 @@
 														</td>
 														<td>
 															<button id="btnSellerUpdate" runat="server" tabindex="60" style="width: 130px" onserverclick="btnSellerUpdate_Click">
-																<span><em>Изменить</em></span></button>
-															<button id="btnSellerAdd" runat="server" tabindex="65" style="width: 130px" validationgroup="itemChanged" onserverclick="btnSellerAdd_Click">
-																<span><em>Добавить</em></span></button>
+																<span><em>Сохранить</em></span></button>
+															
 														</td>
+														
 													</tr>
+													<tr>
+													<td><button id="btnSellerAdd" runat="server" tabindex="65" style="width: 130px" validationgroup="itemChanged" onserverclick="btnSellerAdd_Click">
+																<span><em>Добавить</em></span></button></td>
+																<td colspan="5"></td></tr>
 												</table>
 											</center>
 											<div class="clear"></div>
@@ -665,6 +677,57 @@
 																<EmptyDataTemplate>
 																	<center>
 																		<span>Список дозаказа пуст!</span></center>
+																</EmptyDataTemplate>
+																<FooterStyle BackColor="#CCCC99" />
+																<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+																<SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+																<HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Wrap="False" />
+																<AlternatingRowStyle BackColor="White" />
+															</asp:GridView>
+														</td>
+													</tr>
+												</table>
+											</center>
+											<div class="clear"></div>
+										</div>
+									</div>
+									<div class="Widget_Body_bottom"><span></span></div>
+								</center>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table runat="server" id="tblEndItems" visible="false" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td>
+								<center>
+									<div class="Widget_heading_container"><span class="Widget_heading_container_Span"></span>
+										<h2>
+											Заканчивающийся товар</h2>
+									</div>
+									<div class="Widget_Body_container">
+										<div class="Widget_Body_top"><span></span></div>
+										<div class="Widget_Body_content">
+											<div class="clear"></div>
+											<center>
+												<table>
+													<tr>
+														<td>
+															<asp:GridView ID="gvwEndItems" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CaptionAlign="Top" CellPadding="3" ForeColor="Black" GridLines="Vertical" Font-Size="8pt" AllowSorting="True" PagerStyle-Wrap="False">
+																<RowStyle BackColor="#F7F7DE" />
+																<Columns>
+																	<asp:BoundField DataField="name" SortExpression="name" HeaderText="Название" ReadOnly="True" HeaderStyle-Wrap="False">
+																		<HeaderStyle Wrap="False" />
+																	</asp:BoundField>
+																	<asp:BoundField DataField="count" HeaderText="В наличии" />
+																	<asp:BoundField DataField="measure" HeaderText="Изм." />
+																</Columns>
+																<EmptyDataTemplate>
+																	<center>
+																		<span>Список заканчивающийся товара пуст!</span></center>
 																</EmptyDataTemplate>
 																<FooterStyle BackColor="#CCCC99" />
 																<PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
