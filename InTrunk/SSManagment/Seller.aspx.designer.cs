@@ -221,6 +221,15 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.CheckBox cbxCreditShopConfirm;
         
         /// <summary>
+        /// chkViewReportShopConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkViewReportShopConfirm;
+        
+        /// <summary>
         /// btnYes control.
         /// </summary>
         /// <remarks>
@@ -291,6 +300,15 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbxCreditSingleBuy;
+        
+        /// <summary>
+        /// chkViewReportSingleBuy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkViewReportSingleBuy;
         
         /// <summary>
         /// btnSingleBuyYes control.

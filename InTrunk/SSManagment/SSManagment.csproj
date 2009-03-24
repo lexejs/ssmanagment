@@ -174,12 +174,10 @@
       <DependentUpon>SM.mdf</DependentUpon>
     </Content>
     <Content Include="App_Master\AdminMaster.master" />
-    <Content Include="App_Scripts\Admin.js" />
     <Content Include="App_Scripts\jQuery\Common.js" />
     <Content Include="App_Scripts\jQuery\jquery-latest-min.js" />
     <Content Include="App_Scripts\jQuery\jquery-ui-min.js" />
     <Content Include="App_Scripts\Login.js" />
-    <Content Include="App_Scripts\Seller.js" />
     <Content Include="App_Themes\Main\alax-loading.gif" />
     <Content Include="App_Themes\Main\button.png" />
     <Content Include="App_Themes\Main\Icons\16px-Ambox_emblem_plus.svg.png" />

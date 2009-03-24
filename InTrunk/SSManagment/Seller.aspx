@@ -323,6 +323,11 @@
 											</tr>
 											<tr>
 												<td colspan="3">
+													<asp:CheckBox ID="chkViewReportShopConfirm" runat="server" Text="Показать отчет по продаже" />
+												</td>
+											</tr>
+											<tr>
+												<td colspan="3">
 													<br />
 												</td>
 											</tr>
@@ -411,6 +416,11 @@
 												</td>
 												<td>
 													<asp:CheckBox ID="cbxCreditSingleBuy" runat="server" Checked="false" Text="В кредит" />
+												</td>
+											</tr>
+											<tr>
+												<td colspan="3">
+													<asp:CheckBox ID="chkViewReportSingleBuy" runat="server" Text="Показать отчет по продаже"/>
 												</td>
 											</tr>
 											<tr>

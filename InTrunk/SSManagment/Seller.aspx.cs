@@ -66,10 +66,9 @@ namespace SSManagment
 		#region Methods
 
 		private void SaleReportShow()
-	{
-#warning popup report
-		Response.Redirect("CurrentSale.aspx");
-	}
+		{
+			Response.Redirect("CurrentSale.aspx");
+		}
 
 		private void SelectCategoriTreeNode()
 		{
@@ -473,7 +472,10 @@ namespace SSManagment
 
 			modalBuyConfirm.Visible = false;
 
-			SaleReportShow();
+			if (chkViewReportShopConfirm.Checked)
+			{
+				SaleReportShow();
+			}
 		}
 
 		protected void btnCancel_Click(object sender, EventArgs e)
@@ -517,7 +519,10 @@ namespace SSManagment
 
 			modalSingleBuy.Visible = false;
 
-			SaleReportShow();
+			if (chkViewReportSingleBuy.Checked)
+			{
+				SaleReportShow();
+			}
 		}
 
 		protected void btnSingleBuyNo_Click(object sender, EventArgs e)
