@@ -14,6 +14,15 @@ namespace SSManagment.App_Master {
     public partial class Main {
         
         /// <summary>
+        /// cphAppScripts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphAppScripts;
+        
+        /// <summary>
         /// MainForm control.
         /// </summary>
         /// <remarks>

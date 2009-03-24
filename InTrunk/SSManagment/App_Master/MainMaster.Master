@@ -5,6 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title>Система финансового управления</title>
+	<script src="../App_Scripts/jQuery/jquery-latest-min.js" type="text/javascript"></script>
+	<script src="../App_Scripts/jQuery/jquery-ui-min.js" type="text/javascript"></script>
+	<script src="../App_Scripts/jQuery/Common.js" type="text/javascript"></script>
+	<asp:ContentPlaceHolder ID="cphAppScripts" runat="server">
+	</asp:ContentPlaceHolder>
 	<link href="../App_Themes/Main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
