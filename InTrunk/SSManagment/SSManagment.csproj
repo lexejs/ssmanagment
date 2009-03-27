@@ -128,6 +128,7 @@
     <Compile Include="Models\item.cs" />
     <Compile Include="Models\logActivity.cs" />
     <Compile Include="Models\logSale.cs" />
+    <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\ssm.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -21,14 +21,13 @@ namespace SSManagment
         	AppHelper.ShopingCartSession = null;
         	AppHelper.ProductsSession = null;
 
-        	var db = new Models.ssmDataContext();
-        	var sellers = db.sellers.Where(
+			var sellers = seller.Cache.Where(
         		s =>
         		s.login.ToLower().CompareTo(txtLogin.Text.ToLower()) == 0 &&
         		s.password.ToLower().CompareTo(txtPassword.Text.ToLower()) == 0 && s.isActive.Value).ToList();
         	if (sellers.Count == 1)
         	{
-        		Models.AppHelper.CurrentUser = sellers.First();
+        		AppHelper.CurrentUser = sellers.First();
         		Response.Redirect("Seller.aspx");
 				tdPassMsg.Visible = false;
         	}

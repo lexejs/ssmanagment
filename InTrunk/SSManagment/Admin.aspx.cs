@@ -64,8 +64,7 @@ namespace SSManagment
 
 		private void lstBuyersFill()
 		{
-			var db = new ssmDataContext();
-			lstBuyers.DataSource = db.buyers.OrderBy(g => g.name).ToList();
+			lstBuyers.DataSource = buyer.Cache.OrderBy(g => g.name).ToList();
 			lstBuyers.DataTextField = "name";
 			lstBuyers.DataValueField = "id";
 			lstBuyers.DataBind();
@@ -73,8 +72,7 @@ namespace SSManagment
 
 		private void lstsellersFill()
 		{
-			var db = new ssmDataContext();
-			lstSellers.DataSource = db.sellers.OrderBy(g => g.fullName).ToList();
+			lstSellers.DataSource = seller.Cache.OrderBy(g => g.fullName).ToList();
 			lstSellers.DataTextField = "fullName";
 			lstSellers.DataValueField = "id";
 			lstSellers.DataBind();
@@ -559,11 +557,11 @@ namespace SSManagment
 			{
 				int buyerId = int.Parse(lstBuyers.SelectedValue);
 				var db = new ssmDataContext();
-				buyer buyer = db.buyers.First(b => b.id == buyerId);
-				txtBuyerName.Text = buyer.name;
-				chkBuyerCanBuyOnTick.Checked = buyer.canBuyOnTick.HasValue && buyer.canBuyOnTick.Value;
-				chkBuyerIsActive.Checked = buyer.isActive.HasValue && buyer.isActive.Value;
-				txtBuyerPct.Text = buyer.pct.HasValue ? buyer.pct.Value.ToString() : "0";
+				buyer buyerThis = buyer.Cache.First(b => b.id == buyerId);
+				txtBuyerName.Text = buyerThis.name;
+				chkBuyerCanBuyOnTick.Checked = buyerThis.canBuyOnTick.HasValue && buyerThis.canBuyOnTick.Value;
+				chkBuyerIsActive.Checked = buyerThis.isActive.HasValue && buyerThis.isActive.Value;
+				txtBuyerPct.Text = buyerThis.pct.HasValue ? buyerThis.pct.Value.ToString() : "0";
 			}
 		}
 
@@ -574,7 +572,9 @@ namespace SSManagment
 			buyer buyer = new buyer { isActive = false, name = strName, canBuyOnTick = false, pct = 0 };
 			db.buyers.InsertOnSubmit(buyer);
 			db.SubmitChanges();
+			buyer.Refresh();
 			lstBuyersFill();
+
 			if (lstBuyers.Items.FindByText(strName) != null)
 			{
 				lstBuyers.SelectedIndex = lstBuyers.Items.IndexOf(lstBuyers.Items.FindByText(strName));
@@ -597,6 +597,7 @@ namespace SSManagment
 				buyer.pct = float.TryParse(txtBuyerPct.Text, out pct) ? pct : 0;
 				buyer.isActive = chkBuyerIsActive.Checked;
 				db.SubmitChanges();
+				buyer.Refresh();
 
 				lstBuyersFill();
 
@@ -617,13 +618,12 @@ namespace SSManagment
 			if (!string.IsNullOrEmpty(lstSellers.SelectedValue))
 			{
 				int sellerID = int.Parse(lstSellers.SelectedValue);
-				var db = new ssmDataContext();
-				seller seller = db.sellers.First(b => b.id == sellerID);
-				txtSellerName.Text = seller.fullName;
-				txtSellerLogin.Text = seller.login;
-				txtSellerPass.Text = seller.password;
-				chkIsActive.Checked = seller.isActive.GetValueOrDefault();
-				chkIsAdmin.Checked = seller.isAdmin.GetValueOrDefault();
+				seller sellerThis = seller.Cache.First(b => b.id == sellerID);
+				txtSellerName.Text = sellerThis.fullName;
+				txtSellerLogin.Text = sellerThis.login;
+				txtSellerPass.Text = sellerThis.password;
+				chkIsActive.Checked = sellerThis.isActive.GetValueOrDefault();
+				chkIsAdmin.Checked = sellerThis.isAdmin.GetValueOrDefault();
 			}
 		}
 
@@ -634,7 +634,9 @@ namespace SSManagment
 			seller seller = new seller { isActive = false, fullName = sellerName, isAdmin = false, password = "pass", login = "login" };
 			db.sellers.InsertOnSubmit(seller);
 			db.SubmitChanges();
+			seller.Refresh();
 			lstsellersFill();
+
 			if (lstSellers.Items.FindByText(sellerName) != null)
 			{
 				lstSellers.SelectedIndex = lstSellers.Items.IndexOf(lstSellers.Items.FindByText(sellerName));
@@ -657,6 +659,7 @@ namespace SSManagment
 				seller.isActive = chkIsActive.Checked;
 				seller.isAdmin = chkIsAdmin.Checked;
 				db.SubmitChanges();
+				seller.Refresh();
 				lstsellersFill();
 				if (lstSellers.Items.FindByText(sellerName) != null)
 				{

@@ -7,6 +7,27 @@ namespace SSManagment.Models
 {
 	public partial class buyer
 	{
+		private static IList<buyer> cache;
+
+		public static IList<buyer> Cache
+		{
+			get
+			{
+				if (cache == null)
+				{
+					ssmDataContext db = new ssmDataContext();
+					cache = db.buyers.ToList();
+				}
+				return cache;
+			}
+		}
+
+		public static void Refresh()
+		{
+			ssmDataContext db = new ssmDataContext();
+			cache = db.buyers.ToList();
+		}
+
 		/// <summary>
 		/// Buyer run into debt 
 		/// </summary>
@@ -25,6 +46,7 @@ namespace SSManagment.Models
 				buyer.debt = cash;
 			}
 			db.SubmitChanges();
+			Refresh();
 		}
 
 		/// <summary>
@@ -45,6 +67,7 @@ namespace SSManagment.Models
 				buyer.debt = -cash;
 			}
 			db.SubmitChanges();
+			Refresh();
 		}
 	}
 }

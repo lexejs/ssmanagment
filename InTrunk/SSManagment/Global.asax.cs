@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +18,30 @@ namespace SSManagment
 		protected void Application_Start(object sender, EventArgs e)
 		{
 			log4net.Config.DOMConfigurator.Configure();
+
 			Loger.Info("Application Start");
+
+			IList<buyer> buy = buyer.Cache;
+			if (buy.Count > 0)
+			{
+				Loger.Info("buyer cache successful Loaded");
+			}
+			else
+			{
+				Loger.Info("buyer cache not Loaded or buyer.count = 0");
+			}
+			buy.Clear();
+
+			IList<seller> sel = seller.Cache;
+			if (sel.Count > 0)
+			{
+				Loger.Info("seller cache successful Loaded");
+			}
+			else
+			{
+				Loger.Info("seller cache not Loaded or seller.count = 0");
+			}
+			sel.Clear();
 		}
 
 		protected void Session_Start(object sender, EventArgs e)

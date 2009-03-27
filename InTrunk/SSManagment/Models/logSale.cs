@@ -98,7 +98,7 @@ namespace SSManagment.Models
 						db.logSales.Where(b => b.isGiveBack == false && b.date.Value.Year == buyDate.Value.Year && b.date.Value.Month == buyDate.Value.Month && b.date.Value.Day == buyDate.Value.Day).ToList()
 			       	   	: db.logSales.Where(b => b.isGiveBack == false).ToList());
 
-			var resJoinBuers1 = list.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+			var resJoinBuers1 = list.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
 			{
 				buerName = c.name,
 				d.buyerId,
@@ -113,7 +113,7 @@ namespace SSManagment.Models
 				d.logBprice
 			});
 
-			return resJoinBuers1.ToList();
+			return resJoinBuers1.OrderByDescending(ord => ord.date).ToList();
 		}
 
 		public static logSale GetLogSalesById(int id)
@@ -124,7 +124,7 @@ namespace SSManagment.Models
 
 		private static object GetLogSalesList(IQueryable<logSale> rootQuery, ssmDataContext db)
 		{
-			var logSalesJoinSeller = rootQuery.Join(db.sellers, d => d.sellerId, c => c.id, (d, c) => new
+			var logSalesJoinSeller = rootQuery.Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
 			{
 				sellerName = c.fullName,
 				d.buyerId,
@@ -136,7 +136,7 @@ namespace SSManagment.Models
 				d.itemsCount,
 				d.sellerId
 			});
-			var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+			var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
 			{
 				buerName = c.name,
 				d.buyerId,
@@ -178,7 +178,7 @@ namespace SSManagment.Models
 			{
 				ssmDataContext db = new ssmDataContext();
 
-				var logSalesJoinSeller = db.logSales.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id).Join(db.sellers, d => d.sellerId, c => c.id, (d, c) => new
+				var logSalesJoinSeller = db.logSales.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id).Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
 			{
 				sellerName = c.fullName,
 				d.buyerId,
@@ -190,7 +190,7 @@ namespace SSManagment.Models
 				d.itemsCount,
 				d.sellerId
 			});
-				var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(db.buyers, d => d.buyerId, c => c.id, (d, c) => new
+				var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
 				{
 					buerName = c.name,
 					d.buyerId,

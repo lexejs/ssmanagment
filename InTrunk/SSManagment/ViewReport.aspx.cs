@@ -39,15 +39,14 @@ namespace SSManagment
 
         private void ComboBoxesFill()
         {
-            var db = new ssmDataContext();
-            List<seller> list = db.sellers.OrderBy(g => g.fullName).ToList();
+			List<seller> list = seller.Cache.OrderBy(g => g.fullName).ToList();
             list.Insert(0, new seller { fullName = "Все" });
             lstSellers.DataSource = list;
             lstSellers.DataTextField = "fullName";
             lstSellers.DataValueField = "id";
             lstSellers.DataBind();
 
-            List<buyer> blist = db.buyers.OrderBy(b => b.name).ToList();
+            List<buyer> blist = buyer.Cache.OrderBy(b => b.name).ToList();
             blist.Insert(0, new buyer { name = "Все" });
             drpBuyers.DataSource = blist;
             drpBuyers.DataValueField = "id";
@@ -85,8 +84,8 @@ namespace SSManagment
 
 
             IEnumerable<SalesDataSource> list = db.logSales
-                .Join(db.buyers, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
-                .Join(db.sellers, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
+                .Join(buyer.Cache, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
+                .Join(seller.Cache, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
                 .Where(
                 s =>
                 (sellerId == 0 || s.logSalesB.logSales.sellerId == sellerId)

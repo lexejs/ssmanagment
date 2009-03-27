@@ -84,8 +84,7 @@ namespace SSManagment
 
 		private void LoadingBuyers()
 		{
-			ssmDataContext db = new ssmDataContext();
-			var tmpList = db.buyers.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
+			var tmpList = buyer.Cache.Where(b => b.isActive.HasValue && b.isActive.Value).ToList();
 
 			drpBuyer.DataSource = tmpList;
 			drpBuyer.DataTextField = "name";

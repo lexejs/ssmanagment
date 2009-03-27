@@ -47,8 +47,8 @@ namespace SSManagment
 
 
 			IEnumerable<SalesDataSource> list = db.logSales
-				.Join(db.buyers, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
-				.Join(db.sellers, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
+				.Join(buyer.Cache, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
+				.Join(seller.Cache, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
 				.Where(
 				s =>
 				(s.logSalesB.logSales.sid.Value == sID && s.logSalesB.logSales.isGiveBack == false)

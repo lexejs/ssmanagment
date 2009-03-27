@@ -154,8 +154,7 @@ namespace SSManagment.Models
         public static void BuyShopingCart(IList<ShopingCart> shop, IList<item> products, int sellerId, int buyerId, bool isDebt)
         {
         	int sid = AppHelper.GetSID();
-			ssmDataContext db = new ssmDataContext();
-			buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == buyerId);
+			buyer br = buyer.Cache.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == buyerId);
 
             foreach (ShopingCart shpProduct in shop)
 			{

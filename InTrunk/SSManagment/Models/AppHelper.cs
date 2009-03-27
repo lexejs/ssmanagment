@@ -105,8 +105,7 @@ namespace SSManagment.Models
 			if (ShopingCartSession != null && ShopingCartSession.Count > 0)
 			{
 				spanTmp.Visible = true;
-				ssmDataContext db = new ssmDataContext();
-				buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
+				buyer br = buyer.Cache.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
 				if (br != null)
 				{
 					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
@@ -124,8 +123,7 @@ namespace SSManagment.Models
 			if (ShopingCartSession != null && ShopingCartSession.Count > 0)
 			{
 				spanTmp.Visible = true;
-				ssmDataContext db = new ssmDataContext();
-				buyer br = db.buyers.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
+				buyer br = buyer.Cache.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
 				if (br != null)
 				{
 					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
