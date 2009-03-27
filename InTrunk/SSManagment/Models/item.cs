@@ -203,13 +203,13 @@ namespace SSManagment.Models
 		public static IList<item> GetOrderList()
 		{
 			ssmDataContext db = new ssmDataContext();
-			return db.items.Where(b => b.order.Value == true && b.count > b.countToOrder).ToList();
+			return db.items.Where(b => b.order.Value && b.count > b.countToOrder).ToList();
 		}
 
 		public static IList<item> GetEndItemList()
 		{
 			ssmDataContext db = new ssmDataContext();
-			return db.items.Where(b => b.order.Value == true && b.count <= b.countToOrder).ToList();
+			return db.items.Where(b => b.order.Value && b.count <= b.countToOrder).ToList();
 		}
 
 

@@ -695,7 +695,10 @@ namespace SSManagment
 
 		private void LoadReturnGredView()
 		{
-			gvwReturn.DataSource = logSale.GetSalesForGiveBackList(txtReturnProductCode.Text, txtReturnProductSoldDate.Text);
+			DateTime date;
+			gvwReturn.DataSource = DateTime.TryParse(txtReturnProductSoldDate.Text, out date) ? 
+				logSale.GetSalesForGiveBackList(txtReturnProductCode.Text, date) 
+				: logSale.GetSalesForGiveBackList(txtReturnProductCode.Text, null);
 			gvwReturn.DataBind();
 		}
 
@@ -705,21 +708,12 @@ namespace SSManagment
 
 		protected void calReturnProductSoldDate_SelectionChanged(object sender, EventArgs e)
 		{
-			if (calReturnProductSoldDate.SelectedDate <= DateTime.Now)
-			{
-				calReturnProductSoldDate.SelectedDate = DateTime.Now;
-			}
-
-			txtReturnProductSoldDate.Text = calReturnProductSoldDate.SelectedDate.ToString();
+			txtReturnProductSoldDate.Text = calReturnProductSoldDate.SelectedDate.ToShortDateString();
 		}
 
 		protected void ibtnShowCalendar_Click(object sender, ImageClickEventArgs e)
 		{
 			calReturnProductSoldDate.Visible = !calReturnProductSoldDate.Visible;
-			if (!calReturnProductSoldDate.Visible)
-			{
-				txtReturnProductSoldDate.Text = "";
-			}
 		}
 
 		protected void btnReturnOk_Click(object sender, EventArgs e)

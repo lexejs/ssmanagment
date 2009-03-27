@@ -614,7 +614,7 @@
 																<table cellpadding="0" cellspacing="0" width="200px">
 																	<tr>
 																		<td valign="middle">
-																			<asp:TextBox ID="txtReturnProductSoldDate" ReadOnly="true" runat="server" Width="150px"></asp:TextBox>
+																			<asp:TextBox ID="txtReturnProductSoldDate" runat="server" Width="150px"></asp:TextBox>
 																		</td>
 																		<td valign="middle">
 																			<asp:ImageButton ID="ibtnShowCalendar" runat="server" OnClick="ibtnShowCalendar_Click" ImageUrl="~/App_Themes/Main/Icons/Calendar48.png" />
@@ -659,6 +659,9 @@
 																</asp:BoundField>
 																<asp:BoundField HeaderText="Покупатель" DataField="buerName">
 																	<ControlStyle Width="50px" />
+																	<ItemStyle HorizontalAlign="Right" />
+																</asp:BoundField>
+																<asp:BoundField HeaderText="Дата продажи" DataField="date" ItemStyle-HorizontalAlign="Right">
 																	<ItemStyle HorizontalAlign="Right" />
 																</asp:BoundField>
 																<asp:BoundField HeaderText="Цена" DataFormatString="{0}р." DataField="logBprice" NullDisplayText="уточнить" ItemStyle-HorizontalAlign="Right">
