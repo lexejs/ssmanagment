@@ -1328,7 +1328,7 @@ namespace SSManagment.Models
 			}
 		}
 		
-		[Column(Name="buyerId", Storage="_buyerId", DbType="Int")]
+		[Column(Name="sellerId", Storage="_buyerId", DbType="Int")]
 		public System.Nullable<int> SellerId
 		{
 			get

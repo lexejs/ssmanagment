@@ -13,7 +13,7 @@ namespace SSManagment.Models
 		{
 			get
 			{
-				if (cache == null)
+				if (cache == null || cache.Count <= 0)
 				{
 					ssmDataContext db = new ssmDataContext();
 					cache = db.sellers.ToList();
