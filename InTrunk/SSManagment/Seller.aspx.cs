@@ -134,6 +134,7 @@ namespace SSManagment
 		private void LoadingShopingCart()
 		{
 			btnBuy.Visible = AppHelper.ShopingCartSession.Count > 0;
+			btn_ClearByeList.Visible = btnBuy.Visible;
 
 			AppHelper.CalcShopingCartSum(lblSum, spanShopingCartSum, drpBuyer);
 
@@ -185,6 +186,12 @@ namespace SSManagment
 		protected void btnBuy_Click(object sender, EventArgs e)
 		{
 			ShowModalBuyConfirm();
+		}
+
+		protected void btn_ClearByeList_Click(object sender, EventArgs e)
+		{
+			AppHelper.ShopingCartSession.Clear();
+			LoadingShopingCart();
 		}
 
 		protected void btnDemand_Click(object sender, EventArgs e)
@@ -301,6 +308,7 @@ namespace SSManagment
 						{
 
 							btnBuy.Visible = false;
+							btn_ClearByeList.Visible = btnBuy.Visible;
 						}
 						gvwProducts.DataSource = AppHelper.ProductsSession;
 						gvwProducts.DataBind();

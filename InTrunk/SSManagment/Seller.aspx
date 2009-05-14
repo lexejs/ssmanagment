@@ -154,6 +154,12 @@
 								<div class="clear"></div>
 								<table cellpadding="0" cellspacing="0" width="100%" style="margin-left: -3px">
 									<tr>
+										<td>
+											<button id="btn_ClearByeList" runat="server" style="width: 100%" onserverclick="btn_ClearByeList_Click">
+												<span><em>Очистить</em></span></button>
+										</td>
+									</tr>
+									<tr>
 										<td align="center">
 											<asp:GridView ID="gvwShoppingCart" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CellPadding="2" ForeColor="Black" GridLines="Vertical" OnRowCommand="gvwShoppingCart_RowCommand" OnRowDeleting="gvwShoppingCart_RowDeleting" Font-Size="7pt">
 												<RowStyle BackColor="#F7F7DE" />
