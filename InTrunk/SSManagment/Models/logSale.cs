@@ -124,7 +124,9 @@ namespace SSManagment.Models
 
 		private static object GetLogSalesList(IQueryable<logSale> rootQuery, ssmDataContext db)
 		{
-			var logSalesJoinSeller = rootQuery.Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
+			var logSalesJoinSeller = rootQuery
+				.ToList()
+				.Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
 			{
 				sellerName = c.fullName,
 				d.buyerId,
@@ -136,7 +138,9 @@ namespace SSManagment.Models
 				d.itemsCount,
 				d.sellerId
 			});
-			var logSalesJoinSellerBuyer = logSalesJoinSeller.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
+
+			var logSalesJoinSellerBuyer = logSalesJoinSeller
+				.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
 			{
 				buerName = c.name,
 				d.buyerId,
@@ -149,18 +153,20 @@ namespace SSManagment.Models
 				d.sellerId,
 				d.sellerName
 			});
-			var res = logSalesJoinSellerBuyer.Join(db.items, d => d.itemId, c => c.id, (d, c) => new
-																					{
-																						SellerName = d.sellerName,
-																						BuyerName = d.buerName,
-																						ItemName = c.name,
-																						LogCash = d.cash,
-																						Logdate = d.date,
-																						ItemsCount = d.itemsCount,
-																						d.isGiveBack,
-																						d.id
 
-																					});
+			var res = logSalesJoinSellerBuyer
+				.Join(db.items, d => d.itemId, c => c.id, (d, c) => new
+			{
+				SellerName = d.sellerName,
+				BuyerName = d.buerName,
+				ItemName = c.name,
+				LogCash = d.cash,
+				Logdate = d.date,
+				ItemsCount = d.itemsCount,
+				d.isGiveBack,
+				d.id
+
+			});
 
 			return res.OrderBy(f => f.Logdate).ToList();
 		}
@@ -178,7 +184,10 @@ namespace SSManagment.Models
 			{
 				ssmDataContext db = new ssmDataContext();
 
-				var logSalesJoinSeller = db.logSales.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id).Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
+				var logSalesJoinSeller = db.logSales
+					.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id)
+					.ToList()
+					.Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
 			{
 				sellerName = c.fullName,
 				d.buyerId,
