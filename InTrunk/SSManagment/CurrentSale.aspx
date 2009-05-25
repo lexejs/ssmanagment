@@ -9,6 +9,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <span>
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Seller.aspx">К продажам</asp:HyperLink></span>
+
     <div>
     <rsweb:ReportViewer ID="reportViewer1" runat="server"
 		Width="100%" ShowBackButton="True" AsyncRendering="false">

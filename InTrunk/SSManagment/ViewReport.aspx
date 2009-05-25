@@ -9,6 +9,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <span>
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Seller.aspx">К продажам</asp:HyperLink></span>
     <div>
 		<span>Продавец 
 			<asp:DropDownList ID="lstSellers" runat="server">
