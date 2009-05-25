@@ -192,6 +192,9 @@ namespace SSManagment
 		{
 			AppHelper.ShopingCartSession.Clear();
 			LoadingShopingCart();
+			gvwProducts.DataSource = AppHelper.ProductsSession ?? null;
+			gvwProducts.DataBind();
+
 		}
 
 		protected void btnDemand_Click(object sender, EventArgs e)

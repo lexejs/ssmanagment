@@ -46,14 +46,17 @@ namespace SSManagment
 			var db = new ssmDataContext();
 
 
-			IEnumerable<SalesDataSource> list = db.logSales
+			IEnumerable<SalesDataSource> list = db.logSales.ToList()
 				.Join(buyer.Cache, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
 				.Join(seller.Cache, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
+				
 				.Where(
 				s =>
 				(s.logSalesB.logSales.sid.Value == sID && s.logSalesB.logSales.isGiveBack == false)
 
-				).Select(s => new SalesDataSource
+				)
+				
+				.Select(s => new SalesDataSource
 								 {
 									 Buyer = s.logSalesB.Buyer.name,
 									 Cash = s.logSalesB.logSales.cash.GetValueOrDefault(),

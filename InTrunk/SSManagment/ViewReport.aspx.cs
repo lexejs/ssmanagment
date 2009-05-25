@@ -83,10 +83,11 @@ namespace SSManagment
             }
 
 
-            IEnumerable<SalesDataSource> list = db.logSales
+            IEnumerable<SalesDataSource> list = db.logSales.ToList()
                 .Join(buyer.Cache, l => l.buyerId, b => b.id, (l, b) => new { logSales = l, Buyer = b })
                 .Join(seller.Cache, l => l.logSales.sellerId, s => s.id, (l, s) => new { logSalesB = l, Seller = s })
-                .Where(
+				
+				.Where(
                 s =>
                 (sellerId == 0 || s.logSalesB.logSales.sellerId == sellerId)
                 &&
@@ -96,7 +97,9 @@ namespace SSManagment
                 &&
                 (s.logSalesB.logSales.date.GetValueOrDefault() <= toDate && s.logSalesB.logSales.date.GetValueOrDefault() >= fromDate)
 
-                ).Select(s => new SalesDataSource
+                )
+				
+				.Select(s => new SalesDataSource
                                  {
                                      Buyer = s.logSalesB.Buyer.name,
                                      Cash = s.logSalesB.logSales.cash.GetValueOrDefault(),
