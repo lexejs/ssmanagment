@@ -104,9 +104,9 @@
 											</ItemTemplate>
 											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
-										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" Visible="false">
 											<ItemTemplate>
-												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/16px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать" />
+												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/16px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать"/>
 											</ItemTemplate>
 											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
