@@ -228,8 +228,8 @@ namespace SSManagment
 		{
 			HideAll();
 			tblForOrder.Visible = true;
+			ForOrderFill();
 
-			MessagesFill();
 		}
 
 		protected void btnShowMessage_Click(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace SSManagment
 			HideAll();
 			tblMessages.Visible = true;
 
-			ForOrderFill();
+			MessagesFill();
 		}
 
 		protected void btnShowEndItems_Click(object sender, EventArgs e)
