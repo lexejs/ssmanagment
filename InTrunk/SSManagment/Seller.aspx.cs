@@ -527,6 +527,8 @@ namespace SSManagment
 			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 
+			drpBuyer.SelectedIndex = -1;
+
 			modalSingleBuy.Visible = false;
 
 			if (chkViewReportSingleBuy.Checked)
