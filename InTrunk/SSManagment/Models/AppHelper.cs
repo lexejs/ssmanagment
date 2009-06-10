@@ -83,7 +83,7 @@ namespace SSManagment.Models
 				{
 					value = (int)Math.Round(val.Value, 0);
 
-					if (value <= 10)
+					if (value < 10)
 					{
 						return 0;
 					}

@@ -20,7 +20,7 @@
   <LeftMargin>2.5cm</LeftMargin>
   <BottomMargin>2.5cm</BottomMargin>
   <rd:ReportID>b4980179-ee07-4234-bdec-6b6dd8d806aa</rd:ReportID>
-  <PageWidth>21cm</PageWidth>
+  <PageWidth>30cm</PageWidth>
   <DataSets>
     <DataSet Name="SalesDataSource">
       <Fields>

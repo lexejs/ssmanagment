@@ -13,14 +13,14 @@
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
   <rd:DrawGrid>true</rd:DrawGrid>
-  <InteractiveWidth>8.5in</InteractiveWidth>
+  <InteractiveWidth>15in</InteractiveWidth>
   <rd:GridSpacing>0.25cm</rd:GridSpacing>
   <rd:SnapToGrid>true</rd:SnapToGrid>
   <RightMargin>2.5cm</RightMargin>
   <LeftMargin>2.5cm</LeftMargin>
   <BottomMargin>2.5cm</BottomMargin>
   <rd:ReportID>b4980179-ee07-4234-bdec-6b6dd8d806aa</rd:ReportID>
-  <PageWidth>21cm</PageWidth>
+  <PageWidth>30cm</PageWidth>
   <DataSets>
     <DataSet Name="SalesDataSource">
       <Fields>
@@ -326,12 +326,12 @@
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
         <Height>0.91429cm</Height>
-        <Value>Sale                                                                            Report</Value>
+        <Value>ОТЧЁТ ПО ПРОДАЖАМ</Value>
       </Textbox>
       <Table Name="table1">
         <DataSetName>SalesDataSource</DataSetName>
         <Top>3.25cm</Top>
-        <Width>20.25cm</Width>
+        <Width>19.88438cm</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -442,7 +442,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!IsGiveBack.Value</Value>
+                      <Value>=IIF(Fields!IsGiveBack.Value,"ДА","-")</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -745,28 +745,28 @@
         </Header>
         <TableColumns>
           <TableColumn>
-            <Width>2.78438cm</Width>
+            <Width>2.25cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.75cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.75cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>4.25cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.85cm</Width>
           </TableColumn>
           <TableColumn>
             <Width>2.78438cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.27813cm</Width>
+            <Width>1.75cm</Width>
           </TableColumn>
           <TableColumn>
-            <Width>3.54375cm</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>2.025cm</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>2.78438cm</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>1.77188cm</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>2.27812cm</Width>
+            <Width>2.5cm</Width>
           </TableColumn>
         </TableColumns>
         <Height>1.72698cm</Height>

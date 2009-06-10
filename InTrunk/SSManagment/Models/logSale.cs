@@ -42,16 +42,16 @@ namespace SSManagment.Models
 		{
 			var db = new ssmDataContext();
 			var logSale = new logSale
-							  {
-								  buyerId = buyerId,
-								  sellerId = sellerId,
-								  itemId = itemId,
-								  itemsCount = itemsCount,
-								  date = DateTime.Now,
-								  isGiveBack = false,
-								  cash = cash,
-								  sid = sid
-							  };
+								{
+									buyerId = buyerId,
+									sellerId = sellerId,
+									itemId = itemId,
+									itemsCount = itemsCount,
+									date = DateTime.Now,
+									isGiveBack = false,
+									cash = cash,
+									sid = sid
+								};
 			db.logSales.InsertOnSubmit(logSale);
 			db.items.First(i => i.id == itemId).count -= itemsCount;
 			db.SubmitChanges();
@@ -71,16 +71,16 @@ namespace SSManagment.Models
 			}
 
 			var logSale = new logSale
-							  {
-								  buyerId = buyerId,
-								  sellerId = sellerId,
-								  itemId = itemId,
-								  itemsCount = itemsCount,
-								  date = DateTime.Now,
-								  isGiveBack = true,
-								  cash = cash,
-								  sid = sid
-							  };
+								{
+									buyerId = buyerId,
+									sellerId = sellerId,
+									itemId = itemId,
+									itemsCount = itemsCount,
+									date = DateTime.Now,
+									isGiveBack = true,
+									cash = cash,
+									sid = sid
+								};
 			db.logSales.InsertOnSubmit(logSale);
 			db.SubmitChanges();
 		}
@@ -93,10 +93,10 @@ namespace SSManagment.Models
 			list = (!string.IsNullOrEmpty(GUID)) && (int.TryParse(GUID, out sid)) ?
 					(buyDate != null ?
 						db.logSales.Where(b => b.isGiveBack == false && b.date.Value.Year == buyDate.Value.Year && b.date.Value.Month == buyDate.Value.Month && b.date.Value.Day == buyDate.Value.Day).ToList()
-			       	   	: db.logSales.Where(b => b.isGiveBack == false && b.sid == sid).ToList())
-			       	: (buyDate != null ?
+									: db.logSales.Where(b => b.isGiveBack == false && b.sid == sid).ToList())
+							: (buyDate != null ?
 						db.logSales.Where(b => b.isGiveBack == false && b.date.Value.Year == buyDate.Value.Year && b.date.Value.Month == buyDate.Value.Month && b.date.Value.Day == buyDate.Value.Day).ToList()
-			       	   	: db.logSales.Where(b => b.isGiveBack == false).ToList());
+									: db.logSales.Where(b => b.isGiveBack == false).ToList());
 
 			var resJoinBuers1 = list.Join(buyer.Cache, d => d.buyerId, c => c.id, (d, c) => new
 			{
@@ -185,7 +185,11 @@ namespace SSManagment.Models
 				ssmDataContext db = new ssmDataContext();
 
 				var logSalesJoinSeller = db.logSales
-					.Where(g => g.isGiveBack == true && g.sellerId != AppHelper.CurrentUser.id)
+					.Where(g => g.isGiveBack == true
+						/// будем апрувить все возвраты
+						/// && g.sellerId != AppHelper.CurrentUser.id
+						&& g.itemsCount != 0
+						)
 					.ToList()
 					.Join(seller.Cache, d => d.sellerId, c => c.id, (d, c) => new
 			{
@@ -241,6 +245,7 @@ namespace SSManagment.Models
 				{
 					log.sellerId = AppHelper.CurrentUser.id;
 					itm.count += log.itemsCount;
+					log.itemsCount = 0;
 					db.SubmitChanges();
 				}
 			}

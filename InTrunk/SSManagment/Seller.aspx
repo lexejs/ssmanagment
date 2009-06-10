@@ -678,10 +678,6 @@
 																	<ControlStyle Width="50px" />
 																	<ItemStyle HorizontalAlign="Right" />
 																</asp:BoundField>
-																<asp:BoundField>
-																	<ControlStyle Width="50px" />
-																	<ItemStyle HorizontalAlign="Right" />
-																</asp:BoundField>
 																<asp:TemplateField HeaderText="»того" ItemStyle-HorizontalAlign="Right">
 																	<ItemTemplate>
 																		<asp:Label ID="lblReturnItogo" runat="server" Text='<%# Bind("cash") %>'></asp:Label><span>р.</span> </ItemTemplate>
