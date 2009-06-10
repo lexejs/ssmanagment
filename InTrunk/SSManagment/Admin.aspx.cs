@@ -173,7 +173,7 @@ namespace SSManagment
 				}
 				else if (button.ID.ToLower().Contains("groups"))
 				{
-					tblItems.Visible = !tblGroup.Visible;
+					tblGroup.Visible = !tblGroup.Visible;
 					lstGroupFill();
 				}
 				else if (button.ID.ToLower().Contains("buyer"))
