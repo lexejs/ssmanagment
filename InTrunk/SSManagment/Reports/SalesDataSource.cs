@@ -13,7 +13,7 @@ namespace SSManagment
         public int SID { get; set; }
         public string Buyer { get; set; }
         public string Item { get; set; }
-        public int ItemsCount { get; set; }
+        public float ItemsCount { get; set; }
         public bool IsGiveBack { get; set; }
     }
 }

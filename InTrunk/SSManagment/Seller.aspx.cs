@@ -11,7 +11,7 @@ namespace SSManagment
 {
 	public class ShopingCart : item
 	{
-		public ShopingCart(item product, int buyCount)
+		public ShopingCart(item product, float buyCount)
 		{
 			adminPrice = product.adminPrice;
 			bprice = product.bprice;
@@ -32,7 +32,7 @@ namespace SSManagment
 			BuyCount = buyCount;
 		}
 
-		public int BuyCount { get; set; }
+		public float BuyCount { get; set; }
 		public double? ResultPrice
 		{
 			get
@@ -44,7 +44,7 @@ namespace SSManagment
 
 	public partial class Seller : Page
 	{
-		private const string FindCategori = "По поисковаму запросу!";
+		private const string FindCategori = "По поисковому запросу!";
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -367,8 +367,8 @@ namespace SSManagment
 			ShopingCart shop =
 					AppHelper.ShopingCartSession.FirstOrDefault(
 						b => b.id == Convert.ToInt32(((Label)((Control)(sender)).FindControl("lblID")).Text));
-			int count;
-			if (int.TryParse(((TextBox)sender).Text, out count))
+			float count;
+			if (float.TryParse(((TextBox)sender).Text, out count))
 			{
 				if (shop != null)
 				{
@@ -755,8 +755,8 @@ namespace SSManagment
 			{
 				if (e.CommandName.ToLower() == "return")
 				{
-					int count;
-					if (int.TryParse(((TextBox)((Control)(e.CommandSource)).FindControl("txtReturnCount")).Text, out count))
+					float count;
+					if (float.TryParse(((TextBox)((Control)(e.CommandSource)).FindControl("txtReturnCount")).Text, out count))
 					{
 						ShowReturnConfirm(id, count);
 					}
@@ -777,7 +777,7 @@ namespace SSManagment
 
 		#region Methods
 
-		private void ShowReturnConfirm(int id, int count)
+		private void ShowReturnConfirm(int id, float count)
 		{
 			logSale log = logSale.GetLogSalesById(id);
 			item itm = item.GetById(log.itemId.Value);
@@ -790,7 +790,7 @@ namespace SSManagment
 				lblReturnModalCount.Text = count.ToString();
 				hdnReturnID.Value = id.ToString();
 				modalReturnConfirm.Visible = true;
-				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count).ToString("0р.");
+				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count,true).ToString("0р.");
 			}
 		}
 
@@ -800,7 +800,7 @@ namespace SSManagment
 
 		protected void btnReturnConfirmOk_Click(object sender, EventArgs e)
 		{
-			int count = Convert.ToInt32(lblReturnModalCount.Text);
+			float count = float.Parse(lblReturnModalCount.Text);
 			int sum = Convert.ToInt32(lbleturnModalSum.Text.Replace("р",""));
 				logSale log = logSale.GetLogSalesById(int.Parse(hdnReturnID.Value));
 

@@ -73,6 +73,30 @@ namespace SSManagment.Models
 
 		#endregion
 
+		public static int RoundTo10(double? val, bool down)
+		{
+			if (down)
+			{
+				int value = 0;
+
+				if (val != null)
+				{
+					value = (int)Math.Round(val.Value, 0);
+
+					if (value <= 10)
+					{
+						return 0;
+					}
+
+					int last = Convert.ToInt32(value.ToString()[value.ToString().Length - 1].ToString());
+					value = value - last;
+				}
+
+				return value;
+			}
+			return RoundTo10(val);
+		}
+
 		public static int RoundTo10(double? val)
 		{
 			int value = 0;

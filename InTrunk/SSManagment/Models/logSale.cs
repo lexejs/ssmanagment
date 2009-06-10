@@ -11,7 +11,7 @@ namespace SSManagment.Models
 		public string BuyerName { get; set; }
 		public double? LogCash { get; set; }
 		public System.DateTime? Logdate { get; set; }
-		public int? ItemsCount { get; set; }
+		public float? ItemsCount { get; set; }
 		public bool? LogIsGiveBack { get; set; }
 		public int LogId { get; set; }
 	}
@@ -38,7 +38,7 @@ namespace SSManagment.Models
 			}
 		}
 
-		public static void Sale(int buyerId, int sellerId, int itemId, int itemsCount, float cash, int sid)
+		public static void Sale(int buyerId, int sellerId, int itemId, float itemsCount, float cash, int sid)
 		{
 			var db = new ssmDataContext();
 			var logSale = new logSale
@@ -57,7 +57,7 @@ namespace SSManagment.Models
 			db.SubmitChanges();
 		}
 
-		public static void GiveBack(int buyerId, int sellerId, int itemId, int itemsCount, float cash, int sid)
+		public static void GiveBack(int buyerId, int sellerId, int itemId, float itemsCount, float cash, int sid)
 		{
 
 			var db = new ssmDataContext();
