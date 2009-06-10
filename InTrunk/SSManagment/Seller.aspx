@@ -106,7 +106,7 @@
 										</asp:TemplateField>
 										<asp:TemplateField ShowHeader="False" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" Visible="false">
 											<ItemTemplate>
-												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/16px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать"/>
+												<asp:ImageButton ID="ibtnSale" runat="server" CausesValidation="false" CommandName="sale" CommandArgument='<%# Eval("id") %>' ImageUrl="~/App_Themes/Main/Icons/16px-Emblem-advertisement-dollar.svg.png" ToolTip="Продать" />
 											</ItemTemplate>
 											<ControlStyle Height="16px" Width="16px" />
 										</asp:TemplateField>
@@ -426,7 +426,7 @@
 											</tr>
 											<tr>
 												<td colspan="3">
-													<asp:CheckBox ID="chkViewReportSingleBuy" runat="server" Text="Показать отчет по продаже"/>
+													<asp:CheckBox ID="chkViewReportSingleBuy" runat="server" Text="Показать отчет по продаже" />
 												</td>
 											</tr>
 											<tr>
@@ -601,6 +601,13 @@
 									<div class="clear"></div>
 									<center>
 										<table width="100%">
+											<tr>
+												<td>
+													<br />
+													<button id="Button1" runat="server" style="width: 75px;" onserverclick="btnReturnOk_Click">
+														<span><em>Закрыть</em></span></button>
+												</td>
+											</tr>
 											<tr>
 												<td align="center">
 													<table cellpadding="0" cellspacing="0" width="100%">
