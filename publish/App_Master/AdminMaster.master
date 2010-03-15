@@ -1,0 +1,30 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/App_Master/MainMaster.Master" AutoEventWireup="true" CodeBehind="AdminMaster.master.cs" Inherits="SSManagment.App_Master.Admin" %>
+
+<asp:Content ID="cntHeader" ContentPlaceHolderID="cphStandartHeader" runat="server">
+</asp:Content>
+
+<asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
+	<table width="100%">
+		<tr>
+			<td valign="top">
+				<asp:UpdatePanel ID="uplAdminMenu" runat="server" UpdateMode="Always">
+					<ContentTemplate>
+						<asp:ContentPlaceHolder ID="cphAdminMenu" runat="server">
+						</asp:ContentPlaceHolder>
+					</ContentTemplate>
+				</asp:UpdatePanel>
+			</td>
+			<td  style="width:100%" valign="top">
+				<asp:UpdatePanel ID="uplAdminObject" runat="server" UpdateMode="Always">
+					<ContentTemplate>
+						<asp:ContentPlaceHolder ID="cphAdminObject" runat="server">
+						</asp:ContentPlaceHolder>
+					</ContentTemplate>
+				</asp:UpdatePanel>
+			</td>
+		</tr>
+	</table>
+</asp:Content>
+
+<asp:Content ID="cntFooter" ContentPlaceHolderID="cphStandartFooter" runat="server">
+</asp:Content>

@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/App_Master/MainMaster.Master" AutoEventWireup="true"
+    CodeBehind="SellerMaster.master.cs" Inherits="SSManagment.App_Master.SellerMaster" %>
+    
+<asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
+	<table width="100%">
+        <tr>
+            <td valign="top">
+                <asp:ContentPlaceHolder ID="cphStandartCategories" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+            <td valign="top" style="width:100%">
+                <asp:ContentPlaceHolder ID="cphStandartProducts" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+            <td valign="top">
+                <asp:ContentPlaceHolder ID="cphStandartBuy" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+        </tr>
+    </table>
+</asp:Content>
+
+<asp:Content ID="cphFooter" ContentPlaceHolderID="cphStandartFooter" runat="server">
+	<asp:ContentPlaceHolder ID="StandartFooter" runat="server">
+	</asp:ContentPlaceHolder>
+</asp:Content>
