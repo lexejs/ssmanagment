@@ -487,7 +487,12 @@ namespace SSManagment
 
 				item.name = txtItemName.Text;
 				item.measure = txtItemMeasure.Text;
-				item.count = int.Parse(txtItemCount.Text);
+				var count = int.Parse(txtItemCount.Text);
+				if (item.count != count)
+				{
+					item.order = false;
+				}
+				item.count = count;
 				item.adminPrice = float.Parse(txtItemAdminPrice.Text);
 				item.pct = float.Parse(txtItemPct.Text);
 				item.countToOrder = int.Parse(txtItemOrderCount.Text);

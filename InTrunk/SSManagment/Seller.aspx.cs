@@ -480,6 +480,8 @@ namespace SSManagment
 			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 
+			drpBuyer.SelectedIndex = 0;
+
 			modalBuyConfirm.Visible = false;
 
 			if (chkViewReportShopConfirm.Checked)
@@ -527,7 +529,7 @@ namespace SSManagment
 			gvwProducts.DataSource = AppHelper.ProductsSession;
 			gvwProducts.DataBind();
 
-			drpBuyer.SelectedIndex = -1;
+			drpBuyer.SelectedIndex = 0;
 
 			modalSingleBuy.Visible = false;
 

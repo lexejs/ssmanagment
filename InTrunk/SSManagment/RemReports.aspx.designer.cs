@@ -11,7 +11,7 @@
 namespace SSManagment {
     
     
-    public partial class ViewReport {
+    public partial class RemReports {
         
         /// <summary>
         /// form1 control.
@@ -23,15 +23,6 @@ namespace SSManagment {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// HyperLink1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
-        
-        /// <summary>
         /// HyperLink2 control.
         /// </summary>
         /// <remarks>
@@ -39,33 +30,6 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
-        
-        /// <summary>
-        /// lstSellers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList lstSellers;
-        
-        /// <summary>
-        /// drpBuyers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpBuyers;
-        
-        /// <summary>
-        /// chkIsGiveBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsGiveBack;
         
         /// <summary>
         /// txtDateFrom control.
@@ -86,13 +50,13 @@ namespace SSManagment {
         protected global::System.Web.UI.WebControls.TextBox txtDateTo;
         
         /// <summary>
-        /// btnShow control.
+        /// btnGO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShow;
+        protected global::System.Web.UI.WebControls.Button btnGO;
         
         /// <summary>
         /// lblMessage control.
@@ -102,14 +66,5 @@ namespace SSManagment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-        
-        /// <summary>
-        /// reportViewer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer reportViewer1;
     }
 }

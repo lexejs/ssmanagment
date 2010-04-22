@@ -16,7 +16,8 @@
 <body>
 	<form id="form1" runat="server">
 	<span>
-		<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Seller.aspx">К продажам</asp:HyperLink></span>
+		<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Seller.aspx">К продажам</asp:HyperLink>
+		<asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="RemReports.aspx">Удаление</asp:HyperLink></span>
 	<div>
 		<span>Продавец
 			<asp:DropDownList ID="lstSellers" runat="server">
