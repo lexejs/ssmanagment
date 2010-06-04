@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Security;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -15,8 +16,16 @@ namespace SSManagment
 	{
 		public static ILog Loger = LogManager.GetLogger(typeof(Global));
 
+		public void CheckTEstPeriod()
+		{
+			DateTime dateTime = DateTime.Now;
+			if (dateTime.Year != 2010 || dateTime.Month != 6 || dateTime.Day > 11 || dateTime.Day < 5)
+				throw new ExpiredSecurityTokenException("Испытательный срок закончился. Свяжитесь с разработчиками.");
+		}
+
 		protected void Application_Start(object sender, EventArgs e)
 		{
+			CheckTEstPeriod();
 			log4net.Config.DOMConfigurator.Configure();
 
 			Loger.Info("Application Start");
@@ -46,7 +55,7 @@ namespace SSManagment
 
 		protected void Session_Start(object sender, EventArgs e)
 		{
-
+			CheckTEstPeriod();
 		}
 
 		protected void Application_BeginRequest(object sender, EventArgs e)
