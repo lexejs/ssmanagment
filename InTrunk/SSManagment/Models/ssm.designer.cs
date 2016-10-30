@@ -51,7 +51,7 @@ namespace SSManagment.Models
     #endregion
 		
 		public ssmDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SMConnectionString"].ConnectionString, mappingSource)
+				base("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sm;Integrated Security=True", mappingSource)
 		{
 			OnCreated();
 		}

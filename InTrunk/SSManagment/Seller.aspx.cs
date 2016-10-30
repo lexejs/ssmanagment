@@ -33,11 +33,11 @@ namespace SSManagment
 		}
 
 		public float BuyCount { get; set; }
-		public double? ResultPrice
+		public decimal? ResultPrice
 		{
 			get
 			{
-				return (BuyCount * bprice);
+				return ((decimal)BuyCount * bprice);
 			}
 		}
 	}
@@ -794,7 +794,7 @@ namespace SSManagment
 				lblReturnModalCount.Text = count.ToString();
 				hdnReturnID.Value = id.ToString();
 				modalReturnConfirm.Visible = true;
-				lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count,true).ToString("0р.");
+				lbleturnModalSum.Text = AppHelper.RoundTo10((decimal?) ((log.cash.Value/log.itemsCount.Value)*count),true).ToString();
 			}
 		}
 
@@ -819,7 +819,7 @@ namespace SSManagment
 					if (log.itemsCount.Value > 0)
 					{
 						lblReturnModalCount.Text = log.itemsCount.ToString();
-						lbleturnModalSum.Text = AppHelper.RoundTo10((log.cash.Value/log.itemsCount.Value)*count).ToString("0р.");
+						lbleturnModalSum.Text = AppHelper.RoundTo10((decimal?) ((log.cash.Value/log.itemsCount.Value)*count)).ToString("0р.");
 					}
 					else
 					{

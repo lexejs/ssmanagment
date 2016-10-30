@@ -73,9 +73,9 @@ namespace SSManagment.Models
 
 		#endregion
 
-		public static int RoundTo10(double? val, bool down)
+		public static decimal RoundTo10(decimal? val, bool down)
 		{
-			if (down)
+			if (down&&false)
 			{
 				int value = 0;
 
@@ -97,31 +97,31 @@ namespace SSManagment.Models
 			return RoundTo10(val);
 		}
 
-		public static int RoundTo10(double? val)
+		public static decimal RoundTo10(decimal? val)
 		{
-			int value = 0;
+            decimal value = 0;
 
 			if (val != null)
 			{
-				value = (int)Math.Round(val.Value, 0);
+				value = Math.Round(val.Value, 3);
 
-				if (value <= 10)
+				if (value <= 0.01M)
 				{
-					return 10;
+					return 0.01M;
 				}
 
-				int last = Convert.ToInt32(value.ToString()[value.ToString().Length - 1].ToString());
-				if (last >= 1)
-				{
-					value = value + (10 - last);
-				}
-				else
-				{
-					value = value - last;
-				}
-			}
+                int last = Convert.ToInt32(value.ToString()[value.ToString().Length - 1].ToString());
+                if (last >= 1)
+                {
+                    value = value + (10 - last)/1000M;
+                }
+                else
+                {
+                    value = value - last;
+                }
+            }
 
-			return value;
+			return Math.Round(value,2);
 		}
 
 		public static void CalcShopingCartSum(Label lblTmp, HtmlGenericControl spanTmp, DropDownList drpTmp, CheckBox chk)
@@ -132,8 +132,8 @@ namespace SSManagment.Models
 				buyer br = buyer.Cache.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
 				if (br != null)
 				{
-					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
-					lblTmp.Text = RoundTo10(sum - ((sum / 100) * br.pct)).ToString("0р.");
+                    decimal? sum = ShopingCartSession.Sum(b => b.ResultPrice);
+					lblTmp.Text = RoundTo10(sum - ((sum / 100) * (decimal)br.pct)) + " BYN";
 					chk.Visible = br.canBuyOnTick.GetValueOrDefault(false);
 					return;
 				}
@@ -150,8 +150,8 @@ namespace SSManagment.Models
 				buyer br = buyer.Cache.FirstOrDefault(b => b.isActive.HasValue && b.isActive.Value && b.id == Convert.ToInt32(drpTmp.SelectedValue));
 				if (br != null)
 				{
-					double? sum = ShopingCartSession.Sum(b => b.ResultPrice);
-					lblTmp.Text = RoundTo10(sum - ((sum / 100) * br.pct)).ToString("0р.");
+                    decimal? sum = ShopingCartSession.Sum(b => b.ResultPrice);
+					lblTmp.Text = RoundTo10(sum - ((sum / 100) * (decimal)br.pct)) + " BYN";
 					return;
 				}
 			}

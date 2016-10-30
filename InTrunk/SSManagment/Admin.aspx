@@ -274,7 +274,7 @@
 																				</td>
 																				<td align="left">
 																					<asp:TextBox ID="txtItemAdminPrice" runat="server"></asp:TextBox>
-																					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtItemAdminPrice" Display="Dynamic" ErrorMessage="RegularExpressionValidator" ValidationExpression="\d{1,9}" ValidationGroup="itemChanged">*</asp:RegularExpressionValidator><br />
+																					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtItemAdminPrice" Display="Dynamic" ErrorMessage="RegularExpressionValidator" ValidationExpression="\d{0,9}(\.\d{1,4})?" ValidationGroup="itemChanged">*</asp:RegularExpressionValidator><br />
 																				</td>
 																			</tr>
 																			<tr>

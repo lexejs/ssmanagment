@@ -25,7 +25,7 @@ namespace SSManagment
 
 		protected void Application_Start(object sender, EventArgs e)
 		{
-			CheckTEstPeriod();
+			//CheckTEstPeriod();
 			log4net.Config.DOMConfigurator.Configure();
 
 			Loger.Info("Application Start");
@@ -55,7 +55,7 @@ namespace SSManagment
 
 		protected void Session_Start(object sender, EventArgs e)
 		{
-			CheckTEstPeriod();
+			//CheckTEstPeriod();
 		}
 
 		protected void Application_BeginRequest(object sender, EventArgs e)

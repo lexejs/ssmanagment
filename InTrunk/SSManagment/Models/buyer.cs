@@ -33,17 +33,17 @@ namespace SSManagment.Models
 		/// </summary>
 		/// <param name="buyerId">Buyer's ID</param>
 		/// <param name="cash">Sum of Sale</param>
-		public static void RunIntoDebt(int buyerId, float cash)
+		public static void RunIntoDebt(int buyerId, decimal cash)
 		{
 			var db = new ssmDataContext();
 			buyer buyer = db.buyers.First(b => b.id == buyerId);
 			if (buyer.debt != null)
 			{
-				buyer.debt += cash;
+				buyer.debt += (double?) cash;
 			}
 			else
 			{
-				buyer.debt = cash;
+				buyer.debt = (double?) cash;
 			}
 			db.SubmitChanges();
 			Refresh();

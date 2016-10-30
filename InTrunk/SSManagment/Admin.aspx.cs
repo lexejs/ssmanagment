@@ -493,8 +493,8 @@ namespace SSManagment
 					item.order = false;
 				}
 				item.count = count;
-				item.adminPrice = float.Parse(txtItemAdminPrice.Text);
-				item.pct = float.Parse(txtItemPct.Text);
+				item.adminPrice = (double?) decimal.Parse(txtItemAdminPrice.Text);
+				item.pct = double.Parse(txtItemPct.Text);
 				item.countToOrder = int.Parse(txtItemOrderCount.Text);
 				item.canGiveBack = chbItemCanGiveBack.Checked;
 				item.isActive = chbItemIsActive.Checked;

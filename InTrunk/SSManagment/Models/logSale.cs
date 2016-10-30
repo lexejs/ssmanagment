@@ -29,7 +29,7 @@ namespace SSManagment.Models
 			}
 		}
 
-		public int? logBprice
+		public decimal? logBprice
 		{
 			get
 			{
@@ -38,7 +38,7 @@ namespace SSManagment.Models
 			}
 		}
 
-		public static void Sale(int buyerId, int sellerId, int itemId, float itemsCount, float cash, int sid)
+		public static void Sale(int buyerId, int sellerId, int itemId, float itemsCount, decimal? cash, int sid)
 		{
 			var db = new ssmDataContext();
 			var logSale = new logSale
@@ -49,7 +49,7 @@ namespace SSManagment.Models
 									itemsCount = itemsCount,
 									date = DateTime.Now,
 									isGiveBack = false,
-									cash = cash,
+									cash = (double?) cash,
 									sid = sid
 								};
 			db.logSales.InsertOnSubmit(logSale);

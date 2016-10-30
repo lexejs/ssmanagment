@@ -7,12 +7,12 @@ namespace SSManagment.Models
 {
 	public partial class item
 	{
-		public int? bprice
+		public decimal? bprice
 		{
 			get
 			{
 				if (adminPrice != null && pct != null && isActive.HasValue && isActive.Value)
-					return AppHelper.RoundTo10(adminPrice + adminPrice * (pct / 100));
+					return AppHelper.RoundTo10((decimal?) (adminPrice + adminPrice * (pct / 100)));
 				return null;
 			}
 			set { }
@@ -158,7 +158,7 @@ namespace SSManagment.Models
 
 			foreach (ShopingCart shpProduct in shop)
 			{
-				int sum = AppHelper.RoundTo10(shpProduct.ResultPrice.Value - ((shpProduct.ResultPrice.Value / 100) * br.pct));
+                decimal sum = AppHelper.RoundTo10(shpProduct.ResultPrice.Value - ((shpProduct.ResultPrice.Value / 100) * (decimal) br.pct));
 
 				if (isDebt)
 				{
