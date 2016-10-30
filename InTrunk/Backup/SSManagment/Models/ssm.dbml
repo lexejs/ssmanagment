@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="SM" Class="ssmDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\SM.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SMConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[group]" Member="groups">
+    <Type Name="group">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.item" Member="items">
+    <Type Name="item">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="groupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="count" Type="System.Single" DbType="float" CanBeNull="true" />
+      <Column Name="measure" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="adminPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="reserveCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reserveEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[order]" Member="order" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countToOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="canGiveBack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.logSales" Member="logSales">
+    <Type Name="logSale">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="itemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="itemsCount" Type="System.Single" DbType="float" CanBeNull="true" />
+      <Column Name="buyerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sellerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isGiveBack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cash" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="sid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.seller" Member="sellers">
+    <Type Name="seller">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fullName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isAdmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.buyer" Member="buyers">
+    <Type Name="buyer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pct" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="canBuyOnTick" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="debt" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.logActivity" Member="logActivities">
+    <Type Name="logActivity">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="action" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="sellerId" Member="SellerId" Storage="_buyerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="informAdmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

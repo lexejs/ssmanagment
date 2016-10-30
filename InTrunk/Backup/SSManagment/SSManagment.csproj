@@ -1,0 +1,307 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{184AE7FC-D27E-4254-A4E6-6BD7564F2DD4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SSManagment</RootNamespace>
+    <AssemblyName>SSManagment</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.0.42227, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Ref\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\Microsoft.ReportViewer.WebForms\9.0.0.0__b03f5f7f11d50a3a\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NUnitCore, Version=1.11.786.40392, Culture=neutral, PublicKeyToken=1fd1558aebfb1c04">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Ref\NUnitCore.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mobile">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Master\AdminMaster.master.cs">
+      <DependentUpon>AdminMaster.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Master\AdminMaster.master.designer.cs">
+      <DependentUpon>AdminMaster.master</DependentUpon>
+    </Compile>
+    <Compile Include="App_Master\MainMaster.Master.cs">
+      <DependentUpon>MainMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Master\MainMaster.Master.designer.cs">
+      <DependentUpon>MainMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="App_Master\SellerMaster.master.cs">
+      <DependentUpon>SellerMaster.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Master\SellerMaster.master.designer.cs">
+      <DependentUpon>SellerMaster.master</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentSale.aspx.cs">
+      <DependentUpon>CurrentSale.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CurrentSale.aspx.designer.cs">
+      <DependentUpon>CurrentSale.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppHelper.cs" />
+    <Compile Include="Models\buyer.cs" />
+    <Compile Include="Models\group.cs" />
+    <Compile Include="Models\item.cs" />
+    <Compile Include="Models\logActivity.cs" />
+    <Compile Include="Models\logSale.cs" />
+    <Compile Include="Models\Seller.cs" />
+    <Compile Include="Models\ssm.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ssm.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemReports.aspx.cs">
+      <DependentUpon>RemReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RemReports.aspx.designer.cs">
+      <DependentUpon>RemReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SalesDataSource.cs" />
+    <Compile Include="Seller.aspx.cs">
+      <DependentUpon>Seller.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Seller.aspx.designer.cs">
+      <DependentUpon>Seller.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewReport.aspx.cs">
+      <DependentUpon>ViewReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewReport.aspx.designer.cs">
+      <DependentUpon>ViewReport.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Main\main.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Master\MainMaster.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Master\SellerMaster.master" />
+    <Content Include="Seller.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\SM.mdf">
+    </Content>
+    <Content Include="App_Data\SM_log.ldf">
+      <DependentUpon>SM.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Master\AdminMaster.master" />
+    <Content Include="App_Scripts\jQuery\Common.js" />
+    <Content Include="App_Scripts\jQuery\jquery-latest-min.js" />
+    <Content Include="App_Scripts\jQuery\jquery-ui-min.js" />
+    <Content Include="App_Scripts\Login.js" />
+    <Content Include="App_Themes\Main\alax-loading.gif" />
+    <Content Include="App_Themes\Main\button.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Ambox_emblem_plus.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Dialog-information_on.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Emblem-advertisement-dollar.svg.png" />
+    <Content Include="App_Themes\Main\Icons\16px-Emblem-symbolic-link.svg.png" />
+    <Content Include="App_Themes\Main\Icons\24px-Ambox_emblem_plus.svg.png" />
+    <Content Include="App_Themes\Main\Icons\24px-Dialog-error.svg.png" />
+    <Content Include="App_Themes\Main\Icons\24px-Dialog-information_on.svg.png" />
+    <Content Include="App_Themes\Main\Icons\24px-Emblem-advertisement-dollar.svg.png" />
+    <Content Include="App_Themes\Main\Icons\24px-Emblem-symbolic-link.svg.png" />
+    <Content Include="App_Themes\Main\Icons\Calendar48.png" />
+    <Content Include="App_Themes\Main\Icons\Source\48px-Ambox_emblem_arrow.svg.png" />
+    <Content Include="App_Themes\Main\Icons\Source\48px-Emblem-symbolic-link.svg.png" />
+    <Content Include="App_Themes\Main\SortOrder\16px-Down.png" />
+    <Content Include="App_Themes\Main\SortOrder\16px-Up.png" />
+    <Content Include="App_Themes\Main\Widget\bg_bucke.png" />
+    <Content Include="App_Themes\Main\Widget\bg_buckf.png" />
+    <Content Include="App_Themes\Main\Widget\bg_headi.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jquery-ui-1.7.2.custom.css" />
+    <Content Include="CurrentSale.aspx" />
+    <Content Include="Error.htm" />
+    <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="Admin.aspx" />
+    <Content Include="RemReports.aspx" />
+    <Content Include="Scripts\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
+    <Content Include="Scripts\jquery.ui.i18n.js" />
+    <Content Include="ViewReport.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\ssm.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ssm.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\ssm.dbml.layout">
+      <DependentUpon>ssm.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\CurrentSale.rdlc" />
+    <EmbeddedResource Include="Reports\SaleReport.rdlc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1779</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
